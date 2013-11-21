@@ -62,7 +62,7 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-
+		game.dispose();
 	}
 
 	@Override
@@ -72,7 +72,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void pause() {
-
 	}
 
 	@Override
@@ -214,6 +213,9 @@ public class MainMenuScreen implements Screen {
 		leaveGameButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				//TODO @Maurice: Diese Methode wird aufgerufen wenn der Exit Button gedrueckt wird.
+				pause();
+				dispose();
+				System.exit(0);
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
