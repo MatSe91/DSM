@@ -213,7 +213,7 @@ public class MainMenuScreen implements Screen {
 		
 		leaveGameButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				//TODO @Maurice: Diese Methode wird aufgerufen wenn der Exit Button gedrückt wird.
+				//TODO @Maurice: Diese Methode wird aufgerufen wenn der Exit Button gedrueckt wird.
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
