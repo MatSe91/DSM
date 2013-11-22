@@ -56,7 +56,6 @@ public class ExitGameScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		game.dispose();
 	}
 
 	@Override
@@ -146,7 +145,7 @@ public class ExitGameScreen implements Screen {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				pause();
 				dispose();
-				System.exit(0);
+				game.dispose();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -160,6 +159,7 @@ public class ExitGameScreen implements Screen {
 		cancelExitButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				// TODO: Implement cancelExitButton click event
+				exitGame();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -191,5 +191,9 @@ public class ExitGameScreen implements Screen {
 		headline.setPosition(0, stage.getHeight() - 80);
 		headline.setAlignment(0);
 	}
-
+	
+	private void exitGame() {
+		game.setScreen(previous);
+		dispose();
+	}
 }

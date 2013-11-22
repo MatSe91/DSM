@@ -62,12 +62,10 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		game.dispose();
 	}
 
 	@Override
 	public void hide() {
-
 	}
 
 	@Override
@@ -104,7 +102,7 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void show() {
-
+		Gdx.input.setInputProcessor(stage);
 	}
 	
 	
@@ -213,11 +211,9 @@ public class MainMenuScreen implements Screen {
 		leaveGameButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				//TODO @Maurice: Diese Methode wird aufgerufen wenn der Exit Button gedrueckt wird.
-				//TODO @Maurice: Diese Methode soll nur noch den ExitGameScreen aufrufen und den MainMenuScreen schließen
+				//TODO @Maurice: Diese Methode soll nur noch den ExitGameScreen aufrufen und den MainMenuScreen schlieï¿½en
 				//Methode wird in exitGame verlagert
-				pause();
-				dispose();
-				System.exit(0);
+				showExitScreen();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -243,6 +239,10 @@ public class MainMenuScreen implements Screen {
 		headline.setHeight(80);
 		headline.setPosition(0, stage.getHeight() - 80);
 		headline.setAlignment(0);
+	}
+	
+	private void showExitScreen() {
+		game.setScreen(new ExitGameScreen(game,this));
 	}
 
 }

@@ -25,7 +25,7 @@ public class DSM extends Game {
 	
 		
 		// -> Main Menu
-		this.setScreen(new ExitGameScreen(this, null));
+		this.setScreen(new MainMenuScreen(this));
 
 	}
 	
@@ -36,7 +36,7 @@ public class DSM extends Game {
 	
 	@Override
 	public void dispose() {
-		
+		System.exit(0);
 	}
 
 }
