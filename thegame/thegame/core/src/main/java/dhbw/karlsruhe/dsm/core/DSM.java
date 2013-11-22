@@ -25,7 +25,7 @@ public class DSM extends Game {
 	
 		
 		// -> Main Menu
-		this.setScreen(new MainMenuScreen(this));
+		this.setScreen(new ExitGameScreen(this, null));
 
 	}
 	

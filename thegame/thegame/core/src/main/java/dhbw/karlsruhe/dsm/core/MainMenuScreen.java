@@ -213,6 +213,8 @@ public class MainMenuScreen implements Screen {
 		leaveGameButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				//TODO @Maurice: Diese Methode wird aufgerufen wenn der Exit Button gedrueckt wird.
+				//TODO @Maurice: Diese Methode soll nur noch den ExitGameScreen aufrufen und den MainMenuScreen schlieﬂen
+				//Methode wird in exitGame verlagert
 				pause();
 				dispose();
 				System.exit(0);
