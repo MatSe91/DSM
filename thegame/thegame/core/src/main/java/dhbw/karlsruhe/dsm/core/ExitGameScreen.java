@@ -21,7 +21,7 @@ public class ExitGameScreen implements Screen {
 
 	// Button Mouse-Over Event Strings
 	private static final String BUTTON_EXIT_GAME_MOUSEOVER_TEXT = "Exit Game";
-	private static final String BUTTON_CANCEL_EXIT_MOUSEOVER_TEXT = "Go back to MainMenu";
+	private static final String BUTTON_CANCEL_EXIT_MOUSEOVER_TEXT = "Go back to the previous Screen!";
 	
 	private Stage stage;
 	private DSM game;
@@ -74,7 +74,7 @@ public class ExitGameScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		
-		// DEBUG @Denis: probiers aus! =P
+
 		// Table.drawDebug(stage); // Debuglines for Tables
 
 	}
@@ -143,9 +143,7 @@ public class ExitGameScreen implements Screen {
 		
 		exitGameButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				pause();
-				dispose();
-				game.dispose();
+				exitGame();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -158,8 +156,7 @@ public class ExitGameScreen implements Screen {
 		
 		cancelExitButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				// TODO: Implement cancelExitButton click event
-				exitGame();
+				exitGameScreen();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -192,8 +189,23 @@ public class ExitGameScreen implements Screen {
 		headline.setAlignment(0);
 	}
 	
-	private void exitGame() {
+	/**
+	 * Destroys the current Screen and redirects to the previous one.
+	 */
+	private void exitGameScreen() {
 		game.setScreen(previous);
 		dispose();
+	}
+	
+	/**
+	 * Exits the Application
+	 */
+	private void exitGame() {
+		pause();
+		
+		previous.dispose();
+		this.dispose();
+		
+		game.dispose();
 	}
 }
