@@ -1,5 +1,6 @@
 package dhbw.karlsruhe.dsm.core;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -40,7 +41,11 @@ public class DSM extends Game {
 		// Clean up 
 		buttonFont.dispose();
 		// sudo alt f4
-		Gdx.app.exit();
+		if (Gdx.app.getType() != ApplicationType.Applet) {
+			Gdx.app.exit();
+		} else {
+			Gdx.net.openURI("http://dsm-thegame.it.dh-karlsruhe.de/");
+		}
 	}
 
 }

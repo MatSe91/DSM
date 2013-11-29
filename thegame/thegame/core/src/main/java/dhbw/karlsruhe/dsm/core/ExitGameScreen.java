@@ -3,6 +3,7 @@ package dhbw.karlsruhe.dsm.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -181,7 +182,6 @@ public class ExitGameScreen implements Screen {
 		menuText.setZIndex(10);
 		menuText.setAlignment(0);
 		
-		
 		headline = new Label("Are you sure you want to quit?", game.labelStyle);
 		headline.setWidth(stage.getWidth());
 		headline.setHeight(80);
@@ -201,11 +201,17 @@ public class ExitGameScreen implements Screen {
 	 * Exits the Application
 	 */
 	private void exitGame() {
-		pause();
-		
-		previous.dispose();
-		this.dispose();
-		
-		game.dispose();
+		if (Gdx.app.getType() != ApplicationType.WebGL) {
+			
+			pause();
+			
+			previous.dispose();
+			this.dispose();
+			
+			game.dispose();
+			
+		} else {
+			Gdx.net.openURI("http://dsm-thegame.it.dh-karlsruhe.de/");
+		}
 	}
 }
