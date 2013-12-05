@@ -3,15 +3,14 @@ package dhbw.karlsruhe.dsm.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 
@@ -201,17 +200,13 @@ public class ExitGameScreen implements Screen {
 	 * Exits the Application
 	 */
 	private void exitGame() {
-		if (Gdx.app.getType() != ApplicationType.WebGL) {
 			
-			pause();
+		pause();
+		
+		previous.dispose();
+		this.dispose();
+		
+		game.dispose();
 			
-			previous.dispose();
-			this.dispose();
-			
-			game.dispose();
-			
-		} else {
-			Gdx.net.openURI("http://dsm-thegame.it.dh-karlsruhe.de/");
-		}
 	}
 }

@@ -1,6 +1,7 @@
 package dhbw.karlsruhe.dsm.core;
 
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -223,6 +224,11 @@ public class MainMenuScreen implements Screen {
 				menuText.setText("");
 			}
 		});
+		// TODO: Fix Layout for Web
+		if (Gdx.app.getType() == ApplicationType.WebGL) {
+			leaveGameButton.clear();
+			leaveGameButton.setVisible(false);
+		}
 	}
 	
 	/**

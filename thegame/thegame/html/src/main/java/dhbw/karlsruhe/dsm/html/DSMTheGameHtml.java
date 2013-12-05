@@ -16,4 +16,6 @@ public class DSMTheGameHtml extends GwtApplication {
 	public GwtApplicationConfiguration getConfig () {
 		return new GwtApplicationConfiguration(800, 600);
 	}
+	
+	
 }
