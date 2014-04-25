@@ -19,7 +19,7 @@ import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.ExitGameScreen;
 import dhbw.karlsruhe.dsm.java.DSMTheGameDesktop;
 
-public class ExitGameScreenCase {
+public class ExitGameScreenTestCase {
 
 	private DSM dsm;
 	
