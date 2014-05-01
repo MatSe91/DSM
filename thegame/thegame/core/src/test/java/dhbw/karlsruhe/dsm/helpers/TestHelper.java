@@ -28,6 +28,7 @@ public class TestHelper {
 	
 	public static LwjglApplicationConfiguration createTestConfig() {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.useGL20 = true;
 		config.width = ConfigurationConstants.SCREENWIDTH;
 		config.height = ConfigurationConstants.SCREENHEIGHT;
 		return config;

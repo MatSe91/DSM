@@ -47,16 +47,30 @@ public class ExitGameScreenTestCase {
 	@Test
 	public void testExitGameScreen() throws Exception {
 		dsm = (DSM) Gdx.app.getApplicationListener();
-		ExitGameScreen exitScreen;
+		final ExitGameScreen exitScreen;
 		TestHelper.wait(600); // necessary due to multi threading...
-		Screen previous = dsm.getScreen();
-		dsm.setScreen(new ExitGameScreen(dsm, previous));
+		final Screen previous = dsm.getScreen();
+		Gdx.app.postRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				dsm.setScreen(new ExitGameScreen(dsm, previous));
+			}
+		});
+		TestHelper.wait(100);
 		exitScreen = (ExitGameScreen) dsm.getScreen();
 		assert(exitScreen.getClass() == ExitGameScreen.class);
 		
-		exitScreen.pause();
-		exitScreen.dispose();
-		previous.dispose();
+		Gdx.app.postRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				exitScreen.pause();
+				exitScreen.dispose();
+				previous.dispose();
+			}
+		});
+		
 		
 		
 		TestHelper.wait(1000);

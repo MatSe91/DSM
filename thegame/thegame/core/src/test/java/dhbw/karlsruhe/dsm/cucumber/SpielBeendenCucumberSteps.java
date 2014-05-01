@@ -12,8 +12,10 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.ExitGameScreen;
+import dhbw.karlsruhe.dsm.core.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class SpielBeendenCucumberSteps {
@@ -42,6 +44,27 @@ public class SpielBeendenCucumberSteps {
 		// make sure the input can be processed
 		TestHelper.wait(200);
 	}
+	
+	@When("I click on the return button$")
+	public void I_click_on_the_return_button() throws Throwable {
+		// cursor position to trigger mouse click
+		int x = 220, y = 305;
+		application.getInput().setCursorPosition(x, y);
+
+		// click!
+		Robot bot;
+		bot = new Robot();
+		bot.mousePress(InputEvent.BUTTON1_MASK);
+		bot.mouseRelease(InputEvent.BUTTON1_MASK);
+		
+		// make sure the input can be processed
+		TestHelper.wait(200);
+	}
+	
+	@Then("the application moves back to the previous screen.$")
+	public void the_application_moves_back_to_the_previous_screen() throws Throwable {
+		assertTrue(dsm.getScreen().getClass() == MainMenuScreen.class);
+	}
 
 	@Then("the application gets closed.$")
 	public void the_application_gets_closed() throws Throwable {
@@ -50,6 +73,13 @@ public class SpielBeendenCucumberSteps {
 	
 	@After("@closegame")
 	public static void restoreSecuritymanager() {
+		System.setSecurityManager(null);
+	}
+	
+	@After("@abortclosegame")
+	public static void afterAbortScenario() {
+		Gdx.app.exit();
+		TestHelper.wait(100);
 		System.setSecurityManager(null);
 	}
 
@@ -61,6 +91,7 @@ public class SpielBeendenCucumberSteps {
 	
 	
 	private void setUp() {
+		System.out.println("called");
 		TestHelper.exitStatus = false;
 		System.setSecurityManager(new TestHelper.NoExitSecurityManager());
 		// create Application
@@ -68,9 +99,18 @@ public class SpielBeendenCucumberSteps {
 		// get Application listener for manipulation
 		dsm = (DSM) Gdx.app.getApplicationListener();
 		// Wait until everything is set up (openGL Context and native resources)
-		TestHelper.wait(600);
+		TestHelper.wait(800);
 		// load exit game Screen
-		dsm.setScreen(new ExitGameScreen(dsm, dsm.getScreen()));
+		Gdx.app.postRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				Gdx.graphics.setDisplayMode(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT, false);
+				dsm.setScreen(new ExitGameScreen(dsm, dsm.getScreen()));
+			}
+		});
+		TestHelper.wait(200);
+		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 	}
 	
 
