@@ -31,6 +31,12 @@
 			<scope>test</scope>
 			<classifier>natives-desktop</classifier>
 		</dependency>
+		<dependency>
+			<groupId>com.github.stefanbirkner</groupId>
+			<artifactId>system-rules</artifactId>
+			<scope>test</scope>
+			<version>1.5.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

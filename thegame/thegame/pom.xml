@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dhbw.karlsruhe.dsm</groupId>
 	<artifactId>thegame</artifactId>
@@ -15,10 +15,12 @@
 		<gwt.version>2.5.0</gwt.version>
 		<gwt.maven.version>2.5.0</gwt.maven.version>
 		<sonar.language>java</sonar.language>
-		<sonar.host.url>http://dsm-thegame.it.dh-karlsruhe.de:443/sonar</sonar.host.url>
-		<sonar.jdbc.url>jdbc:h2:tcp://dsm-thegame.it.dh-karlsruhe.de:9092/sonar</sonar.jdbc.url>
+		<sonar.host.url>http://localhost:9000/</sonar.host.url>
+		<sonar.jdbc.url>jdbc:h2:tcp://localhost:9092/sonar</sonar.jdbc.url>
 		<sonar.jdbc.username>sonar</sonar.jdbc.username>
 		<sonar.jdbc.password>sonar</sonar.jdbc.password>
+		<sonar.sources>core/src/main/java, desktop/src/main/java</sonar.sources>
+		<sonar.tests>core/test/java, desktop/test/java</sonar.tests>
 	</properties>
 
 	<repositories>
@@ -38,6 +40,18 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>2.17</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
@@ -71,6 +85,7 @@
 
 	<modules>
 		<module>core</module>
+		<module>desktop</module>
 	</modules>
 	<dependencies>
 		<dependency>

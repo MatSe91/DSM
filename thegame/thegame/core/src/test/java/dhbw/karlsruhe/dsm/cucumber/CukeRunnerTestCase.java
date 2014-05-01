@@ -1,4 +1,4 @@
-package dhbw.karlsruhe.dsm;
+package dhbw.karlsruhe.dsm.cucumber;
 
 import org.junit.runner.RunWith;
 
@@ -10,5 +10,5 @@ import cucumber.api.junit.Cucumber;
 		format = { "pretty", "html:target/cucumber" },
 		features = { "src/test/resources" }
 		)
-public class CukeRunner {
+public class CukeRunnerTestCase {
 }
