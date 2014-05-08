@@ -185,7 +185,8 @@ public class MainMenuScreen implements Screen {
 		
 		showInstructionsButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				// TODO: Implement show Instructions Button click event
+				// TODO @Mo: Implement show Instructions Button click event
+				showInstructionsScreen();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -234,8 +235,8 @@ public class MainMenuScreen implements Screen {
 	 */
 	private void initLabels() {		
 		menuText = new Label("", game.labelStyle);
-		menuText.setPosition(210, 215);
 		menuText.setHeight(50);
+		menuText.setPosition(210, stage.getHeight() / 2 - menuText.getHeight() / 2);
 		menuText.setZIndex(10);
 		
 		headline = new Label("DSM - MAIN MENU", game.labelStyle);
@@ -248,5 +249,8 @@ public class MainMenuScreen implements Screen {
 	private void showExitScreen() {
 		game.setScreen(new ExitGameScreen(game,this));
 	}
-
+	
+	private void showInstructionsScreen() {
+		game.setScreen(new InstructionsScreen(game, this));
+	}
 }
