@@ -172,7 +172,7 @@ public class MainMenuScreen implements Screen {
 		
 		showHighscoreButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				// TODO: Implement show Highscore Button click event
+				showLevelSelectionScreen();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -230,6 +230,7 @@ public class MainMenuScreen implements Screen {
 		}
 	}
 	
+
 	/**
 	 * Initializes the Label
 	 */
@@ -252,5 +253,9 @@ public class MainMenuScreen implements Screen {
 	
 	private void showInstructionsScreen() {
 		game.setScreen(new InstructionsScreen(game, this));
+	}
+	
+	protected void showLevelSelectionScreen() {
+		game.setScreen(new LevelSelectionScreen(game, this));
 	}
 }
