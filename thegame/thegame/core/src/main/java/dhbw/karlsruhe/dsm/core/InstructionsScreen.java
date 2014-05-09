@@ -5,16 +5,13 @@ package dhbw.karlsruhe.dsm.core;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -24,13 +21,14 @@ import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 public class InstructionsScreen implements Screen {
 
 	private static final String BUTTON_EXIT_GAME_TEXT = "Back";
-	private static final String CONTROLS_JUMP_ICON_TEXT = "W, Arrow UP, Space";
-	private static final String CONTROLS_DUCK_ICON_TEXT = "S, Arrow DOWN, Left Shift";
-	private static final String CONTROLS_PAUSE_ICON_TEXT = "Esc, P";
+	//private static final String CONTROLS_JUMP_ICON_TEXT = "W, Arrow UP, Space";
+	//private static final String CONTROLS_DUCK_ICON_TEXT = "S, Arrow DOWN, Left Shift";
+	//private static final String CONTROLS_PAUSE_ICON_TEXT = "Esc, P";
 	private static final String CONTROLS_JUMP_DESCRIPTION_TEXT = "Jump";
 	private static final String CONTROLS_DUCK_DESCRIPTION_TEXT = "Duck";
 	private static final String CONTROLS_PAUSE_DESCRIPTION_TEXT = "Pause";
 	private static final String HEADLINE_TEXT = "INSTRUCTIONS";
+	private static final String GAME_DESCRIPTION = "Try to avoid obstacles with ducking and jumping.";
 	
 	private Stage stage;
 	private DSM game;
@@ -38,14 +36,23 @@ public class InstructionsScreen implements Screen {
 	
 	// Button
 	private TextButton backButton;
-	//Table
+	//Tables
 	private Table table;
+	private Table tableControlsJumpIcons;
+	private Table tableControlsDuckIcons;
+	private Table tableControlsPauseIcons;
 	//Labels
 	private Label headline;
-	// TODO @MO: icons statt labels
-	private Label controlsJumpIcon;
-	private Label controlsDuckIcon;
-	private Label controlsPauseIcon;
+	private Label gameDescription;
+	// TODO @MO: Texture Maps
+	private Texture controlsJumpIconW;
+	private Texture controlsJumpIconArrowUP;
+	private Texture controlsJumpIconSpace;
+	private Texture controlsDuckIconS;
+	private Texture controlsDuckIconArrowDOWN;
+	private Texture controlsDuckIconShift;
+	private Texture controlsPauseIconEsc;
+	private Texture controlsPauseIconP;
 	private Label controlsJumpDescription;
 	private Label controlsDuckDescription;
 	private Label controlsPauseDescription;
@@ -91,7 +98,9 @@ public class InstructionsScreen implements Screen {
 	
 	private void initTable() {
 
-		int rowSpace = 50;
+		int rowSpace = 15;
+		int colSpace = 20;
+		int iconSize = 75;
 		
 		table = new Table();
 		
@@ -101,27 +110,63 @@ public class InstructionsScreen implements Screen {
 		table.debug();
 		table.left().padLeft(50);
 		table.right().padRight(50);
-
+		
+		// Controls Jump Icons
+		tableControlsJumpIcons = new Table();
+		tableControlsJumpIcons.debug();
+		tableControlsJumpIcons.add(new Image(controlsJumpIconW)).left().height(iconSize).width(iconSize);
+		tableControlsJumpIcons.add(new Image(controlsJumpIconArrowUP)).left().height(iconSize).width(iconSize);
+		tableControlsJumpIcons.row();
+		tableControlsJumpIcons.add(new Image(controlsJumpIconSpace)).colspan(2).center().expandX().height(iconSize);
+		// Controls Duck Icons
+		tableControlsDuckIcons = new Table();
+		tableControlsDuckIcons.add(new Image(controlsDuckIconS)).left().height(iconSize).width(iconSize);
+		tableControlsDuckIcons.add(new Image(controlsDuckIconArrowDOWN)).left().height(iconSize).width(iconSize);
+		tableControlsDuckIcons.add(new Image(controlsDuckIconShift)).left().height(iconSize).width(iconSize);
+		// Controls Pause Icons
+		tableControlsPauseIcons = new Table();
+		tableControlsPauseIcons.add(new Image(controlsPauseIconEsc)).left().height(iconSize).width(iconSize);
+		tableControlsPauseIcons.add(new Image(controlsPauseIconP)).left().height(iconSize).width(iconSize);
+		
+		// Game Description
 		table.row().spaceBottom(rowSpace);
-		table.add(controlsJumpIcon).align(Align.left);
-		table.add(controlsJumpDescription).align(Align.left).expandX();
+		table.add(gameDescription).colspan(2).expandX();
 		table.row().spaceBottom(rowSpace);
-		table.add(controlsDuckIcon).align(Align.left);
-		table.add(controlsDuckDescription).align(Align.left).expandX();
+		// Jump
+		table.add(tableControlsJumpIcons).left();
+		table.add(controlsJumpDescription).padLeft(colSpace).left().top().expandX();
 		table.row().spaceBottom(rowSpace);
-		table.add(controlsPauseIcon).align(Align.left);
-		table.add(controlsPauseDescription).align(Align.left).expandX();
+		// Duck
+		table.add(tableControlsDuckIcons).align(Align.left);
+		table.add(controlsDuckDescription).padLeft(colSpace).left().top().expandX();
 		table.row().spaceBottom(rowSpace);
-		table.add(backButton).colspan(2).expandX().align(Align.right);
+		// Pause
+		table.add(tableControlsPauseIcons).align(Align.left);
+		table.add(controlsPauseDescription).padLeft(colSpace).left().top().expandX();
+		table.row().spaceBottom(rowSpace);
+		// Button Back
+		table.add(backButton).colspan(2).right().expandX();
 	}
 	
 	private void initLabels() {
-		controlsJumpIcon = new Label(CONTROLS_JUMP_ICON_TEXT, game.labelStyle);
-		controlsDuckIcon = new Label(CONTROLS_DUCK_ICON_TEXT, game.labelStyle);
-		controlsPauseIcon = new Label(CONTROLS_PAUSE_ICON_TEXT, game.labelStyle);
+		// Controls Jump Icons
+		controlsJumpIconW = new Texture(Gdx.files.internal("keyIcons/W.png"));
+		controlsJumpIconArrowUP = new Texture(Gdx.files.internal("keyIcons/haut.png"));
+		controlsJumpIconSpace = new Texture(Gdx.files.internal("keyIcons/espace.png"));
+		// Controls Duck Icons
+		controlsDuckIconS = new Texture(Gdx.files.internal("keyIcons/S.png"));
+		controlsDuckIconArrowDOWN = new Texture(Gdx.files.internal("keyIcons/bas.png"));
+		controlsDuckIconShift = new Texture(Gdx.files.internal("keyIcons/S.png"));
+		//Controls Pause Icons
+		controlsPauseIconEsc = new Texture(Gdx.files.internal("keyIcons/esc.png"));
+		controlsPauseIconP = new Texture(Gdx.files.internal("keyIcons/P.png"));
+		
+		// Controls Descriptions
 		controlsJumpDescription = new Label(CONTROLS_JUMP_DESCRIPTION_TEXT, game.labelStyle);
 		controlsDuckDescription = new Label(CONTROLS_DUCK_DESCRIPTION_TEXT, game.labelStyle);
 		controlsPauseDescription = new Label(CONTROLS_PAUSE_DESCRIPTION_TEXT, game.labelStyle);
+		
+		gameDescription = new Label(GAME_DESCRIPTION, game.labelStyle);
 		
 		headline = new Label(HEADLINE_TEXT, game.labelStyle);
 		headline.setWidth(stage.getWidth());
@@ -138,7 +183,7 @@ public class InstructionsScreen implements Screen {
 		stage.draw();
 		
 
-		Table.drawDebug(stage); // Debuglines for Tables
+		//Table.drawDebug(stage); // Debuglines for Tables
 	}
 
 	@Override
@@ -173,6 +218,17 @@ public class InstructionsScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
+		
+		controlsJumpIconW.dispose();
+		controlsJumpIconArrowUP.dispose();
+		controlsJumpIconSpace.dispose();
+		
+		controlsDuckIconS.dispose();
+		controlsDuckIconArrowDOWN.dispose();
+		controlsDuckIconShift.dispose();
+		
+		controlsPauseIconEsc.dispose();
+		controlsPauseIconP.dispose();
 	}
 
 	/**
