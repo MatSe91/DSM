@@ -1,4 +1,4 @@
-package dhbw.karlsruhe.dsm.core;
+package dhbw.karlsruhe.dsm.core.screens;
 
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.DSM;
 
 public class MainMenuScreen implements Screen {
 	// Button Label Strings
@@ -81,7 +82,7 @@ public class MainMenuScreen implements Screen {
 		stage.draw();
 		
 		// DEBUG @Denis: probiers aus! =P
-		// Table.drawDebug(stage); // Debuglines for Tables
+		 Table.drawDebug(stage); // Debuglines for Tables
 
 	}
 

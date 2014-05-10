@@ -15,7 +15,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
 import dhbw.karlsruhe.dsm.core.DSM;
-import dhbw.karlsruhe.dsm.core.ExitGameScreen;
+import dhbw.karlsruhe.dsm.core.screens.ExitGameScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class ExitGameScreenTestCase {

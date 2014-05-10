@@ -1,7 +1,7 @@
 /**
  * 
  */
-package dhbw.karlsruhe.dsm.core;
+package dhbw.karlsruhe.dsm.core.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.DSM;
 
 public class InstructionsScreen implements Screen {
 

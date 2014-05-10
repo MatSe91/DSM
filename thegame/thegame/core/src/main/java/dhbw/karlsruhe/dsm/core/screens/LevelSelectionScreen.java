@@ -1,4 +1,4 @@
-package dhbw.karlsruhe.dsm.core;
+package dhbw.karlsruhe.dsm.core.screens;
 
 import java.util.ArrayList;
 
@@ -9,16 +9,22 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.LevelLoader;
 
 public class LevelSelectionScreen implements Screen {
 
 
+	private static final String HEADLINE_TEXT = "LEVEL SELECTION";
+	private static final int BUTTON_WIDTH = 75;
+	private static final int CELL_PADDING = 20;
 	private static final String		RETURN_BUTTON_TEXT	= "Back";
 	private DSM						game;
 	private Screen					previous;
@@ -28,7 +34,8 @@ public class LevelSelectionScreen implements Screen {
 
 	private ArrayList<Level>		levelList;
 	private TextButton				returnButton;
-	private Table	table;
+	private Table					table;
+	private Label 					headline;
 
 	public LevelSelectionScreen(DSM game, Screen previous) {
 		this.game = game;
@@ -39,15 +46,20 @@ public class LevelSelectionScreen implements Screen {
 		levelList = LevelLoader.loadLevels();
 		levelList.addAll(LevelLoader.loadLevels());
 		levelList.addAll(LevelLoader.loadLevels());
+		levelList.addAll(LevelLoader.loadLevels());
+		levelList.addAll(LevelLoader.loadLevels());
 		// Initialize actors
 		initActors();
 
 		// Add them to the stage
 		stage.addActor(table);
 		stage.addActor(returnButton);
+		stage.addActor(headline);
 	}
 
 	private void initActors() {
+		headline = game.stageHelper.createHeadline(HEADLINE_TEXT);
+		
 		createTable();
 		createButtons();
 		
@@ -59,11 +71,11 @@ public class LevelSelectionScreen implements Screen {
 		int rowLength = 5;
 		int doubleRowLength = rowLength * 2;
 		for (int i = 0; i < rowLength; i++) {
-			table.add(buttonList.get(i)).expandX();
+			table.add(buttonList.get(i)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
 			if(i+rowLength < listSize)
-				table.add(buttonList.get(i+rowLength)).expandX();
+				table.add(buttonList.get(i+rowLength)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
 			if(i+doubleRowLength < listSize)
-				table.add(buttonList.get(i+doubleRowLength)).expandX();
+				table.add(buttonList.get(i+doubleRowLength)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
 			table.row();
 		}
 
@@ -90,7 +102,8 @@ public class LevelSelectionScreen implements Screen {
 				// downlight
 			}
 		});
-		returnButton.setPosition(ConfigurationConstants.RETURN_BUTTON_POSITION_X, ConfigurationConstants.RETURN_BUTTON_POSITION_Y);
+		returnButton.setWidth(BUTTON_WIDTH);
+		returnButton.setPosition(stage.getWidth() - ConfigurationConstants.RETURN_BUTTON_POSITION_DELTA_X, ConfigurationConstants.RETURN_BUTTON_POSITION_Y);
 	}
 
 	protected void returnToPreviousScreen() {
@@ -139,11 +152,11 @@ public class LevelSelectionScreen implements Screen {
 			}
 
 		});
+		b.setWidth(BUTTON_WIDTH);
 		return b;
 	}
 
 	protected void showHighscoreScreen(Level level) {
-		System.out.println(level.getName());
 		game.setScreen(previous);
 		dispose();
 	}
@@ -162,7 +175,8 @@ public class LevelSelectionScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-
+		stage.setViewport(width, height);
+		returnButton.setPosition(stage.getWidth() - ConfigurationConstants.RETURN_BUTTON_POSITION_DELTA_X, ConfigurationConstants.RETURN_BUTTON_POSITION_Y);
 	}
 
 	@Override

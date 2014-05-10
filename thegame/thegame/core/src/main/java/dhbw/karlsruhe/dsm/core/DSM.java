@@ -7,15 +7,25 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
+import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
+import dhbw.karlsruhe.dsm.core.screens.ScreenHelper;
+
 public class DSM extends Game {
 
-	BitmapFont buttonFont;
-	TextButtonStyle textButtonStyle;
-	LabelStyle labelStyle;
-	LabelStyle labelHeadingStyle;
+	private int width = ConfigurationConstants.SCREENWIDTH;
+	private int height = ConfigurationConstants.SCREENHEIGHT;
+	
+	public BitmapFont buttonFont;
+	public TextButtonStyle textButtonStyle;
+	public LabelStyle labelStyle;
+	public LabelStyle labelHeadingStyle;
+	
+	public ScreenHelper stageHelper;
 	
 	@Override
 	public void create() {
+		stageHelper = new ScreenHelper(this);
 		
 		buttonFont = new BitmapFont();
 		
@@ -25,7 +35,6 @@ public class DSM extends Game {
 		labelStyle = new LabelStyle();
 		labelStyle.font = buttonFont;
 	
-		
 		// -> Main Menu
 		this.setScreen(new MainMenuScreen(this));
 
@@ -34,6 +43,13 @@ public class DSM extends Game {
 	@Override
 	public void render() {
 		super.render();
+	}
+	
+	@Override
+	public void resize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		super.resize(width, height);
 	}
 	
 	@Override
@@ -46,6 +62,14 @@ public class DSM extends Game {
 		} else {
 			Gdx.net.openURI("http://dsm-thegame.it.dh-karlsruhe.de/");
 		}
+	}
+	
+	public int getHeight() {
+		return this.height;
+	}
+	
+	public int getWidth() {
+		return this.width;
 	}
 
 }

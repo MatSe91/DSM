@@ -19,7 +19,7 @@ public class LevelLoader {
 		//ConfigurationConstants.PATH_LEVEL_DIRECTORY
 		ArrayList<Level> levelList = new ArrayList<Level>();
 
-		levelList.add(new Level("a", 0));
+		levelList.add(new Level("asdasd", 0));
 		levelList.add(new Level("b", 1));
 		levelList.add(new Level("c", 2));
 		
