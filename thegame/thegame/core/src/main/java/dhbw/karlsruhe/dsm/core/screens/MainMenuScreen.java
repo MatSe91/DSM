@@ -236,16 +236,13 @@ public class MainMenuScreen implements Screen {
 	 * Initializes the Label
 	 */
 	private void initLabels() {		
+		// note: ScreenHelper cannot be used for menuText, because it's to specific.
 		menuText = new Label("", game.labelStyle);
 		menuText.setHeight(50);
 		menuText.setPosition(210, stage.getHeight() / 2 - menuText.getHeight() / 2);
 		menuText.setZIndex(10);
 		
-		headline = new Label("DSM - MAIN MENU", game.labelStyle);
-		headline.setWidth(stage.getWidth());
-		headline.setHeight(80);
-		headline.setPosition(0, stage.getHeight() - 80);
-		headline.setAlignment(0);
+		headline = game.stageHelper.createHeadline("DSM - MAIN MENU");
 	}
 	
 	private void showExitScreen() {
