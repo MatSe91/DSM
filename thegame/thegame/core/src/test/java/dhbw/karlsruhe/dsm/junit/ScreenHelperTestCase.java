@@ -1,8 +1,6 @@
 package dhbw.karlsruhe.dsm.junit;
 
-import static org.junit.Assert.*;
-
-import java.util.Random;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -184,11 +182,11 @@ public class ScreenHelperTestCase {
 	}
 	
 	private void verfiyTableValues(Table table) {
-		assertEquals("", ScreenHelper.TABLE_POSITION_X, table.getX(), 0.1);
-		assertEquals("", ScreenHelper.TABLE_POSITION_Y, table.getY(), 0.1);
-		assertEquals("", game.getWidth(), table.getWidth(), 20);
-		assertEquals("", game.getHeight(), table.getHeight(), 20);
-		assertEquals("", ScreenHelper.TABLE_PAD_LEFT, table.getPadLeft(), .1);
+		assertEquals(ERROR_POS_X, ScreenHelper.TABLE_POSITION_X, table.getX(), 0.1);
+		assertEquals(ERROR_POS_Y, ScreenHelper.TABLE_POSITION_Y, table.getY(), 0.1);
+		assertEquals(ERROR_WIDTH, game.getWidth(), table.getWidth(), 20);
+		assertEquals(ERROR_HEIGHT, game.getHeight(), table.getHeight(), 20);
+		assertEquals("Left pad doesn't match", ScreenHelper.TABLE_PAD_LEFT, table.getPadLeft(), .1);
 	}
 
 }

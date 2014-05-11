@@ -15,7 +15,7 @@ public class LevelDAO {
 	public static Level getLevelFromFile(String levelPath) {
 		// TODO: replace
 		Json json = new Json();
-		FileHandle handle = Gdx.files.internal(levelPath);
+		FileHandle handle = Gdx.files.local(levelPath);
 		String jsonString = handle.readString();
 		Level level = json.fromJson(Level.class, jsonString); 
 		return level;
@@ -28,7 +28,7 @@ public class LevelDAO {
 	public static List<Level> loadLevels() {
 		//ConfigurationConstants.PATH_LEVEL_DIRECTORY
 		List<Level> levelList = new ArrayList<Level>();
-		FileHandle handle = Gdx.files.internal(ConfigurationConstants.PATH_LEVEL_DIRECTORY);
+		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_LEVEL_DIRECTORY);
 		FileHandle[] levelHandles = handle.list();
 		
 		
@@ -52,7 +52,7 @@ public class LevelDAO {
 
 	public static void saveLevel(Level level) {
 		Json json = new Json();
-		FileHandle handle = Gdx.files.local("data/levels/" + level.getName());
+		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_LEVEL_DIRECTORY + "/" + level.getName());
 		handle.writeString(json.toJson(level), false);
 	}
 	
