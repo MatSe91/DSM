@@ -81,8 +81,8 @@ public class MainMenuScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		
-		// DEBUG @Denis: probiers aus! =P
-		 Table.drawDebug(stage); // Debuglines for Tables
+		// Debuglines for Tables
+		 Table.drawDebug(stage);
 
 	}
 

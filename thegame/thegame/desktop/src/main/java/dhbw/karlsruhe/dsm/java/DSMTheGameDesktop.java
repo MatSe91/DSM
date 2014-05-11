@@ -6,7 +6,13 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 
-public class DSMTheGameDesktop {
+public final class DSMTheGameDesktop {
+	
+	
+	private DSMTheGameDesktop() {
+		
+	}
+	
 	public static void main (String[] args) {
 		new LwjglApplication(new DSM(), createConfig());
 	}

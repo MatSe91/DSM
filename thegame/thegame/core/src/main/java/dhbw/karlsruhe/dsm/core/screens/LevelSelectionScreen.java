@@ -20,6 +20,9 @@ import dhbw.karlsruhe.dsm.core.level.LevelDAO;
 public class LevelSelectionScreen implements Screen {
 
 
+	private static final int TABLE_CELL_MIN_WIDTH = 150;
+	private static final int TABLE_CELL_MIN_HEIGHT = 50;
+	private static final int NUMBER_OF_ROWS = 5;
 	private static final String HEADLINE_TEXT = "LEVEL SELECTION";
 	private static final int BUTTON_WIDTH = 75;
 	private static final int CELL_PADDING = 20;
@@ -61,15 +64,18 @@ public class LevelSelectionScreen implements Screen {
 
 	private void fillTable() {
 		int listSize  = buttonList.size();
-		int rowLength = 5;
+		int rowLength = NUMBER_OF_ROWS;
 		int doubleRowLength = rowLength * 2;
 		for (int i = 0; i < rowLength; i++) {
-			if(i < listSize)
-				table.add(buttonList.get(i)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
-			if(i+rowLength < listSize)
-				table.add(buttonList.get(i+rowLength)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
-			if(i+doubleRowLength < listSize)
-				table.add(buttonList.get(i+doubleRowLength)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
+			if(i < listSize) {
+				table.add(buttonList.get(i)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
+			}
+			if(i+rowLength < listSize) {
+				table.add(buttonList.get(i+rowLength)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
+			}
+			if(i+doubleRowLength < listSize) {
+				table.add(buttonList.get(i+doubleRowLength)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
+			}
 			table.row();
 		}
 
@@ -94,8 +100,7 @@ public class LevelSelectionScreen implements Screen {
 		TextButton b = game.screenHelper.createTextButton(level.getName(), BUTTON_WIDTH);
 		
 		b.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				showHighscoreScreen(level);
 				return false;
 			}
@@ -116,7 +121,8 @@ public class LevelSelectionScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 
-		 Table.drawDebug(stage); // Debug lines for Tables
+		// Debug lines for Tables
+		Table.drawDebug(stage);
 	}
 
 	@Override

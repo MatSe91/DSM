@@ -9,7 +9,11 @@ import com.badlogic.gdx.utils.Json;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 
-public class LevelDAO {
+public final class LevelDAO {
+	
+	private LevelDAO() {
+		
+	}
 	
 	
 	public static Level getLevelFromFile(String levelPath) {
@@ -17,8 +21,7 @@ public class LevelDAO {
 		Json json = new Json();
 		FileHandle handle = Gdx.files.local(levelPath);
 		String jsonString = handle.readString();
-		Level level = json.fromJson(Level.class, jsonString); 
-		return level;
+		return json.fromJson(Level.class, jsonString); 
 	}
 	
 	/*

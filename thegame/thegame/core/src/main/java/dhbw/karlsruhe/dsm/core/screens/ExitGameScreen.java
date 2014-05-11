@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 
-public class ExitGameScreen implements Screen {
+public final class ExitGameScreen implements Screen {
 	// Button Label Strings
 	private static final String BUTTON_EXIT_GAME_TEXT = "Exit Game";
 	private static final String BUTTON_CANCEL_EXIT_TEXT = "Cancel";

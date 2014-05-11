@@ -21,10 +21,10 @@ public class ScreenHelper {
 	public static final int	RETURN_BUTTON_POSITION_DELTA_X = 100;
 	public static final int	RETURN_BUTTON_POSITION_Y = 5;
 	
-	public final static int HEADLINE_POSITION_X = 0;
-	public final static int HEADLINE_POSITION_Y = 0;
-	public final static int HEADLINE_HEIGHT = -80;
-	public final static int HEADLINE_ALIGNMENT = Align.center;
+	public static final int HEADLINE_POSITION_X = 0;
+	public static final int HEADLINE_POSITION_Y = 0;
+	public static final int HEADLINE_HEIGHT = -80;
+	public static final int HEADLINE_ALIGNMENT = Align.center;
 
 	private final DSM game;
 	

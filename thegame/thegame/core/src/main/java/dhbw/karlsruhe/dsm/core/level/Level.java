@@ -12,8 +12,8 @@ public class Level {
 	}
 	
 	public Level(String name, int index) {
-		this.setName(name);
-		this.setIndex(index);
+		this.name = name;
+		this.index = index;
 	}
 
 	public String getName() {
