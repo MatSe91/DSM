@@ -40,10 +40,7 @@ public class LevelSelectionScreen implements Screen {
 
 		Gdx.input.setInputProcessor(stage);
 		levelList = LevelDAO.loadLevels();
-		levelList.addAll(LevelDAO.loadLevels());
-		levelList.addAll(LevelDAO.loadLevels());
-		levelList.addAll(LevelDAO.loadLevels());
-		levelList.addAll(LevelDAO.loadLevels());
+
 		// Initialize actors
 		initActors();
 
@@ -67,7 +64,8 @@ public class LevelSelectionScreen implements Screen {
 		int rowLength = 5;
 		int doubleRowLength = rowLength * 2;
 		for (int i = 0; i < rowLength; i++) {
-			table.add(buttonList.get(i)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
+			if(i < listSize)
+				table.add(buttonList.get(i)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
 			if(i+rowLength < listSize)
 				table.add(buttonList.get(i+rowLength)).fill().minWidth(150).minHeight(50).pad(CELL_PADDING);
 			if(i+doubleRowLength < listSize)

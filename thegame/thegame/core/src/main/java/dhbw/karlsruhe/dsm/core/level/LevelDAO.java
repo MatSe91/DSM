@@ -12,10 +12,10 @@ import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 public class LevelDAO {
 	
 	
-	public static Level getLevelFromFile(String levelName) {
+	public static Level getLevelFromFile(String levelPath) {
 		// TODO: replace
 		Json json = new Json();
-		FileHandle handle = Gdx.files.internal(ConfigurationConstants.PATH_LEVEL_DIRECTORY + levelName);
+		FileHandle handle = Gdx.files.internal(levelPath);
 		String jsonString = handle.readString();
 		Level level = json.fromJson(Level.class, jsonString); 
 		return level;
@@ -46,16 +46,8 @@ public class LevelDAO {
 	}
 	
 	private static List<Level> sortLevelList(List<Level> levelList) {
-		List<Level> sortedList = new ArrayList<Level>();
-		int index = 0;
-		for (Level level : levelList) {
-			index = level.getIndex();
-			while(sortedList.get(index) != null) {
-				index++;
-			}
-			sortedList.add(level.getIndex(), level);
-		}
-		return sortedList;
+		//TODO: sort List by index
+		return levelList;
 	}
 
 	public static void saveLevel(Level level) {
