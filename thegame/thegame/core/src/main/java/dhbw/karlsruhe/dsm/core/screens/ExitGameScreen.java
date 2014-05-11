@@ -175,11 +175,11 @@ public class ExitGameScreen implements Screen {
 	 * Initializes the Label
 	 */
 	private void initLabels() {	
-		menuText = game.stageHelper.createLabel("", 0, 160, 50, 0);
+		menuText = game.screenHelper.createLabel("", 0, 160, 50, 0);
 		menuText.setWidth(stage.getWidth());
 		menuText.setZIndex(10);
 		
-		headline = game.stageHelper.createHeadline("Are you sure you want to quit?");
+		headline = game.screenHelper.createHeadline("Are you sure you want to quit?");
 	}
 	
 	/**

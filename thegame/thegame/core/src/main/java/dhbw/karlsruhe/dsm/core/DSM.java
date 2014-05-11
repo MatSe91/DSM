@@ -3,6 +3,7 @@ package dhbw.karlsruhe.dsm.core;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -16,16 +17,18 @@ public class DSM extends Game {
 	private int width = ConfigurationConstants.SCREENWIDTH;
 	private int height = ConfigurationConstants.SCREENHEIGHT;
 	
+	private Screen previousScreen;
+	
 	public BitmapFont buttonFont;
 	public TextButtonStyle textButtonStyle;
 	public LabelStyle labelStyle;
 	public LabelStyle labelHeadingStyle;
 	
-	public ScreenHelper stageHelper;
+	public ScreenHelper screenHelper;
 	
 	@Override
 	public void create() {
-		stageHelper = new ScreenHelper(this);
+		screenHelper = new ScreenHelper(this);
 		
 		buttonFont = new BitmapFont();
 		
@@ -64,12 +67,27 @@ public class DSM extends Game {
 		}
 	}
 	
+	@Override
+	public void setScreen(Screen screen) {
+		previousScreen = this.getScreen();
+		super.setScreen(screen);
+	}
+	
+	public void returnToPreviousScreen() {
+		this.setScreen(this.getPreviousScreen());
+		this.previousScreen.dispose();
+	}
+	
 	public int getHeight() {
 		return this.height;
 	}
 	
 	public int getWidth() {
 		return this.width;
+	}
+
+	public Screen getPreviousScreen() {
+		return previousScreen;
 	}
 
 }

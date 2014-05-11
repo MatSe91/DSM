@@ -242,7 +242,7 @@ public class MainMenuScreen implements Screen {
 		menuText.setPosition(210, stage.getHeight() / 2 - menuText.getHeight() / 2);
 		menuText.setZIndex(10);
 		
-		headline = game.stageHelper.createHeadline("DSM - MAIN MENU");
+		headline = game.screenHelper.createHeadline("DSM - MAIN MENU");
 	}
 	
 	private void showExitScreen() {
