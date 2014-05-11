@@ -9,5 +9,5 @@ public class ConfigurationConstants {
 	
 
 	
-	public static final String PATH_LEVEL_DIRECTORY = "";
+	public static final String PATH_LEVEL_DIRECTORY = "data/levels";
 }

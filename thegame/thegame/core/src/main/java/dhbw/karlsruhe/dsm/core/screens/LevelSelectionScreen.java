@@ -1,6 +1,7 @@
 package dhbw.karlsruhe.dsm.core.screens;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
-import dhbw.karlsruhe.dsm.core.level.LevelLoader;
+import dhbw.karlsruhe.dsm.core.level.LevelDAO;
 
 public class LevelSelectionScreen implements Screen {
 
@@ -26,9 +27,9 @@ public class LevelSelectionScreen implements Screen {
 	private DSM						game;
 	private Stage					stage;
 
-	private ArrayList<TextButton>	buttonList;
+	private List<TextButton>	buttonList;
 
-	private ArrayList<Level>		levelList;
+	private List<Level>		levelList;
 	private TextButton				returnButton;
 	private Table					table;
 	private Label 					headline;
@@ -38,11 +39,11 @@ public class LevelSelectionScreen implements Screen {
 		this.stage = new Stage();
 
 		Gdx.input.setInputProcessor(stage);
-		levelList = LevelLoader.loadLevels();
-		levelList.addAll(LevelLoader.loadLevels());
-		levelList.addAll(LevelLoader.loadLevels());
-		levelList.addAll(LevelLoader.loadLevels());
-		levelList.addAll(LevelLoader.loadLevels());
+		levelList = LevelDAO.loadLevels();
+		levelList.addAll(LevelDAO.loadLevels());
+		levelList.addAll(LevelDAO.loadLevels());
+		levelList.addAll(LevelDAO.loadLevels());
+		levelList.addAll(LevelDAO.loadLevels());
 		// Initialize actors
 		initActors();
 
