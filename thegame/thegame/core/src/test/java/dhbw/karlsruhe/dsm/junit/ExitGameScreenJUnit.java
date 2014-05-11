@@ -8,20 +8,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
-import java.lang.System;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.ExitGameScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
-public class ExitGameScreenTestCase {
+public class ExitGameScreenJUnit {
 
 	private static DSM dsm;
-	private static LwjglApplication app;
 	
 	@Rule
 	public final ExpectedSystemExit exit = ExpectedSystemExit.none();
@@ -36,12 +32,10 @@ public class ExitGameScreenTestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		app = new LwjglApplication(new DSM(), TestHelper.createTestConfig());
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		app.exit();
 	}
 
 	@Test

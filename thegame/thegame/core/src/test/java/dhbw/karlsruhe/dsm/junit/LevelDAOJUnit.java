@@ -13,22 +13,18 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.files.FileHandle;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
-import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.LevelDAO;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
-public class LevelDAOTestCase {
+public class LevelDAOJUnit {
 
-	private static LwjglApplication app;
 	
 	private static String levelName = "aslkdjlii4989m";
 	private int index = 25;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		app = new LwjglApplication(new DSM(), TestHelper.createTestConfig());
-		TestHelper.wait(1000);
 	}
 
 	@AfterClass
@@ -36,7 +32,6 @@ public class LevelDAOTestCase {
 		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_LEVEL_DIRECTORY + "/" + levelName);
 		if(handle.exists())
 			handle.delete();
-		app.exit();
 	}
 
 	@Before

@@ -20,7 +20,7 @@ import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.ScreenHelper;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
-public class ScreenHelperTestCase {
+public class ScreenHelperJUnit {
 
 	private static final String ERROR_POS_X = "X-Position doesn't match";
 	private static final String ERROR_POS_Y = "Y-Position doesn't match";
@@ -37,14 +37,11 @@ public class ScreenHelperTestCase {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		app = new LwjglApplication(new DSM(), TestHelper.createTestConfig());
 		game = (DSM) Gdx.app.getApplicationListener();
-		TestHelper.wait(1000);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		app.exit();
 	}
 
 	@Before
