@@ -12,15 +12,19 @@ import dhbw.karlsruhe.dsm.core.DSM;
 
 public class ScreenHelper {
 	
-	private static final String RETURN_BUTTON_TEXT = "Back";
-	private static final int RETURN_BUTTON_WIDTH = 125;
+	public static final int TABLE_PAD_LEFT = 50;
+	public static final int TABLE_POSITION_X = 0;
+	public static final int TABLE_POSITION_Y = 0;
+	
+	public static final String RETURN_BUTTON_TEXT = "Back";
+	public static final int RETURN_BUTTON_WIDTH = 125;
 	public static final int	RETURN_BUTTON_POSITION_DELTA_X = 100;
 	public static final int	RETURN_BUTTON_POSITION_Y = 5;
 	
-	private final static int HEADLINE_POSITION_X = 0;
-	private final static int HEADLINE_POSITION_Y = 0;
-	private final static int HEADLINE_HEIGHT = -80;
-	private final static int HEADLINE_ALIGNMENT = Align.center;
+	public final static int HEADLINE_POSITION_X = 0;
+	public final static int HEADLINE_POSITION_Y = 0;
+	public final static int HEADLINE_HEIGHT = -80;
+	public final static int HEADLINE_ALIGNMENT = Align.center;
 
 	private final DSM game;
 	
@@ -163,10 +167,10 @@ public class ScreenHelper {
 		Table table = new Table();
 
 		table.setSize(game.getWidth(), game.getHeight());
-		table.setPosition(0, 0);
+		table.setPosition(TABLE_POSITION_X, TABLE_POSITION_Y);
 		table.setFillParent(true);
 		table.debug();
-		table.left().padLeft(50);
+		table.left().padLeft(TABLE_PAD_LEFT);
 		
 		return table;
 	}
