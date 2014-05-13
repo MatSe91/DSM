@@ -110,8 +110,7 @@ public class LevelSelectionScreen implements Screen {
 	}
 
 	protected void showHighscoreScreen(Level level) {
-		// TODO: hook HighscoreScreen here
-		new Exception("Not yet implemented");
+		game.setScreen(new HighscoreScreen(game, this, level));
 	}
 
 	@Override

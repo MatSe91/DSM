@@ -14,4 +14,5 @@ public final class ConfigurationConstants {
 
 	
 	public static final String PATH_LEVEL_DIRECTORY = "data/levels";
+	public static final String PATH_SCORE_DIRECTORY = "data/scores";
 }
