@@ -14,12 +14,13 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.level.ScoreDAO;
 import dhbw.karlsruhe.dsm.cucumber.CukeRunnerTestCase;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 @RunWith(Suite.class)
 @SuiteClasses(
-		{ ExitGameScreenJUnit.class, LevelDAOJUnit.class, ScreenHelperJUnit.class}
+		{ ExitGameScreenJUnit.class, LevelDAOJUnit.class, ScreenHelperJUnit.class, ScoreDAOJUnit.class}
 		)
 public class TestSuite {
 

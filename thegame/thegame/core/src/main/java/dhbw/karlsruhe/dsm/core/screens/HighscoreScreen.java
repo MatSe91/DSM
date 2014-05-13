@@ -42,6 +42,7 @@ public class HighscoreScreen implements Screen {
 		this.stage = new Stage();
 		this.level = level;
 
+		// TODO: remove next line
 		ScoreDAO.createTestScores(level);
 		this.scoreList = ScoreDAO.loadScores(level);
 		Gdx.input.setInputProcessor(stage);

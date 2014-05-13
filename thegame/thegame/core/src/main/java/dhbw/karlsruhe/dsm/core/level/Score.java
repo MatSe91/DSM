@@ -20,6 +20,9 @@ public class Score {
 	}
 
 	public void setPlayerName(String playerName) {
+		if(playerName.length() > 25) {
+			playerName = playerName.substring(0, 49);
+		}
 		this.playerName = playerName;
 	}
 
