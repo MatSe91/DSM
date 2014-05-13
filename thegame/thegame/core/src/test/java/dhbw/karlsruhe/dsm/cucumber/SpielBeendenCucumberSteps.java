@@ -14,8 +14,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
-import dhbw.karlsruhe.dsm.core.ExitGameScreen;
-import dhbw.karlsruhe.dsm.core.MainMenuScreen;
+import dhbw.karlsruhe.dsm.core.screens.ExitGameScreen;
+import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class SpielBeendenCucumberSteps {

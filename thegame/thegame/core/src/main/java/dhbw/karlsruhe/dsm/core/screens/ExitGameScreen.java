@@ -1,4 +1,4 @@
-package dhbw.karlsruhe.dsm.core;
+package dhbw.karlsruhe.dsm.core.screens;
 
 
 import com.badlogic.gdx.Gdx;
@@ -13,8 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.DSM;
 
-public class ExitGameScreen implements Screen {
+public final class ExitGameScreen implements Screen {
 	// Button Label Strings
 	private static final String BUTTON_EXIT_GAME_TEXT = "Exit Game";
 	private static final String BUTTON_CANCEL_EXIT_TEXT = "Cancel";
@@ -156,7 +157,7 @@ public class ExitGameScreen implements Screen {
 		
 		cancelExitButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				returnToPreviousScreen();
+				exitGameScreen();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -173,25 +174,18 @@ public class ExitGameScreen implements Screen {
 	/**
 	 * Initializes the Label
 	 */
-	private void initLabels() {		
-		menuText = new Label("", game.labelStyle);
-		menuText.setPosition(0, 160);
+	private void initLabels() {	
+		menuText = game.screenHelper.createLabel("", 0, 160, 50, 0);
 		menuText.setWidth(stage.getWidth());
-		menuText.setHeight(50);
 		menuText.setZIndex(10);
-		menuText.setAlignment(0);
 		
-		headline = new Label("Are you sure you want to quit?", game.labelStyle);
-		headline.setWidth(stage.getWidth());
-		headline.setHeight(80);
-		headline.setPosition(0, stage.getHeight() - 80);
-		headline.setAlignment(0);
+		headline = game.screenHelper.createHeadline("Are you sure you want to quit?");
 	}
 	
 	/**
 	 * Destroys the current Screen and redirects to the previous one.
 	 */
-	private void returnToPreviousScreen() {
+	private void exitGameScreen() {
 		game.setScreen(previous);
 		dispose();
 	}

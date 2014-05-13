@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import dhbw.karlsruhe.dsm.core.DSM;
-import dhbw.karlsruhe.dsm.core.ExitGameScreen;
+import dhbw.karlsruhe.dsm.core.screens.ExitGameScreen;
 
 public class MenuExitAction extends MenuBaseAction {
 	

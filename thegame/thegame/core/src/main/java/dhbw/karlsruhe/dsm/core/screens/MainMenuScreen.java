@@ -1,4 +1,4 @@
-package dhbw.karlsruhe.dsm.core;
+package dhbw.karlsruhe.dsm.core.screens;
 
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.DSM;
 
 public class MainMenuScreen implements Screen {
 	// Button Label Strings
@@ -80,8 +81,8 @@ public class MainMenuScreen implements Screen {
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		
-		// DEBUG @Denis: probiers aus! =P
-		// Table.drawDebug(stage); // Debuglines for Tables
+		// Debuglines for Tables
+		 Table.drawDebug(stage);
 
 	}
 
@@ -235,16 +236,13 @@ public class MainMenuScreen implements Screen {
 	 * Initializes the Label
 	 */
 	private void initLabels() {		
+		// note: ScreenHelper cannot be used for menuText, because it's to specific.
 		menuText = new Label("", game.labelStyle);
 		menuText.setHeight(50);
 		menuText.setPosition(210, stage.getHeight() / 2 - menuText.getHeight() / 2);
 		menuText.setZIndex(10);
 		
-		headline = new Label("DSM - MAIN MENU", game.labelStyle);
-		headline.setWidth(stage.getWidth());
-		headline.setHeight(80);
-		headline.setPosition(0, stage.getHeight() - 80);
-		headline.setAlignment(0);
+		headline = game.screenHelper.createHeadline("DSM - MAIN MENU");
 	}
 	
 	private void showExitScreen() {
