@@ -21,7 +21,6 @@ import dhbw.karlsruhe.dsm.core.DSM;
 
 public class InstructionsScreen implements Screen {
 
-	private static final String BUTTON_EXIT_GAME_TEXT = "Back";
 	//private static final String CONTROLS_JUMP_ICON_TEXT = "W, Arrow UP, Space";
 	//private static final String CONTROLS_DUCK_ICON_TEXT = "S, Arrow DOWN, Left Shift";
 	//private static final String CONTROLS_PAUSE_ICON_TEXT = "Esc, P";
@@ -79,14 +78,15 @@ public class InstructionsScreen implements Screen {
 	 */
 	private void initActors() {
 		// Prepare everything
-		initButton();
 		// Initialize our Actors
+		initButton();
 		initLabels();
+		initTextures();
 		initTable();
 	}
 	
 	private void initButton() {
-		backButton = new TextButton(BUTTON_EXIT_GAME_TEXT, game.textButtonStyle);
+		backButton = game.screenHelper.createReturnButton();
 		
 		// Event Listeners
 		backButton.addListener(new InputListener() {
@@ -103,7 +103,7 @@ public class InstructionsScreen implements Screen {
 		int colSpace = 20;
 		int iconSize = 75;
 		
-		table = new Table();
+		table = game.screenHelper.createTable();
 		
 		table.setSize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		table.setPosition(0, 0);
@@ -150,6 +150,17 @@ public class InstructionsScreen implements Screen {
 	}
 	
 	private void initLabels() {
+		// Controls Descriptions
+		controlsJumpDescription = game.screenHelper.createLabel(CONTROLS_JUMP_DESCRIPTION_TEXT, 0, 0);
+		controlsDuckDescription = game.screenHelper.createLabel(CONTROLS_DUCK_DESCRIPTION_TEXT, 0, 0);
+		controlsPauseDescription = game.screenHelper.createLabel(CONTROLS_PAUSE_DESCRIPTION_TEXT, 0, 0);
+		
+		gameDescription = game.screenHelper.createLabel(GAME_DESCRIPTION, 0, 0);
+		
+		headline = game.screenHelper.createHeadline(HEADLINE_TEXT);
+	}
+	
+	private void initTextures() {
 		// Controls Jump Icons
 		controlsJumpIconW = new Texture(Gdx.files.internal("keyIcons/W.png"));
 		controlsJumpIconArrowUP = new Texture(Gdx.files.internal("keyIcons/haut.png"));
@@ -161,19 +172,6 @@ public class InstructionsScreen implements Screen {
 		//Controls Pause Icons
 		controlsPauseIconEsc = new Texture(Gdx.files.internal("keyIcons/esc.png"));
 		controlsPauseIconP = new Texture(Gdx.files.internal("keyIcons/P.png"));
-		
-		// Controls Descriptions
-		controlsJumpDescription = new Label(CONTROLS_JUMP_DESCRIPTION_TEXT, game.labelStyle);
-		controlsDuckDescription = new Label(CONTROLS_DUCK_DESCRIPTION_TEXT, game.labelStyle);
-		controlsPauseDescription = new Label(CONTROLS_PAUSE_DESCRIPTION_TEXT, game.labelStyle);
-		
-		gameDescription = new Label(GAME_DESCRIPTION, game.labelStyle);
-		
-		headline = new Label(HEADLINE_TEXT, game.labelStyle);
-		headline.setWidth(stage.getWidth());
-		headline.setHeight(80);
-		headline.setPosition(0, stage.getHeight() - 80);
-		headline.setAlignment(Align.center);
 	}
 	
 	@Override
@@ -184,7 +182,7 @@ public class InstructionsScreen implements Screen {
 		stage.draw();
 		
 
-		//Table.drawDebug(stage); // Debuglines for Tables
+		Table.drawDebug(stage); // Debuglines for Tables
 	}
 
 	@Override
