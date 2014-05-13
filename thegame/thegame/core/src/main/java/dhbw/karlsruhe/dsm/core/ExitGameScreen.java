@@ -156,7 +156,7 @@ public class ExitGameScreen implements Screen {
 		
 		cancelExitButton.addListener(new InputListener() {
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				exitGameScreen();
+				returnToPreviousScreen();
 				return false;
 			}
 			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
@@ -191,7 +191,7 @@ public class ExitGameScreen implements Screen {
 	/**
 	 * Destroys the current Screen and redirects to the previous one.
 	 */
-	private void exitGameScreen() {
+	private void returnToPreviousScreen() {
 		game.setScreen(previous);
 		dispose();
 	}
