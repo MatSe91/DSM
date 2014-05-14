@@ -2,13 +2,8 @@ package dhbw.karlsruhe.dsm.cucumber;
 
 import static org.junit.Assert.assertTrue;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.InputEvent;
-
 import com.badlogic.gdx.Gdx;
 
-import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -30,7 +25,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	@When("I click on \"Show Highscores\"$")
 	public void whenClickOnShowHighscores() {
 		int x = 102, y = 350;
-		clickOnLocation(x, y);
+		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
 	}
 	
@@ -49,7 +44,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	@When("I click on a specific level$")
 	public void whenClickOnSpecificLevel() {
 		int x = 128, y = 298;
-		clickOnLocation(x, y);
+		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
 	}
 	
@@ -68,7 +63,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	@When("I click on the \"Back\" button$")
 	public void whenClickOnBackButton() {
 		int x = 765, y = 16;
-		clickOnLocation(x, y);
+		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
 	}
 	
@@ -101,15 +96,4 @@ public class HighscoreAnzeigenCucumberSteps {
 		TestHelper.wait(400);
 	}
 	
-	private void clickOnLocation(int x, int y) {
-		Gdx.app.getInput().setCursorPosition(x, y);
-		try {
-			Robot bot;
-			bot = new Robot();
-			bot.mousePress(InputEvent.BUTTON1_MASK);
-			bot.mouseRelease(InputEvent.BUTTON1_MASK);
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
-	}
 }

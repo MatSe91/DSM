@@ -1,8 +1,12 @@
 package dhbw.karlsruhe.dsm.helpers;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.security.Permission;
 import java.util.concurrent.TimeUnit;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
@@ -64,5 +68,17 @@ public class TestHelper {
             exitStatus = true;
         }
     }
+    
+    public static void clickOnLocation(int x, int y) {
+		Gdx.app.getInput().setCursorPosition(x, y);
+		try {
+			Robot bot;
+			bot = new Robot();
+			bot.mousePress(InputEvent.BUTTON1_MASK);
+			bot.mouseRelease(InputEvent.BUTTON1_MASK);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

@@ -2,9 +2,6 @@ package dhbw.karlsruhe.dsm.cucumber;
 
 import static org.junit.Assert.assertTrue;
 
-import java.awt.Robot;
-import java.awt.event.InputEvent;
-
 import com.badlogic.gdx.Gdx;
 
 import cucumber.api.java.After;
@@ -13,7 +10,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
-import dhbw.karlsruhe.dsm.core.screens.ExitGameScreen;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
@@ -24,7 +20,7 @@ public class SpielBeendenCucumberSteps {
 	
 	@Given("the exit screen is completely loaded$")
 	public void the_exit_screen_is_completely_loaded() throws Throwable {
-		TestHelper.wait(1500);
+		TestHelper.wait(100);
 		setUp();
 	}
 
@@ -32,13 +28,7 @@ public class SpielBeendenCucumberSteps {
 	public void I_click_on_the_exit_button() throws Throwable {
 		// cursor position to trigger mouse click
 		int x = 590, y = 305;
-		Gdx.app.getInput().setCursorPosition(x, y);
-
-		// click!
-		Robot bot;
-		bot = new Robot();
-		bot.mousePress(InputEvent.BUTTON1_MASK);
-		bot.mouseRelease(InputEvent.BUTTON1_MASK);
+		TestHelper.clickOnLocation(x, y);
 		
 		// make sure the input can be processed
 		TestHelper.wait(200);
@@ -48,13 +38,7 @@ public class SpielBeendenCucumberSteps {
 	public void I_click_on_the_return_button() throws Throwable {
 		// cursor position to trigger mouse click
 		int x = 220, y = 305;
-		Gdx.app.getInput().setCursorPosition(x, y);
-
-		// click!
-		Robot bot;
-		bot = new Robot();
-		bot.mousePress(InputEvent.BUTTON1_MASK);
-		bot.mouseRelease(InputEvent.BUTTON1_MASK);
+		TestHelper.clickOnLocation(x, y);
 		
 		// make sure the input can be processed
 		TestHelper.wait(200);
@@ -95,9 +79,12 @@ public class SpielBeendenCucumberSteps {
 			
 			@Override
 			public void run() {
-				dsm.setScreen(new ExitGameScreen(dsm, dsm.getScreen()));
+				dsm.setScreen(new MainMenuScreen(dsm));
 			}
 		});
+		TestHelper.wait(200);
+		int x = 100, y = 200;
+		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
 		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 	}
