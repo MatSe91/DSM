@@ -254,6 +254,6 @@ public class MainMenuScreen implements Screen {
 	}
 	
 	protected void showLevelSelectionScreen() {
-		game.setScreen(new LevelSelectionScreen(game, this));
+		game.setScreen(new LevelSelectionScreen(game));
 	}
 }

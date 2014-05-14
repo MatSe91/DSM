@@ -37,7 +37,7 @@ public class HighscoreScreen implements Screen {
 	private Table					table;
 	private Label 					headline;
 
-	public HighscoreScreen(DSM game, Screen previous, Level level) {
+	public HighscoreScreen(DSM game, Level level) {
 		this.game = game;
 		this.stage = new Stage();
 		this.level = level;
@@ -59,7 +59,7 @@ public class HighscoreScreen implements Screen {
 	private void initActors() {
 		headline = game.screenHelper.createHeadline(HEADLINE_TEXT + level.getName());
 		table = game.screenHelper.createTable();
-		returnButton = game.screenHelper.createReturnButton();
+		returnButton = game.screenHelper.createReturnButton(LevelSelectionScreen.class);
 		
 		fillTable();
 	}

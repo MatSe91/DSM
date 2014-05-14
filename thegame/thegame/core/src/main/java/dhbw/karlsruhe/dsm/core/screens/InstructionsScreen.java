@@ -86,7 +86,7 @@ public class InstructionsScreen implements Screen {
 	}
 	
 	private void initButton() {
-		backButton = game.screenHelper.createReturnButton();
+		backButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
 		
 		// Event Listeners
 		backButton.addListener(new InputListener() {

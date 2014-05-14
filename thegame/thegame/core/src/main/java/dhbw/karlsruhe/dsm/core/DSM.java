@@ -73,11 +73,6 @@ public class DSM extends Game {
 		super.setScreen(screen);
 	}
 	
-	public void returnToPreviousScreen() {
-		this.setScreen(this.getPreviousScreen());
-		this.previousScreen.dispose();
-	}
-	
 	public int getHeight() {
 		return this.height;
 	}
@@ -86,8 +81,5 @@ public class DSM extends Game {
 		return this.width;
 	}
 
-	public Screen getPreviousScreen() {
-		return previousScreen;
-	}
 
 }

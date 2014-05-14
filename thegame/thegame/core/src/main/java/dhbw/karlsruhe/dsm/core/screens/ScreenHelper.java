@@ -1,5 +1,6 @@
 package dhbw.karlsruhe.dsm.core.screens;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -130,14 +131,36 @@ public class ScreenHelper {
 	
 	/** 
 	 * Creates a new Return Button with the default values.
+	 * @param Screen to return to
 	 * @return TextButton Return Button
 	 */
-	public TextButton createReturnButton() {
+	public TextButton createReturnButton(final Class screen) {
 		TextButton tB = createTextButton(RETURN_BUTTON_TEXT, game.getWidth() - RETURN_BUTTON_POSITION_DELTA_X, RETURN_BUTTON_POSITION_Y, RETURN_BUTTON_WIDTH);
 		
 		tB.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				game.returnToPreviousScreen();
+				setReturnScreen(screen);
+				return false;
+			}
+		});
+		
+		return tB;
+	}
+	
+	/**
+	 * Creates a new Return Button with the default values.<br> 
+	 * This button is for Screens with a stored previous screen
+	 * @param previousScreen to return to
+	 * @return TextButton Return Button
+	 */
+	public TextButton createReturnToPreviousButton(final Screen previousScreen) {
+		final Screen currentScreen = game.getScreen();
+		TextButton tB = createTextButton(RETURN_BUTTON_TEXT, game.getWidth() - RETURN_BUTTON_POSITION_DELTA_X, RETURN_BUTTON_POSITION_Y, RETURN_BUTTON_WIDTH);
+		
+		tB.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				game.setScreen(previousScreen);
+				currentScreen.dispose();
 				return false;
 			}
 		});
@@ -155,11 +178,11 @@ public class ScreenHelper {
 	
 	
 	/**
-	 * Creates a new Table with the following default values:
-	 * Size 		= gameWidth	; gameHeight
-	 * Position 	= 0			; 0
-	 * FillParent	= true
-	 * left.padLeft = 50
+	 * Creates a new Table with the following default values:<br>
+	 * Size 		= gameWidth	; gameHeight<br>
+	 * Position 	= 0			; 0<br>
+	 * FillParent	= true<br>
+	 * left.padLeft = 50<br>
 	 * 
 	 * @return Table
 	 */
@@ -184,5 +207,14 @@ public class ScreenHelper {
 		table.setSize(game.getWidth(), game.getHeight());
 	}
 	
+	public void setReturnScreen(Class screen) {
+		Screen previousScreen = game.getScreen();
+		if(screen == MainMenuScreen.class) {
+			game.setScreen(new MainMenuScreen(game));
+		} else if(screen == LevelSelectionScreen.class) {
+			game.setScreen(new LevelSelectionScreen(game));
+		} 
+		previousScreen.dispose();
+	}
 
 }

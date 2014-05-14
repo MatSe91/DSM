@@ -37,7 +37,7 @@ public class LevelSelectionScreen implements Screen {
 	private Table					table;
 	private Label 					headline;
 
-	public LevelSelectionScreen(DSM game, Screen previous) {
+	public LevelSelectionScreen(DSM game) {
 		this.game = game;
 		this.stage = new Stage();
 
@@ -83,7 +83,7 @@ public class LevelSelectionScreen implements Screen {
 
 	private void createButtons() {
 		createLevelButtons();
-		returnButton = game.screenHelper.createReturnButton();
+		returnButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
 	}
 
 	private void createLevelButtons() {
@@ -110,7 +110,7 @@ public class LevelSelectionScreen implements Screen {
 	}
 
 	protected void showHighscoreScreen(Level level) {
-		game.setScreen(new HighscoreScreen(game, this, level));
+		game.setScreen(new HighscoreScreen(game, level));
 	}
 
 	@Override
