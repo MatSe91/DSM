@@ -6,7 +6,6 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
@@ -21,11 +20,11 @@ import dhbw.karlsruhe.dsm.helpers.TestHelper;
 public class SpielBeendenCucumberSteps {
 
 	private DSM dsm;
-	private LwjglApplication application;
 
 	
 	@Given("the exit screen is completely loaded$")
 	public void the_exit_screen_is_completely_loaded() throws Throwable {
+		TestHelper.wait(1500);
 		setUp();
 	}
 
@@ -33,7 +32,7 @@ public class SpielBeendenCucumberSteps {
 	public void I_click_on_the_exit_button() throws Throwable {
 		// cursor position to trigger mouse click
 		int x = 590, y = 305;
-		application.getInput().setCursorPosition(x, y);
+		Gdx.app.getInput().setCursorPosition(x, y);
 
 		// click!
 		Robot bot;
@@ -49,7 +48,7 @@ public class SpielBeendenCucumberSteps {
 	public void I_click_on_the_return_button() throws Throwable {
 		// cursor position to trigger mouse click
 		int x = 220, y = 305;
-		application.getInput().setCursorPosition(x, y);
+		Gdx.app.getInput().setCursorPosition(x, y);
 
 		// click!
 		Robot bot;
@@ -78,24 +77,15 @@ public class SpielBeendenCucumberSteps {
 	
 	@After("@abortclosegame")
 	public static void afterAbortScenario() {
-		Gdx.app.exit();
-		TestHelper.wait(100);
 		System.setSecurityManager(null);
+		TestHelper.wait(100);
 	}
 
-	
-	
-	
-	
-	
-	
-	
+
 	private void setUp() {
-		System.out.println("called");
 		TestHelper.exitStatus = false;
 		System.setSecurityManager(new TestHelper.NoExitSecurityManager());
 		// create Application
-		application = new LwjglApplication(new DSM(), TestHelper.createTestConfig());
 		// get Application listener for manipulation
 		dsm = (DSM) Gdx.app.getApplicationListener();
 		// Wait until everything is set up (openGL Context and native resources)
@@ -105,14 +95,11 @@ public class SpielBeendenCucumberSteps {
 			
 			@Override
 			public void run() {
-				Gdx.graphics.setDisplayMode(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT, false);
 				dsm.setScreen(new ExitGameScreen(dsm, dsm.getScreen()));
 			}
 		});
 		TestHelper.wait(200);
 		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 	}
-	
-
-    
+ 
 }

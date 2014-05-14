@@ -10,5 +10,6 @@ import cucumber.api.junit.Cucumber;
 		format = { "pretty", "html:target/cucumber" },
 		features = { "src/test/resources" }
 		)
-public class CukeRunnerTestCase {
+public class CukeRunnerJUnit {
+	
 }
