@@ -7,17 +7,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.Json;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class InstructionsScreen implements Screen {
 
@@ -32,7 +32,6 @@ public class InstructionsScreen implements Screen {
 	
 	private Stage stage;
 	private DSM game;
-	private Screen previous;
 	
 	// Button
 	private TextButton backButton;
@@ -57,9 +56,8 @@ public class InstructionsScreen implements Screen {
 	private Label controlsDuckDescription;
 	private Label controlsPauseDescription;
 	
-	public InstructionsScreen(DSM game, Screen previous) {
+	public InstructionsScreen(DSM game) {
 		this.game = game;
-		this.previous = previous;
 		this.stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
@@ -162,6 +160,10 @@ public class InstructionsScreen implements Screen {
 		//Controls Pause Icons
 		controlsPauseIconEsc = new Texture(Gdx.files.internal("keyIcons/esc.png"));
 		controlsPauseIconP = new Texture(Gdx.files.internal("keyIcons/P.png"));
+		
+		Json json = new Json();
+		String jsonString = json.toJson(controlsJumpIconW);
+		System.out.println(jsonString);
 	}
 	
 	@Override
@@ -220,11 +222,4 @@ public class InstructionsScreen implements Screen {
 		controlsPauseIconP.dispose();
 	}
 
-	/**
-	 * Destroys the current Screen and redirects to the previous one.
-	 */
-	private void exitInstructionsScreen() {
-		game.setScreen(previous);
-		dispose();
-	}
 }

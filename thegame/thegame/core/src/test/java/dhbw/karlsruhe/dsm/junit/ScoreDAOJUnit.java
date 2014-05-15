@@ -1,7 +1,9 @@
 package dhbw.karlsruhe.dsm.junit;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +66,5 @@ public class ScoreDAOJUnit {
 		scoreList.add(new Score("Player 8", 4));
 		ScoreDAO.saveScores(scoreList, new Level(levelName, 0));
 	}
-
-
+	
 }
