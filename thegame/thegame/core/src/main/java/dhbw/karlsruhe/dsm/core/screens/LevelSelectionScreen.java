@@ -64,14 +64,13 @@ public class LevelSelectionScreen implements Screen {
 
 	private void fillTable() {
 		int listSize  = buttonList.size();
-		int rowLength = NUMBER_OF_ROWS;
-		int doubleRowLength = rowLength * 2;
-		for (int i = 0; i < rowLength; i++) {
+		int doubleRowLength = NUMBER_OF_ROWS * 2;
+		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
 			if(i < listSize) {
 				table.add(buttonList.get(i)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
 			}
-			if(i+rowLength < listSize) {
-				table.add(buttonList.get(i+rowLength)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
+			if(i+NUMBER_OF_ROWS < listSize) {
+				table.add(buttonList.get(i+NUMBER_OF_ROWS)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
 			}
 			if(i+doubleRowLength < listSize) {
 				table.add(buttonList.get(i+doubleRowLength)).fill().minWidth(TABLE_CELL_MIN_WIDTH).minHeight(TABLE_CELL_MIN_HEIGHT).pad(CELL_PADDING);
@@ -97,20 +96,21 @@ public class LevelSelectionScreen implements Screen {
 	}
 
 	private TextButton createLevelButton(final Level level) {
-		TextButton b = game.screenHelper.createTextButton(level.getName(), BUTTON_WIDTH);
-		
-		b.addListener(new InputListener() {
+		TextButton newButton = game.screenHelper.createTextButton(level.getName(), BUTTON_WIDTH);
+
+		newButton.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				showHighscoreScreen(level);
 				return false;
 			}
 		});
 		
-		return b;
+		return newButton;
 	}
 
 	protected void showHighscoreScreen(Level level) {
 		game.setScreen(new HighscoreScreen(game, level));
+		this.dispose();
 	}
 
 	@Override
