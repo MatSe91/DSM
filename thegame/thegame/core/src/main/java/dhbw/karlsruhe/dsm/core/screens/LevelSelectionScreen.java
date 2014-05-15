@@ -121,7 +121,7 @@ public class LevelSelectionScreen implements Screen {
 		stage.draw();
 
 		// Debug lines for Tables
-		Table.drawDebug(stage);
+		//Table.drawDebug(stage);
 	}
 
 	@Override

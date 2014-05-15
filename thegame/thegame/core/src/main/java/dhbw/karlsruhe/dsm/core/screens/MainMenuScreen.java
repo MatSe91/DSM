@@ -82,7 +82,7 @@ public class MainMenuScreen implements Screen {
 		stage.draw();
 		
 		// Debuglines for Tables
-		 Table.drawDebug(stage);
+		 //Table.drawDebug(stage);
 
 	}
 

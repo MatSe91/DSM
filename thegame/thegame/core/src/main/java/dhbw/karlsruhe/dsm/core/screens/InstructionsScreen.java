@@ -70,7 +70,7 @@ public class InstructionsScreen implements Screen {
 
 		stage.addActor(headline);
 		stage.addActor(table);
-
+		stage.addActor(backButton);
 	}
 	
 	/**
@@ -87,14 +87,6 @@ public class InstructionsScreen implements Screen {
 	
 	private void initButton() {
 		backButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
-		
-		// Event Listeners
-		backButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				exitInstructionsScreen();
-				return false;
-			}
-		});
 	}
 	
 	private void initTable() {
@@ -145,8 +137,6 @@ public class InstructionsScreen implements Screen {
 		table.add(tableControlsPauseIcons).align(Align.left);
 		table.add(controlsPauseDescription).padLeft(colSpace).left().top().expandX();
 		table.row().spaceBottom(rowSpace);
-		// Button Back
-		table.add(backButton).colspan(2).right().expandX();
 	}
 	
 	private void initLabels() {
@@ -182,7 +172,7 @@ public class InstructionsScreen implements Screen {
 		stage.draw();
 		
 
-		Table.drawDebug(stage); // Debuglines for Tables
+		// Table.drawDebug(stage); // Debuglines for Tables
 	}
 
 	@Override
