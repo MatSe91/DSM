@@ -4,7 +4,6 @@ package dhbw.karlsruhe.dsm.core.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 
 public final class ExitGameScreen implements Screen {
@@ -26,7 +24,7 @@ public final class ExitGameScreen implements Screen {
 	
 	private Stage stage;
 	private DSM game;
-	private Screen previous;
+	private final Class previous;
 	
 	// Buttons
 	private TextButton exitGameButton;
@@ -39,7 +37,7 @@ public final class ExitGameScreen implements Screen {
 	
 	public ExitGameScreen(DSM game, Screen previous) {
 		this.game = game;
-		this.previous = previous;
+		this.previous = previous.getClass();
 		this.stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
@@ -117,13 +115,7 @@ public final class ExitGameScreen implements Screen {
 	 * Initializes the table 
 	 */
 	private void initTable() {
-		table = new Table();
-		
-		table.setSize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
-		table.setPosition(0, 0);
-		table.setFillParent(true);
-		table.debug();
-		table.left().padLeft(50);
+		table = game.screenHelper.createTable();
 
 		table.add(cancelExitButton).expandX();
 		table.add(exitGameButton).expandX(); 
@@ -134,11 +126,9 @@ public final class ExitGameScreen implements Screen {
 	 * Initializes all the buttons, including their InputListeners
 	 */
 	private void initButtons() {
-		
-		exitGameButton 		= new TextButton(BUTTON_EXIT_GAME_TEXT, game.textButtonStyle);
-		cancelExitButton 	= new TextButton(BUTTON_CANCEL_EXIT_TEXT, game.textButtonStyle);
-
-		
+		exitGameButton		= game.screenHelper.createTextButton(BUTTON_EXIT_GAME_TEXT, BUTTON_EXIT_GAME_MOUSEOVER_TEXT, menuText);
+		cancelExitButton	= game.screenHelper.createTextButton(BUTTON_CANCEL_EXIT_TEXT, BUTTON_CANCEL_EXIT_MOUSEOVER_TEXT, menuText);
+		game.screenHelper.addSetScreenListener(cancelExitButton, previous);
 		// Event Listeners 
 		// TODO: clean up this giant piece of shitty code.
 		
@@ -147,28 +137,7 @@ public final class ExitGameScreen implements Screen {
 				exitGame();
 				return false;
 			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_EXIT_GAME_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
 		});
-		
-		cancelExitButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				exitGameScreen();
-				return false;
-			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_CANCEL_EXIT_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
-		});
-		
-
 	}
 	
 	/**
@@ -183,21 +152,11 @@ public final class ExitGameScreen implements Screen {
 	}
 	
 	/**
-	 * Destroys the current Screen and redirects to the previous one.
-	 */
-	private void exitGameScreen() {
-		game.setScreen(previous);
-		dispose();
-	}
-	
-	/**
 	 * Exits the Application
 	 */
 	private void exitGame() {
 			
 		pause();
-		
-		previous.dispose();
 		this.dispose();
 		
 		game.dispose();

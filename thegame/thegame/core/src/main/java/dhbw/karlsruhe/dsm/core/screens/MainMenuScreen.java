@@ -5,13 +5,10 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
@@ -29,6 +26,8 @@ public class MainMenuScreen implements Screen {
 	private static final String BUTTON_SHOW_INSTRUCTIONS_MOUSEOVER_TEXT = "Learn2Play!";
 	private static final String BUTTON_CREDITS_MOUSEOVER_TEXT = "Click here to see who made this game.\nOtherwise you can't blame us.";
 	private static final String BUTTON_EXIT_MOUSEOVER_TEXT = "If you really want to quit playing, just click it :'(";
+	
+	private static final int ROW_HEIGHT = 50;
 	
 	private Stage stage;
 	private DSM game;
@@ -113,10 +112,10 @@ public class MainMenuScreen implements Screen {
 	 */
 	private void initActors() {
 		// Prepare everything
+		initLabels();
 		initButtons();
 		// Initialize our Actors
 		initTable();
-		initLabels();
 	}
 	
 	/**
@@ -131,99 +130,38 @@ public class MainMenuScreen implements Screen {
 		table.debug();
 		table.left().padLeft(50);
 		
-		int rowheight = 50;
-		
-			table.add(startGameButton).height(rowheight).fillX(); 
+		addButtonToTable(startGameButton);
+		addButtonToTable(showHighscoreButton);
+		addButtonToTable(showInstructionsButton);
+		addButtonToTable(creditButton);
+		addButtonToTable(leaveGameButton);
+	}
+	
+	private void addButtonToTable(TextButton button) {
+		table.add(button).height(ROW_HEIGHT).fillX(); 
 		table.row();
-			table.add(showHighscoreButton).height(rowheight).fillX(); 
-		table.row();
-			table.add(showInstructionsButton).height(rowheight).fillX(); 
-		table.row();
-			table.add(creditButton).height(rowheight).fillX(); 
-		table.row();
-			table.add(leaveGameButton).height(rowheight).fillX();
 	}
 	
 	/**
 	 * Initializes all the buttons, including their InputListeners
 	 */
 	private void initButtons() {
+		startGameButton 		= game.screenHelper.createTextButton(BUTTON_START_GAME_TEXT, BUTTON_START_GAME_MOUSEOVER_TEXT, menuText);
+		// game.screenHelper.addSetScreenListener(startGameButton, LevelSelectionScreen.class);
 		
-		startGameButton 		= new TextButton(BUTTON_START_GAME_TEXT, game.textButtonStyle);
-		showHighscoreButton 	= new TextButton(BUTTON_SHOW_HIGHSCORE_TEXT, game.textButtonStyle);
-		showInstructionsButton 	= new TextButton(BUTTON_SHOW_INSTRUCTIONS_TEXT, game.textButtonStyle);
-		creditButton 			= new TextButton(BUTTON_CREDITS_TEXT, game.textButtonStyle);
-		leaveGameButton 		= new TextButton(BUTTON_EXIT_TEXT, game.textButtonStyle);
+		showHighscoreButton 	= game.screenHelper.createTextButton(BUTTON_SHOW_HIGHSCORE_TEXT, BUTTON_SHOW_HIGHSCORE_MOUSEOVER_TEXT, menuText);
+		game.screenHelper.addSetScreenListener(showHighscoreButton, LevelSelectionScreen.class);
 		
-		// Event Listeners 
-		// TODO: clean up this giant piece of shitty code.
+		showInstructionsButton 	= game.screenHelper.createTextButton(BUTTON_SHOW_INSTRUCTIONS_TEXT, BUTTON_SHOW_INSTRUCTIONS_MOUSEOVER_TEXT, menuText);
+		game.screenHelper.addSetScreenListener(showInstructionsButton, InstructionsScreen.class);
 		
-		startGameButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				// TODO: Implement Start Game Button click event
-				return false;
-			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_START_GAME_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
-		});
+		creditButton 			= game.screenHelper.createTextButton(BUTTON_CREDITS_TEXT, BUTTON_CREDITS_MOUSEOVER_TEXT, menuText);
+		// game.screenHelper.addSetScreenListener(creditButton, LevelSelectionScreen.class);
 		
-		showHighscoreButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				showLevelSelectionScreen();
-				return false;
-			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_SHOW_HIGHSCORE_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
-		});
+		leaveGameButton 		= game.screenHelper.createTextButton(BUTTON_EXIT_TEXT, BUTTON_EXIT_MOUSEOVER_TEXT, menuText);
+		game.screenHelper.addSetScreenListener(leaveGameButton, ExitGameScreen.class);
 		
-		showInstructionsButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				// TODO @Mo: Implement show Instructions Button click event
-				showInstructionsScreen();
-				return false;
-			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_SHOW_INSTRUCTIONS_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
-		});
-		
-		creditButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				// TODO: Implement show Credits Button click event
-				return false;
-			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_CREDITS_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
-		});
-		
-		leaveGameButton.addListener(new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				//Methode wird in exitGame verlagert
-				showExitScreen();
-				return false;
-			}
-			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText(BUTTON_EXIT_MOUSEOVER_TEXT);
-			}
-			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
-				menuText.setText("");
-			}
-		});
+				
 		// TODO: Fix Layout for Web
 		if (Gdx.app.getType() == ApplicationType.WebGL) {
 			leaveGameButton.clear();
@@ -244,16 +182,5 @@ public class MainMenuScreen implements Screen {
 		
 		headline = game.screenHelper.createHeadline("DSM - MAIN MENU");
 	}
-	
-	private void showExitScreen() {
-		game.setScreen(new ExitGameScreen(game,this));
-	}
-	
-	private void showInstructionsScreen() {
-		game.setScreen(new InstructionsScreen(game));
-	}
-	
-	protected void showLevelSelectionScreen() {
-		game.setScreen(new LevelSelectionScreen(game));
-	}
+
 }

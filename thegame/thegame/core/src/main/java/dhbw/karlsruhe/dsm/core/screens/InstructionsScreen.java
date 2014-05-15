@@ -13,11 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.utils.Json;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
-import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class InstructionsScreen implements Screen {
 
@@ -160,10 +158,6 @@ public class InstructionsScreen implements Screen {
 		//Controls Pause Icons
 		controlsPauseIconEsc = new Texture(Gdx.files.internal("keyIcons/esc.png"));
 		controlsPauseIconP = new Texture(Gdx.files.internal("keyIcons/P.png"));
-		
-		Json json = new Json();
-		String jsonString = json.toJson(controlsJumpIconW);
-		System.out.println(jsonString);
 	}
 	
 	@Override

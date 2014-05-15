@@ -1,6 +1,7 @@
 package dhbw.karlsruhe.dsm.core.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -128,6 +129,26 @@ public class ScreenHelper {
 		return newButton;
 	}
 	
+	/**
+	 * Creates a new TextButton
+	 * @param text
+	 * @param tooltip text 
+	 * @param label to show tooltip's text
+	 * @return TextButton
+	 */
+	public TextButton createTextButton(String text, final String tooltip, final Label label) {
+		TextButton newButton = new TextButton(text, game.textButtonStyle);
+		newButton.addListener(new InputListener() {
+			public void enter(InputEvent event, float x, float y, int pointer, Actor actor) {
+				label.setText(tooltip);
+			}
+			public void exit(InputEvent event, float x, float y, int pointer, Actor actor) {
+				label.setText("");
+			}
+		});
+		return newButton;
+	}
+	
 	
 	/** 
 	 * Creates a new Return Button with the default values.
@@ -139,7 +160,7 @@ public class ScreenHelper {
 		
 		tB.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				setReturnScreen(screen);
+				setScreen(screen);
 				return false;
 			}
 		});
@@ -207,14 +228,38 @@ public class ScreenHelper {
 		table.setSize(game.getWidth(), game.getHeight());
 	}
 	
-	public void setReturnScreen(Class screen) {
+	/**
+	 * Sets the game's screen to a new instance of screen.<br>
+	 * <b>The current screen instance is disposed!</b>
+	 * @param screen to set the game to
+	 */
+	public void setScreen(Class screen) {
 		Screen previousScreen = game.getScreen();
 		if(screen == MainMenuScreen.class) {
 			game.setScreen(new MainMenuScreen(game));
 		} else if(screen == LevelSelectionScreen.class) {
 			game.setScreen(new LevelSelectionScreen(game));
-		} 
+		} else if(screen == InstructionsScreen.class) {
+			game.setScreen(new InstructionsScreen(game));
+		} else if(screen == ExitGameScreen.class) {
+			game.setScreen(new ExitGameScreen(game, previousScreen));
+		}
 		previousScreen.dispose();
+	}
+	
+	/**
+	 * Adds an onClick Listener to the given actor. On clicking the button, the games screen will be changed to a new instance of screen.<br>
+	 * <b>The current screen instance is disposed!</b>
+	 * @param actor
+	 * @param targetScreen
+	 */
+	public void addSetScreenListener(Actor actor, final Class targetScreen) {
+		actor.addListener(new InputListener() {
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				setScreen(targetScreen);
+				return false;
+			}
+		});
 	}
 
 }
