@@ -105,10 +105,10 @@ public final class ExitGameScreen implements Screen {
 	 */
 	private void initActors() {
 		// Prepare everything
+		initLabels();
 		initButtons();
 		// Initialize our Actors
 		initTable();
-		initLabels();
 	}
 	
 	/**
