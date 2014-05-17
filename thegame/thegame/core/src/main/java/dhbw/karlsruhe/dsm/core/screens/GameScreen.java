@@ -3,35 +3,44 @@ package dhbw.karlsruhe.dsm.core.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.gameStages.GameStage;
+import dhbw.karlsruhe.dsm.core.gameStages.GuiStage;
 import dhbw.karlsruhe.dsm.core.level.Level;
 
 public class GameScreen implements Screen {
 
 	protected final DSM game;
-	protected final Stage stage;
+	protected final GameStage gameStage;
+	protected final GuiStage guiStage;
 	protected final Level level;
 	
 	public GameScreen(DSM game, Level level) {
 		this.game = game;
 		this.level = level;
-		this.stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		this.gameStage = new GameStage();
+		this.guiStage = new GuiStage();
+		Gdx.input.setInputProcessor(gameStage);
 	}
 	
 	@Override
 	public void render(float delta) {
 		// Clear the screen
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		// Execute game logic
+		gameStage.act(Gdx.graphics.getDeltaTime());
+		// Draw game
+		gameStage.draw();
+		// Execute GUI logic
+		guiStage.act(Gdx.graphics.getDeltaTime());
+		// Draw GUI
+		guiStage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(width, height, true);
+		gameStage.setViewport(width, height, true);
 	}
 	
 	public boolean needsGL20() {
@@ -40,7 +49,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(gameStage);
 	}
 
 	@Override
@@ -60,7 +69,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		stage.dispose();
+		gameStage.dispose();
 	}
 
 }
