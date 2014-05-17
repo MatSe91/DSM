@@ -17,27 +17,27 @@ import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.LevelDAO;
 
-public class LevelSelectionScreen implements Screen {
+public abstract class BaseLevelSelectionScreen implements Screen {
 
 
-	private static final int TABLE_CELL_MIN_WIDTH = 150;
-	private static final int TABLE_CELL_MIN_HEIGHT = 50;
-	private static final int NUMBER_OF_ROWS = 5;
-	private static final String HEADLINE_TEXT = "LEVEL SELECTION";
-	private static final int BUTTON_WIDTH = 75;
-	private static final int CELL_PADDING = 20;
+	protected static final int TABLE_CELL_MIN_WIDTH = 150;
+	protected static final int TABLE_CELL_MIN_HEIGHT = 50;
+	protected static final int NUMBER_OF_ROWS = 5;
+	protected static final String HEADLINE_TEXT = "LEVEL SELECTION";
+	protected static final int BUTTON_WIDTH = 75;
+	protected static final int CELL_PADDING = 20;
 	
-	private DSM						game;
-	private Stage					stage;
+	protected DSM						game;
+	protected Stage					stage;
 
-	private List<TextButton>	buttonList;
+	protected List<TextButton>	buttonList;
 
-	private List<Level>		levelList;
-	private TextButton				returnButton;
-	private Table					table;
-	private Label 					headline;
+	protected List<Level>		levelList;
+	protected TextButton				returnButton;
+	protected Table					table;
+	protected Label 					headline;
 
-	public LevelSelectionScreen(DSM game) {
+	public BaseLevelSelectionScreen(DSM game) {
 		this.game = game;
 		this.stage = new Stage();
 
@@ -53,7 +53,7 @@ public class LevelSelectionScreen implements Screen {
 		stage.addActor(headline);
 	}
 
-	private void initActors() {
+	protected void initActors() {
 		headline = game.screenHelper.createHeadline(HEADLINE_TEXT);
 		
 		table = game.screenHelper.createTable();
@@ -62,7 +62,7 @@ public class LevelSelectionScreen implements Screen {
 		fillTable();
 	}
 
-	private void fillTable() {
+	protected void fillTable() {
 		int listSize  = buttonList.size();
 		int doubleRowLength = NUMBER_OF_ROWS * 2;
 		for (int i = 0; i < NUMBER_OF_ROWS; i++) {
@@ -80,12 +80,12 @@ public class LevelSelectionScreen implements Screen {
 
 	}
 
-	private void createButtons() {
+	protected void createButtons() {
 		createLevelButtons();
 		returnButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
 	}
 
-	private void createLevelButtons() {
+	protected void createLevelButtons() {
 		buttonList = new ArrayList<TextButton>();
 		TextButton b;
 
@@ -95,12 +95,12 @@ public class LevelSelectionScreen implements Screen {
 		}
 	}
 
-	private TextButton createLevelButton(final Level level) {
+	protected TextButton createLevelButton(final Level level) {
 		TextButton newButton = game.screenHelper.createTextButton(level.getName(), BUTTON_WIDTH);
 
 		newButton.addListener(new InputListener() {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				showHighscoreScreen(level);
+				showNextScreen(level);
 				return false;
 			}
 		});
@@ -108,10 +108,7 @@ public class LevelSelectionScreen implements Screen {
 		return newButton;
 	}
 
-	protected void showHighscoreScreen(Level level) {
-		game.setScreen(new HighscoreScreen(game, level));
-		this.dispose();
-	}
+	protected abstract void showNextScreen(Level level);
 
 	@Override
 	public void render(float delta) {

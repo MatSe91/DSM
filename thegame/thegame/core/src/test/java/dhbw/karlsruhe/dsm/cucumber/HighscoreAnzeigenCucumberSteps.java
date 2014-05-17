@@ -9,7 +9,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.HighscoreScreen;
-import dhbw.karlsruhe.dsm.core.screens.LevelSelectionScreen;
+import dhbw.karlsruhe.dsm.core.screens.HighScoreLevelSelectionScreen;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
@@ -30,7 +30,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	
 	@Then("the level selection screen will be shown to me$")
 	public void thenShowLevelSelectionScreen() {
-		assertTrue(LevelSelectionScreen.class == dsm.getScreen().getClass());
+		assertTrue(HighScoreLevelSelectionScreen.class == dsm.getScreen().getClass());
 	}
 	
 	@Given("the level overview is completely loaded$")
@@ -68,7 +68,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	
 	@Then("I'll get back to the level overview$")
 	public void thenReturnToLevelSelectionScreen() {
-		assertTrue(LevelSelectionScreen.class == dsm.getScreen().getClass());
+		assertTrue(HighScoreLevelSelectionScreen.class == dsm.getScreen().getClass());
 	}
 	
 	@Then("I'll get back to the main menu$")

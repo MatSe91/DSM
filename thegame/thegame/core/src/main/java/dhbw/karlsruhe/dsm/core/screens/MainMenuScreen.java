@@ -147,10 +147,10 @@ public class MainMenuScreen implements Screen {
 	 */
 	private void initButtons() {
 		startGameButton 		= game.screenHelper.createTextButton(BUTTON_START_GAME_TEXT, BUTTON_START_GAME_MOUSEOVER_TEXT, menuText);
-		// game.screenHelper.addSetScreenListener(startGameButton, LevelSelectionScreen.class);
+		game.screenHelper.addSetScreenListener(startGameButton, GameLevelSelectionScreen.class);
 		
 		showHighscoreButton 	= game.screenHelper.createTextButton(BUTTON_SHOW_HIGHSCORE_TEXT, BUTTON_SHOW_HIGHSCORE_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(showHighscoreButton, LevelSelectionScreen.class);
+		game.screenHelper.addSetScreenListener(showHighscoreButton, HighScoreLevelSelectionScreen.class);
 		
 		showInstructionsButton 	= game.screenHelper.createTextButton(BUTTON_SHOW_INSTRUCTIONS_TEXT, BUTTON_SHOW_INSTRUCTIONS_MOUSEOVER_TEXT, menuText);
 		game.screenHelper.addSetScreenListener(showInstructionsButton, InstructionsScreen.class);

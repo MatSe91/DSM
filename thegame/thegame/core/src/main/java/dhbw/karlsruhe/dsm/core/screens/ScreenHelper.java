@@ -237,8 +237,10 @@ public class ScreenHelper {
 		Screen previousScreen = game.getScreen();
 		if(screen == MainMenuScreen.class) {
 			game.setScreen(new MainMenuScreen(game));
-		} else if(screen == LevelSelectionScreen.class) {
-			game.setScreen(new LevelSelectionScreen(game));
+		} else if(screen == GameLevelSelectionScreen.class) {
+			game.setScreen(new GameLevelSelectionScreen(game));
+		} else if(screen == HighScoreLevelSelectionScreen.class) {
+			game.setScreen(new HighScoreLevelSelectionScreen(game));
 		} else if(screen == InstructionsScreen.class) {
 			game.setScreen(new InstructionsScreen(game));
 		} else if(screen == ExitGameScreen.class) {
