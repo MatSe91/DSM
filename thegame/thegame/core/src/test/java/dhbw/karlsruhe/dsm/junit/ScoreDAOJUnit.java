@@ -18,7 +18,6 @@ import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.Score;
 import dhbw.karlsruhe.dsm.core.level.ScoreDAO;
-import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class ScoreDAOJUnit {
 
@@ -38,7 +37,6 @@ public class ScoreDAOJUnit {
 	@Test
 	public void testSaveAndLoad() {
 		testSave();
-		TestHelper.wait(1500);
 		testLoad();
 	}
 

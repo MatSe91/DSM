@@ -1,7 +1,5 @@
 package dhbw.karlsruhe.dsm.junit;
 
-import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,10 +23,13 @@ public class TestSuite {
 
 	private static LwjglApplication app;
 
+	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		app = new LwjglApplication(new DSM(), TestHelper.createTestConfig());
 		TestHelper.wait(1200);
+		
+		// wait is necessary in this case, no synchronization possible
 	}
 
 	@AfterClass

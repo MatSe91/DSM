@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -19,7 +18,6 @@ import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.core.screens.ScreenHelper;
-import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class ScreenHelperJUnit {
 
@@ -29,7 +27,6 @@ public class ScreenHelperJUnit {
 	private static final String ERROR_WIDTH = "Width doesn't match";
 	private static final String ERROR_TEXT = "Text doesn't match";
 	
-	private static LwjglApplication app; 
 	private static DSM game;
 	
 	private ScreenHelper screenHelper;

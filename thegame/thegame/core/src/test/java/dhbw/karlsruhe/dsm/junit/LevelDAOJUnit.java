@@ -9,13 +9,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.files.FileHandle;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.LevelDAO;
-import dhbw.karlsruhe.dsm.helpers.TestHelper;
 
 public class LevelDAOJUnit {
 
@@ -45,7 +43,6 @@ public class LevelDAOJUnit {
 	@Test
 	public void testSaveAndLoad() {
 		testSave();
-		TestHelper.wait(1500);
 		testLoad();
 	}
 

@@ -8,7 +8,6 @@ import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
@@ -20,7 +19,6 @@ public class SpielBeendenCucumberSteps {
 	
 	@Given("the exit screen is completely loaded$")
 	public void the_exit_screen_is_completely_loaded() throws Throwable {
-		TestHelper.wait(100);
 		setUp();
 	}
 
@@ -66,27 +64,18 @@ public class SpielBeendenCucumberSteps {
 	}
 
 
-	private void setUp() {
+	private void setUp() throws InterruptedException {
 		TestHelper.exitStatus = false;
 		System.setSecurityManager(new TestHelper.NoExitSecurityManager());
 		// create Application
 		// get Application listener for manipulation
 		dsm = (DSM) Gdx.app.getApplicationListener();
 		// Wait until everything is set up (openGL Context and native resources)
-		TestHelper.wait(800);
 		// load exit game Screen
-		Gdx.app.postRunnable(new Runnable() {
-			
-			@Override
-			public void run() {
-				dsm.setScreen(new MainMenuScreen(dsm));
-			}
-		});
-		TestHelper.wait(200);
+		TestHelper.setToMainMenuScreen();
 		int x = 100, y = 200;
 		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
-		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 	}
  
 }

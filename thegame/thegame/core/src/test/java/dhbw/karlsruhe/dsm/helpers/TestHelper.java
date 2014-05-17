@@ -8,10 +8,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 
 
 public class TestHelper {
@@ -25,7 +26,6 @@ public class TestHelper {
 	 * Sets the current Thread to sleep for the given duration
 	 * @param ms time to sleep in ms
 	 */
-	@Deprecated
 	public static void wait(int ms) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(ms);
@@ -85,4 +85,19 @@ public class TestHelper {
 			e.printStackTrace();
 		}
 	}
+    
+    public static void setToMainMenuScreen() throws InterruptedException {
+    	final DSM dsm = (DSM) Gdx.app.getApplicationListener();
+    	final CountDownLatch latch = new CountDownLatch(1);
+    	Gdx.app.postRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				Gdx.graphics.setDisplayMode(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT, false);
+				dsm.setScreen(new MainMenuScreen(dsm));
+				latch.countDown();
+			}
+		});
+    	latch.await();
+    }
 }

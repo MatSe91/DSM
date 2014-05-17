@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.HighscoreScreen;
 import dhbw.karlsruhe.dsm.core.screens.LevelSelectionScreen;
@@ -18,7 +17,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	private DSM dsm;
 
 	@Given("the main menu is completely loaded$")
-	public void givenMainMenuCompletelyLoaded() {
+	public void givenMainMenuCompletelyLoaded() throws InterruptedException {
 		setUp();
 	}
 	
@@ -35,7 +34,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	}
 	
 	@Given("the level overview is completely loaded$")
-	public void givenLevelSelectionScreenIsLoaded() {
+	public void givenLevelSelectionScreenIsLoaded() throws InterruptedException {
 		// load main menu Screen
 		setUp();
 		whenClickOnShowHighscores();
@@ -54,7 +53,7 @@ public class HighscoreAnzeigenCucumberSteps {
 	}
 	
 	@Given("the highscores are completely loaded$")
-	public void givenHighscoreScreenLoaded() {
+	public void givenHighscoreScreenLoaded() throws InterruptedException {
 		setUp();
 		whenClickOnShowHighscores();
 		whenClickOnSpecificLevel();
@@ -78,22 +77,12 @@ public class HighscoreAnzeigenCucumberSteps {
 	}
 	
 	
-	private void setUp() {
+	private void setUp() throws InterruptedException {
 		// create Application
-		Gdx.app.postRunnable(new Runnable() {
-			
-			@Override
-			public void run() {
-				Gdx.graphics.setDisplayMode(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT, false);
-				dsm.setScreen(new MainMenuScreen(dsm));
-			}
-		});
+		TestHelper.setToMainMenuScreen();
 		// get Application listener for manipulation
 		dsm = (DSM) Gdx.app.getApplicationListener();
 		// Wait until everything is set up (openGL Context and native resources)
-		TestHelper.wait(800);
-		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
-		TestHelper.wait(400);
 	}
 	
 }
