@@ -1,8 +1,8 @@
 package dhbw.karlsruhe.dsm.cucumber;
 
 import com.badlogic.gdx.Gdx;
-import static org.junit.Assert.assertTrue;
 
+import static org.junit.Assert.assertTrue;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,7 +16,7 @@ public class AnleitungLesenCucumberSteps {
 	private DSM dsm;
 
 	@Given("the main menu is loaded$")
-	public void mainMenuCompletelyLoaded() {
+	public void mainMenuCompletelyLoaded() throws InterruptedException {
 		setUp();
 	}
 	
@@ -24,7 +24,7 @@ public class AnleitungLesenCucumberSteps {
 	public void clickOnShowInstructions() {
 		int x = 102, y = 300;
 		TestHelper.clickOnLocation(x, y);
-		TestHelper.wait(100);
+		TestHelper.wait(200);
 	}
 	
 	@Then("the instructions screen will be shown$")
@@ -34,7 +34,7 @@ public class AnleitungLesenCucumberSteps {
 	
 	
 	@Given("the output is completely loaded$")
-	public void instructionsScreenLoaded() {
+	public void instructionsScreenLoaded() throws InterruptedException {
 		setUp();
 		clickOnBack();
 	}
@@ -51,22 +51,10 @@ public class AnleitungLesenCucumberSteps {
 		assertTrue(MainMenuScreen.class == dsm.getScreen().getClass());
 	}
 
-	private void setUp() {
-		// create Application
-		Gdx.app.postRunnable(new Runnable() {
-			
-			@Override
-			public void run() {
-				Gdx.graphics.setDisplayMode(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT, false);
-				dsm.setScreen(new MainMenuScreen(dsm));
-			}
-		});
+	private void setUp() throws InterruptedException {
+		// prepare Application
+		TestHelper.setToMainMenuScreen();
 		// get Application listener for manipulation
 		dsm = (DSM) Gdx.app.getApplicationListener();
-		// Wait until everything is set up (openGL Context and native resources)
-		TestHelper.wait(800);
-		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
-		TestHelper.wait(400);
-		dsm.resize(ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 	}
 }
