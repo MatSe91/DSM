@@ -1,5 +1,7 @@
 package dhbw.karlsruhe.dsm.junit;
 
+import java.util.concurrent.CountDownLatch;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,20 +43,18 @@ public class ExitGameScreenJUnit {
 	@Test
 	public void testExitGameScreen() throws Exception {
 		dsm = (DSM) Gdx.app.getApplicationListener();
-		final ExitGameScreen exitScreen;
-		TestHelper.wait(600); // necessary due to multi threading...
 		final Screen previous = dsm.getScreen();
-		Gdx.app.postRunnable(new Runnable() {
-			
-			@Override
-			public void run() {
-				dsm.setScreen(new ExitGameScreen(dsm, previous));
-			}
-		});
-		TestHelper.wait(100);
-		exitScreen = (ExitGameScreen) dsm.getScreen();
+		
+		setExitScreen(dsm);
+		
+		ExitGameScreen exitScreen = (ExitGameScreen) dsm.getScreen();
 		assert(exitScreen.getClass() == ExitGameScreen.class);
 		
+		freeResources(exitScreen, previous);
+	}
+	
+	private void freeResources(final ExitGameScreen exitScreen, final Screen previous) throws InterruptedException {
+		final CountDownLatch latch = new CountDownLatch(1);
 		Gdx.app.postRunnable(new Runnable() {
 			
 			@Override
@@ -62,12 +62,25 @@ public class ExitGameScreenJUnit {
 				exitScreen.pause();
 				exitScreen.dispose();
 				previous.dispose();
+				latch.countDown();
 			}
 		});
+		latch.await(2, TestHelper.timeOutUnit);
+	}
+	
+	private void setExitScreen(DSM game) throws InterruptedException {
+		final Screen previous = dsm.getScreen();
 		
-		
-		
-		TestHelper.wait(1000);
+		final CountDownLatch latch = new CountDownLatch(1);
+		Gdx.app.postRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				dsm.setScreen(new ExitGameScreen(dsm, previous));
+				latch.countDown();
+			}
+		});
+		latch.await(2, TestHelper.timeOutUnit);
 	}
 	
 }

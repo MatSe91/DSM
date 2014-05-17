@@ -4,9 +4,11 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.security.Permission;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
@@ -15,12 +17,15 @@ import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 public class TestHelper {
 	
 	public static boolean exitStatus = false;
-	
+	public static TimeUnit timeOutUnit = TimeUnit.SECONDS;
+	// v- this one is for debugging
+	//public static TimeUnit timeOutUnit = TimeUnit.HOURS;
 	
 	/**
 	 * Sets the current Thread to sleep for the given duration
 	 * @param ms time to sleep in ms
 	 */
+	@Deprecated
 	public static void wait(int ms) {
 		try {
 			TimeUnit.MILLISECONDS.sleep(ms);
@@ -80,5 +85,4 @@ public class TestHelper {
 			e.printStackTrace();
 		}
 	}
-	
 }
