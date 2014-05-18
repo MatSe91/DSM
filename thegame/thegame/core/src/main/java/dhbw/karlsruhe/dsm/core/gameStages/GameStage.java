@@ -1,14 +1,11 @@
 package dhbw.karlsruhe.dsm.core.gameStages;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import dhbw.karlsruhe.dsm.core.DSM;
@@ -25,53 +22,52 @@ import dhbw.karlsruhe.dsm.core.level.Level;
  */
 public class GameStage extends Stage {
 
+	private static final int GROUND_HEIGHT_ZERO = 250;
+	private static final int MAX_PATTERNS = 1000;
 	protected Level currentLevel;
 	protected DSM game;
+	protected OrthographicCamera screenCamera;
 	
-	protected List<PolygonSprite> shapes;
+	protected ArrayBlockingQueue<PolygonSprite> shapes;
 	protected PolygonSpriteBatch polyBatch;
 	protected float speed;
 	
 	// WORKING VARIABLES
 	private float i = 0;
+	private float totalRightBound;
+	private PolygonSprite temp;
 	
-	// ONLY FOR TESTING
-	protected Texture texture;
-	// ONLY FOR TESTING END
-	
-	public GameStage() {
+	public GameStage(OrthographicCamera camera, Level currentLevel) {
 		super();
-		
+		screenCamera = camera;
 		game = (DSM) Gdx.app.getApplicationListener();
-		shapes = new ArrayList<PolygonSprite>();
-		testInit();
-		setLevel(null);
+		
+		polyBatch = new PolygonSpriteBatch();
+		polyBatch.setProjectionMatrix(screenCamera.combined);
+		shapes = new ArrayBlockingQueue<PolygonSprite>(MAX_PATTERNS);
+		setLevel(currentLevel);
+		initLevel();
 	}
 	
 	public void setLevel(Level level) {
 		currentLevel = level;
-		speed = 10;
+		speed = 500;
 	}
 	
-	@Deprecated
-	private void testInit() {
-		texture =  new Texture("textures/solid_blue.png");
-		polyBatch = new PolygonSpriteBatch();
-		float[] vertices = new float[] {
-			0, 0,
-			50,0,
-			25,25
-		};
-		PolygonRegion polyRegion = new PolygonRegion(new TextureRegion(texture), vertices, new short[] {0,1,2});
-		PolygonSprite poly = new PolygonSprite(polyRegion);
-		poly.setOrigin(0, 0);
-		shapes.add(poly);
-	}
-
 	/**
 	 * Initializes the current Level by creating the first patterns.
 	 */
 	protected void initLevel() {
+		currentLevel.load();
+		
+		float rightBoundX = 0;
+		
+		while(rightBoundX < screenCamera.viewportWidth*1.2) {
+			temp = currentLevel.getRandomPolygonSprite(rightBoundX, GROUND_HEIGHT_ZERO);
+			rightBoundX += temp.getBoundingRectangle().width;
+			shapes.add(temp);
+		}
+		totalRightBound = rightBoundX;
 	}
 	
 	/* (non-Javadoc)
@@ -81,7 +77,7 @@ public class GameStage extends Stage {
 	public void draw() {
 		polyBatch.begin();
 		for(PolygonSprite shape : shapes) {
-			shape.draw(polyBatch);
+				shape.draw(polyBatch);
 		}
 		polyBatch.end();
 	}
@@ -91,10 +87,31 @@ public class GameStage extends Stage {
 	 */
 	@Override
 	public void act(float delta) {
-		i = - delta * speed;
+		// move Polygons
+		i = delta * speed;
 		for (PolygonSprite shape : shapes) {
-			shape.translate(i, 0);
+			shape.translate(-i, 0);
+		}
+		totalRightBound -= i;
+		managePatterns();
+	}
+
+	private void managePatterns() {
+		temp = shapes.peek();
+		while(temp != null && temp.getBoundingRectangle().getWidth() + temp.getX() < -150) {
+			temp = shapes.poll();
+		}
+		while(totalRightBound < screenCamera.viewportWidth + 150) {
+			temp = currentLevel.getRandomPolygonSprite(totalRightBound, GROUND_HEIGHT_ZERO);
+			totalRightBound += temp.getBoundingRectangle().width;
+			shapes.add(temp);
 		}
 	}
 	
+	@Override
+	public void dispose() {
+		currentLevel.dispose();
+		polyBatch.dispose();
+		super.dispose();
+	}
 }

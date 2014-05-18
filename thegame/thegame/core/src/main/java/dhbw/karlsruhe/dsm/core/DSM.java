@@ -18,8 +18,6 @@ public class DSM extends Game {
 	private int width = ConfigurationConstants.SCREENWIDTH;
 	private int height = ConfigurationConstants.SCREENHEIGHT;
 	
-	private Screen previousScreen;
-	
 	public BitmapFont buttonFont;
 	public TextButtonStyle textButtonStyle;
 	public LabelStyle labelStyle;
@@ -66,18 +64,17 @@ public class DSM extends Game {
 	public void dispose() {
 		// Clean up 
 		buttonFont.dispose();
-		// sudo alt f4
+		gameFont.dispose();
+		batch.dispose();
+	}
+	
+	public void exit() {
 		if (Gdx.app.getType() != ApplicationType.Applet) {
 			Gdx.app.exit();
 		} else {
+			dispose();
 			Gdx.net.openURI("http://dsm-thegame.it.dh-karlsruhe.de/");
 		}
-	}
-	
-	@Override
-	public void setScreen(Screen screen) {
-		previousScreen = this.getScreen();
-		super.setScreen(screen);
 	}
 	
 	public int getHeight() {

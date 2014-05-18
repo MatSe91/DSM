@@ -158,8 +158,7 @@ public final class ExitGameScreen implements Screen {
 			
 		pause();
 		this.dispose();
-		
-		game.dispose();
+		game.exit();
 			
 	}
 }

@@ -28,14 +28,15 @@ public class GameScreen implements Screen {
 	public GameScreen(DSM game, Level level) {
 		this.game = game;
 		this.level = level;
-		this.gameStage = new GameStage();
 		this.guiStage = new GuiStage();
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		
+		gameStage = new GameStage(camera, level);
 		Gdx.input.setInputProcessor(gameStage);
 		
+		game.batch.setProjectionMatrix(camera.combined);
 	}
 	
 	@Override
@@ -46,9 +47,9 @@ public class GameScreen implements Screen {
 		
 		camera.update();
 		
-		game.batch.setProjectionMatrix(camera.combined);
 		
 		game.batch.begin();
+		drawFps();
 		game.batch.end();
 		
 		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
@@ -62,6 +63,10 @@ public class GameScreen implements Screen {
 	//	guiStage.act(Gdx.graphics.getDeltaTime());
 		// Draw GUI
 	//	guiStage.draw();
+	}
+
+	private void drawFps() {
+		game.gameFont.draw(game.batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, game.getHeight());
 	}
 
 	@Override
@@ -86,12 +91,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void pause() {
-
 	}
 
 	@Override
 	public void resume() {
-
 	}
 
 	@Override

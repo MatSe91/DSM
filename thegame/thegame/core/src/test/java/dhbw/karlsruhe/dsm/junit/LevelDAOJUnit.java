@@ -50,10 +50,12 @@ public class LevelDAOJUnit {
 		Level level = LevelDAO.getLevelFromFile(ConfigurationConstants.PATH_LEVEL_DIRECTORY + "/" + levelName);
 		assertEquals("", levelName, level.getName());
 		assertEquals("", index, level.getIndex());
+		assertEquals("", 150f, level.speed, .1f);
 	}
 
 	private void testSave() {
 		Level level = new Level(levelName, index);
+		level.speed = 150f;
 		LevelDAO.saveLevel(level);
 	}
 

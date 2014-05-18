@@ -56,6 +56,7 @@ public final class LevelDAO {
 
 	public static void saveLevel(Level level) {
 		Json json = new Json();
+		json.setSerializer(Level.class, new LevelSerializer());
 		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_LEVEL_DIRECTORY + "/" + level.getName());
 		handle.writeString(json.toJson(level), false);
 	}
