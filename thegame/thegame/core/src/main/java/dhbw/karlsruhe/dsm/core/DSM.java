@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
@@ -24,6 +25,9 @@ public class DSM extends Game {
 	public LabelStyle labelStyle;
 	public LabelStyle labelHeadingStyle;
 	
+	public SpriteBatch batch;
+	public BitmapFont gameFont;
+	
 	public ScreenHelper screenHelper;
 	
 	@Override
@@ -31,12 +35,15 @@ public class DSM extends Game {
 		screenHelper = new ScreenHelper(this);
 		
 		buttonFont = new BitmapFont();
+		gameFont = new BitmapFont();
 		
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = buttonFont;
 		
 		labelStyle = new LabelStyle();
 		labelStyle.font = buttonFont;
+		
+		batch = new SpriteBatch();
 	
 		// -> Main Menu
 		this.setScreen(new MainMenuScreen(this));

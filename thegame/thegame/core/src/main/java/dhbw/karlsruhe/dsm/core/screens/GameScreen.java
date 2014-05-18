@@ -2,8 +2,14 @@ package dhbw.karlsruhe.dsm.core.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.gameStages.GameStage;
 import dhbw.karlsruhe.dsm.core.gameStages.GuiStage;
@@ -16,31 +22,52 @@ public class GameScreen implements Screen {
 	protected final GuiStage guiStage;
 	protected final Level level;
 	
+	
+	protected OrthographicCamera camera;
+	
 	public GameScreen(DSM game, Level level) {
 		this.game = game;
 		this.level = level;
 		this.gameStage = new GameStage();
 		this.guiStage = new GuiStage();
+		
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
+		
 		Gdx.input.setInputProcessor(gameStage);
+		
 	}
 	
 	@Override
 	public void render(float delta) {
 		// Clear the screen
+		Gdx.gl.glClearColor(0, 0, .2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		camera.update();
+		
+		game.batch.setProjectionMatrix(camera.combined);
+		
+		game.batch.begin();
+		game.batch.end();
+		
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
+			returnToLevelSelectionScreen();
+		
 		// Execute game logic
 		gameStage.act(Gdx.graphics.getDeltaTime());
 		// Draw game
 		gameStage.draw();
 		// Execute GUI logic
-		guiStage.act(Gdx.graphics.getDeltaTime());
+	//	guiStage.act(Gdx.graphics.getDeltaTime());
 		// Draw GUI
-		guiStage.draw();
+	//	guiStage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		gameStage.setViewport(width, height, true);
+		camera.setToOrtho(false, width, height);
 	}
 	
 	public boolean needsGL20() {
@@ -70,6 +97,11 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 		gameStage.dispose();
+	}
+	
+	protected void returnToLevelSelectionScreen() {
+		game.setScreen(new GameLevelSelectionScreen(game));
+		this.dispose();
 	}
 
 }
