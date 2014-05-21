@@ -3,6 +3,7 @@ package dhbw.karlsruhe.dsm.helpers;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.security.Permission;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -100,4 +101,17 @@ public class TestHelper {
 		});
     	latch.await();
     }
+
+	public static void pressButton(int keyEvent) {
+		try {
+			Robot bot;
+			bot = new Robot();
+			bot.keyPress(keyEvent);
+			bot.keyRelease(keyEvent);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }
