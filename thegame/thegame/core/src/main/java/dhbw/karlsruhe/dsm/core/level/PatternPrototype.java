@@ -11,11 +11,10 @@ public class PatternPrototype {
 	private float[] vertices;
 	private short[] triangles;
 	
-	public Pattern createPattern() {
-
+	public Pattern createPattern(float worldPositionX, float worldPositionY) {
 		texture = new Texture("textures/solid_blue.png");
 		PolygonRegion polyRegion = new PolygonRegion(new TextureRegion(texture), vertices, triangles);
-		return new Pattern(polyRegion);
+		return new Pattern(polyRegion, worldPositionX, worldPositionY);
 	}
 	
 	private void setTriangles() {
