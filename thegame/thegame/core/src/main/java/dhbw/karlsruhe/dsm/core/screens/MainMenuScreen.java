@@ -156,7 +156,7 @@ public class MainMenuScreen implements Screen {
 		game.screenHelper.addSetScreenListener(showInstructionsButton, InstructionsScreen.class);
 		
 		creditButton 			= game.screenHelper.createTextButton(BUTTON_CREDITS_TEXT, BUTTON_CREDITS_MOUSEOVER_TEXT, menuText);
-		// game.screenHelper.addSetScreenListener(creditButton, LevelSelectionScreen.class);
+		game.screenHelper.addSetScreenListener(creditButton,CreditScreen.class);
 		
 		leaveGameButton 		= game.screenHelper.createTextButton(BUTTON_EXIT_TEXT, BUTTON_EXIT_MOUSEOVER_TEXT, menuText);
 		game.screenHelper.addSetScreenListener(leaveGameButton, ExitGameScreen.class);

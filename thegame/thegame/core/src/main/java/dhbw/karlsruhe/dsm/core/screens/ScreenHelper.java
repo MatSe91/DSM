@@ -245,6 +245,8 @@ public class ScreenHelper {
 			game.setScreen(new InstructionsScreen(game));
 		} else if(screen == ExitGameScreen.class) {
 			game.setScreen(new ExitGameScreen(game, previousScreen));
+		} else if(screen== CreditScreen.class){
+			game.setScreen(new CreditScreen(game));
 		}
 		previousScreen.dispose();
 	}
