@@ -55,10 +55,34 @@ public final class LevelDAO {
 	}
 
 	public static void saveLevel(Level level) {
+		loadTestPatterns(level);
 		Json json = new Json();
 		json.setSerializer(Level.class, new LevelSerializer());
 		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_LEVEL_DIRECTORY + "/" + level.getName());
 		handle.writeString(json.toJson(level), false);
 	}
 	
+	private static void loadTestPatterns(Level level) {
+
+		ArrayList<PatternPrototype> al = new ArrayList<PatternPrototype>();
+		PatternPrototype pp = new PatternPrototype();
+		
+		pp.setVertices(new float[] {
+				0, 0,
+				1, 0,
+				1, 1,
+				0, 1
+		});
+		al.add(pp);
+		
+		pp.setVertices(new float[] {
+				0, 0,
+				2, 0,
+				2, 2,
+				0, 2
+		});
+		al.add(pp);
+		
+		level.setAvailablePatterns(al);
+	}
 }

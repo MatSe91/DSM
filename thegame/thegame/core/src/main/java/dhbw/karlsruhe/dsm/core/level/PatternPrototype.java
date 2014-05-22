@@ -1,47 +1,50 @@
 package dhbw.karlsruhe.dsm.core.level;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 
 public class PatternPrototype {
 	
-	private Polygon pattern;
-	private int id;
+	private Texture texture;
+	private float[] vertices;
+	private short[] triangles;
 	
-	public PatternPrototype(int id) {
-		this.id = id;
-		
-		createTestPattern();
-		loadPattern();
-		
+	public Pattern createPattern() {
+		PolygonRegion polyRegion = new PolygonRegion(new TextureRegion(texture), vertices, triangles);
+		return new Pattern(polyRegion);
 	}
 	
-	private void loadPattern() {
-		Json json = new Json();
-		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_PATTERNS_DIRECTORY + "/Pattern " + id);
-		String jsonString = handle.readString();
-		this.pattern = json.fromJson(Polygon.class, jsonString);
-	}
-	
-	public void createTestPattern() {
-		saveTestPattern(new Polygon(new float[] {
-				-2,		-2,
-				-2,		2,
-				2,		2,
-				2,		-2				
-		}));
+	private void setTriangles() {
+		// for each vertice above the third => one more triangle
+		System.out.println(vertices.length);
+		int countTriangles = (vertices.length / 2) - 2;
+		this.triangles = new short[countTriangles * 3];
+		
+		// 0,1,2 | 0,2,3 | 0,3,4 | 0,4,5 ......
+		for(int triangle = 0; triangle < countTriangles; triangle++)
+		{
+			triangles[triangle * 3] 	= 0;
+			triangles[triangle * 3 + 1] = (short) (1 + 1 * triangle);
+			triangles[triangle * 3 + 2] = (short) (2 + 1 * triangle);
+		}
 	}
 
-	private static void saveTestPattern(Polygon pattern) {
-		Json json = new Json();
-		System.out.println(Gdx.files.getLocalStoragePath());
-		FileHandle handle = Gdx.files.local(ConfigurationConstants.PATH_PATTERNS_DIRECTORY + "/Pattern1");
-		String jsonString = json.toJson(pattern, Polygon.class);
-		handle.writeString(jsonString, false);
-		return;
+	public float[] getVertices() {
+		return vertices;
+	}
+
+	public void setVertices(float[] vertices) {
+		this.vertices = vertices;
+		setTriangles();
+	}
+	
+	public Texture getTexture() {
+		return texture;
+	}
+	
+	public void setTexture(Texture texture) {
+		this.texture = texture;
 	}
 }
