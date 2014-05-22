@@ -18,7 +18,6 @@ public class PatternPrototype {
 	
 	private void setTriangles() {
 		// for each vertice above the third => one more triangle
-		System.out.println(vertices.length);
 		int countTriangles = (vertices.length / 2) - 2;
 		this.triangles = new short[countTriangles * 3];
 		
