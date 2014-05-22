@@ -11,18 +11,18 @@ public class PatternPrototype {
 	private float[] vertices;
 	private short[] triangles;
 	
-	public Pattern createPattern() {
+	public Pattern createPattern(float worldPositionX, float worldPositionY) {
+		texture = new Texture("textures/solid_blue.png");
 		PolygonRegion polyRegion = new PolygonRegion(new TextureRegion(texture), vertices, triangles);
-		return new Pattern(polyRegion);
+		return new Pattern(polyRegion, worldPositionX, worldPositionY);
 	}
 	
 	private void setTriangles() {
 		// for each vertice above the third => one more triangle
-		System.out.println(vertices.length);
 		int countTriangles = (vertices.length / 2) - 2;
 		this.triangles = new short[countTriangles * 3];
 		
-		// 0,1,2 | 0,2,3 | 0,3,4 | 0,4,5 ......
+		// for triangulate (numbers of vertices): 0,1,2 | 0,2,3 | 0,3,4 | 0,4,5 ...
 		for(int triangle = 0; triangle < countTriangles; triangle++)
 		{
 			triangles[triangle * 3] 	= 0;
