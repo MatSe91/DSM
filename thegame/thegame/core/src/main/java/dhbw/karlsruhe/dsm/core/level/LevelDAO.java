@@ -69,17 +69,34 @@ public final class LevelDAO {
 		
 		pp.setVertices(new float[] {
 				0, 0,
-				1, 0,
-				1, 1,
-				0, 1
+				50, 0,
+				25, 25,
 		});
 		al.add(pp);
 		
+		pp = new PatternPrototype();
+		pp.setVertices(new float[] {
+				25, 0,
+				50, 25,
+				0, 25
+		});
+		al.add(pp);
+		
+		pp = new PatternPrototype();
 		pp.setVertices(new float[] {
 				0, 0,
-				2, 0,
-				2, 2,
-				0, 2
+				50, 0,
+				35, 25,
+				15, 25
+		});
+		al.add(pp);
+		
+		pp = new PatternPrototype();
+		pp.setVertices(new float[] {
+				0, 0,
+				25, 0,
+				25, 25,
+				0, 25
 		});
 		al.add(pp);
 		
