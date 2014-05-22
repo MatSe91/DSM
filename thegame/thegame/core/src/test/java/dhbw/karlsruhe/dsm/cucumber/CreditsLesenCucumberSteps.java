@@ -15,7 +15,7 @@ import dhbw.karlsruhe.dsm.helpers.TestHelper;
 public class CreditsLesenCucumberSteps {
 	private DSM dsm;
 
-	@Given("the main menu is loaded$")
+	@Given("the main menu is loaded -credits$")
 	public void mainMenuCompletelyLoaded() throws InterruptedException {
 		setUp();
 	}
@@ -33,20 +33,20 @@ public class CreditsLesenCucumberSteps {
 	}
 	
 	
-	@Given("the output is completely loaded$")
+	@Given("the output is completely loaded -credits$")
 	public void creditScreenLoaded() throws InterruptedException {
 		setUp();
 		clickOnBack();
 	}
 
-	@When("I click \"Back\"$")
+	@When("I click \"Back\" -credits$")
 	public void clickOnBack() {
 		int x = 765, y = 16;
 		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
 	}
 
-	@Then("I get back to the main menu$")
+	@Then("I get back to the main menu -credits$")
 	public void returnToMainMenuScreen() {
 		assertTrue(MainMenuScreen.class == dsm.getScreen().getClass());
 	}
