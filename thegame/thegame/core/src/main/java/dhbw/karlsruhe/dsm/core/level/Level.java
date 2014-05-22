@@ -38,25 +38,9 @@ public class Level {
 		texture.dispose();
 	}
 	
-	public Pattern getRandomPattern() {
+	public Pattern getRandomPattern(float worldPositionX, float worldPositionY) {
 		int index = (int) (Math.random() * availablePatterns.size());
-		// DEBUG
-		System.out.println(index);
-		return availablePatterns.get(index).createPattern();
-	}
-	
-	// only temporary
-	public PolygonSprite getRandomPolygonSprite(float worldPositionX, float worldPositionY) {
-		/*float[] vertices = new float[] {
-			0, 0,
-			50,0,
-			25,25
-		};
-		PolygonRegion polyRegion = new PolygonRegion(new TextureRegion(texture), vertices, new short[] {0,1,2});
-		//PolygonSprite poly = new PolygonSprite(polyRegion);*/
-		PolygonSprite poly = getRandomPattern();
-		poly.setPosition(worldPositionX, worldPositionY);
-		return poly;
+		return availablePatterns.get(index).createPattern(worldPositionX, worldPositionY);
 	}
 
 	public String getName() {

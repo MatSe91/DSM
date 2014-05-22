@@ -63,7 +63,7 @@ public class GameStage extends Stage {
 		float rightBoundX = 0;
 		
 		while(rightBoundX < screenCamera.viewportWidth*1.2) {
-			temp = currentLevel.getRandomPolygonSprite(rightBoundX, GROUND_HEIGHT_ZERO);
+			temp = currentLevel.getRandomPattern(rightBoundX, GROUND_HEIGHT_ZERO);
 			rightBoundX += temp.getBoundingRectangle().width;
 			shapes.add(temp);
 		}
@@ -102,7 +102,7 @@ public class GameStage extends Stage {
 			temp = shapes.poll();
 		}
 		while(totalRightBound < screenCamera.viewportWidth + 150) {
-			temp = currentLevel.getRandomPolygonSprite(totalRightBound, GROUND_HEIGHT_ZERO);
+			temp = currentLevel.getRandomPattern(totalRightBound, GROUND_HEIGHT_ZERO);
 			totalRightBound += temp.getBoundingRectangle().width;
 			shapes.add(temp);
 		}
