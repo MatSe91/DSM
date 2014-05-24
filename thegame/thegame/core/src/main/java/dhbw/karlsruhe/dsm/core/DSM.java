@@ -3,7 +3,6 @@ package dhbw.karlsruhe.dsm.core;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -19,12 +18,14 @@ public class DSM extends Game {
 	private int height = ConfigurationConstants.SCREENHEIGHT;
 	
 	public BitmapFont buttonFont;
+	public BitmapFont gameFont;
+	public BitmapFont headlineFont;
+	
 	public TextButtonStyle textButtonStyle;
 	public LabelStyle labelStyle;
 	public LabelStyle labelHeadingStyle;
 	
 	public SpriteBatch batch;
-	public BitmapFont gameFont;
 	
 	public ScreenHelper screenHelper;
 	
@@ -32,14 +33,18 @@ public class DSM extends Game {
 	public void create() {
 		screenHelper = new ScreenHelper(this);
 		
-		buttonFont = new BitmapFont();
-		gameFont = new BitmapFont();
+		buttonFont = new BitmapFont(Gdx.files.internal("fonts/electrolize-22.fnt"), Gdx.files.internal("fonts/electrolize-22.png"), false);
+		gameFont = new BitmapFont(Gdx.files.internal("fonts/electrolize-16.fnt"), Gdx.files.internal("fonts/electrolize-16.png"), false);
+		headlineFont = new BitmapFont(Gdx.files.internal("fonts/electrolize-32.fnt"), Gdx.files.internal("fonts/electrolize-32.png"), false);
 		
 		textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = buttonFont;
 		
 		labelStyle = new LabelStyle();
 		labelStyle.font = buttonFont;
+		
+		labelHeadingStyle = new LabelStyle();
+		labelHeadingStyle.font = headlineFont;
 		
 		batch = new SpriteBatch();
 	

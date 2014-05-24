@@ -41,6 +41,7 @@ public class ScreenHelper {
 	 */
 	public Label createHeadline(String text) {
 		Label l = createLabel(text, HEADLINE_POSITION_X, game.getHeight() + HEADLINE_POSITION_Y, HEADLINE_HEIGHT, HEADLINE_ALIGNMENT);
+		l.setStyle(game.labelHeadingStyle);
 		l.setWidth(game.getWidth());
 		return l;
 	}

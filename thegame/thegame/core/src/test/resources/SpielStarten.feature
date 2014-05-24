@@ -9,7 +9,7 @@ Then the game starts this level
 Scenario: Return to level selection
 Given the game is running
 When I press "ESC" 
-Then the (start game) level selection screen will be shown to me
+Then the start game level selection screen will be shown to me
 
 Scenario: Return to main menu
 Given the level selection screen is loaded

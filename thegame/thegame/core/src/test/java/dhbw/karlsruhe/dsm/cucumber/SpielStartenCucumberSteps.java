@@ -50,7 +50,7 @@ public class SpielStartenCucumberSteps {
 		assertTrue(GameScreen.class == dsm.getScreen().getClass());
 	}
 	
-	@Then("the (start game) level selection screen will be shown to me$")
+	@Then("the start game level selection screen will be shown to me$")
 	public void thenShowLevelSelectionScreen() {
 		assertTrue(GameLevelSelectionScreen.class == dsm.getScreen().getClass());
 	}
@@ -69,8 +69,10 @@ public class SpielStartenCucumberSteps {
 	
 	@When("I press \"ESC\"$") 
 	public void whenPressEsc() {
+		int x = 128, y = 298;
+		TestHelper.clickOnLocation(x, y);
 		TestHelper.pressButton(KeyEvent.VK_ESCAPE);
-		TestHelper.wait(200);
+		TestHelper.wait(400);
 	}
 	
 	

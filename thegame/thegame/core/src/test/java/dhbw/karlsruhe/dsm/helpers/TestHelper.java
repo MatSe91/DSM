@@ -107,6 +107,7 @@ public class TestHelper {
 			Robot bot;
 			bot = new Robot();
 			bot.keyPress(keyEvent);
+			wait(50);
 			bot.keyRelease(keyEvent);
 		} catch (AWTException e) {
 			// TODO Auto-generated catch block

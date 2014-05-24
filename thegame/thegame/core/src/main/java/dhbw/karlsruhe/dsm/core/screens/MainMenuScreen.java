@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
@@ -22,7 +23,7 @@ public class MainMenuScreen implements Screen {
 	private static final String BUTTON_EXIT_TEXT = "Exit";
 	// Button Mouse-Over Event Strings
 	private static final String BUTTON_START_GAME_MOUSEOVER_TEXT = "Let's get it on!";
-	private static final String BUTTON_SHOW_HIGHSCORE_MOUSEOVER_TEXT = "Get to know who the fuck pwnd you, and who got pwnd by you";
+	private static final String BUTTON_SHOW_HIGHSCORE_MOUSEOVER_TEXT = "Get to know who the fuck pwnd you, \nand who got pwnd by you";
 	private static final String BUTTON_SHOW_INSTRUCTIONS_MOUSEOVER_TEXT = "Learn2Play!";
 	private static final String BUTTON_CREDITS_MOUSEOVER_TEXT = "Click here to see who made this game.\nOtherwise you can't blame us.";
 	private static final String BUTTON_EXIT_MOUSEOVER_TEXT = "If you really want to quit playing, just click it :'(";
@@ -138,7 +139,7 @@ public class MainMenuScreen implements Screen {
 	}
 	
 	private void addButtonToTable(TextButton button) {
-		table.add(button).height(ROW_HEIGHT).fillX(); 
+		table.add(button).height(ROW_HEIGHT).align(Align.left); 
 		table.row();
 	}
 	
@@ -177,7 +178,7 @@ public class MainMenuScreen implements Screen {
 		// note: ScreenHelper cannot be used for menuText, because it's to specific.
 		menuText = new Label("", game.labelStyle);
 		menuText.setHeight(50);
-		menuText.setPosition(210, stage.getHeight() / 2 - menuText.getHeight() / 2);
+		menuText.setPosition(275, stage.getHeight() / 2 - menuText.getHeight() / 2);
 		menuText.setZIndex(10);
 		
 		headline = game.screenHelper.createHeadline("DSM - MAIN MENU");
