@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.actions.ChangeScreenInputListener;
+import dhbw.karlsruhe.dsm.core.screenCommands.MenuScreenChangeCommand;
 
 public final class ExitGameScreen implements Screen {
 	// Button Label Strings
@@ -128,7 +130,7 @@ public final class ExitGameScreen implements Screen {
 	private void initButtons() {
 		exitGameButton		= game.screenHelper.createTextButton(BUTTON_EXIT_GAME_TEXT, BUTTON_EXIT_GAME_MOUSEOVER_TEXT, menuText);
 		cancelExitButton	= game.screenHelper.createTextButton(BUTTON_CANCEL_EXIT_TEXT, BUTTON_CANCEL_EXIT_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(cancelExitButton, previous);
+		cancelExitButton.addListener(new ChangeScreenInputListener(new MenuScreenChangeCommand()));
 		// Event Listeners 
 		// TODO: clean up this giant piece of shitty code.
 		

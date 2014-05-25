@@ -251,20 +251,6 @@ public class ScreenHelper {
 		}
 		previousScreen.dispose();
 	}
-	
-	/**
-	 * Adds an onClick Listener to the given actor. On clicking the button, the games screen will be changed to a new instance of screen.<br>
-	 * <b>The current screen instance is disposed!</b>
-	 * @param actor
-	 * @param targetScreen
-	 */
-	public void addSetScreenListener(Actor actor, final Class targetScreen) {
-		actor.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				setScreen(targetScreen);
-				return false;
-			}
-		});
-	}
+
 
 }

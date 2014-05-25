@@ -4,7 +4,6 @@ package dhbw.karlsruhe.dsm.core.screens;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,6 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.actions.ChangeScreenInputListener;
+import dhbw.karlsruhe.dsm.core.screenCommands.CreditScreenChangeCommand;
+import dhbw.karlsruhe.dsm.core.screenCommands.ExitScreenChangeCommand;
+import dhbw.karlsruhe.dsm.core.screenCommands.GameLevelSelectionScreenChangeCommand;
+import dhbw.karlsruhe.dsm.core.screenCommands.HighscoreLevelSelectionScreenChangeCommand;
+import dhbw.karlsruhe.dsm.core.screenCommands.InstructionsScreenChangeCommand;
 
 public class MainMenuScreen implements Screen {
 	// Button Label Strings
@@ -147,19 +152,19 @@ public class MainMenuScreen implements Screen {
 	 */
 	private void initButtons() {
 		startGameButton 		= game.screenHelper.createTextButton(BUTTON_START_GAME_TEXT, BUTTON_START_GAME_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(startGameButton, GameLevelSelectionScreen.class);
+		startGameButton.addListener(new ChangeScreenInputListener(new GameLevelSelectionScreenChangeCommand()));
 		
 		showHighscoreButton 	= game.screenHelper.createTextButton(BUTTON_SHOW_HIGHSCORE_TEXT, BUTTON_SHOW_HIGHSCORE_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(showHighscoreButton, HighScoreLevelSelectionScreen.class);
+		showHighscoreButton.addListener(new ChangeScreenInputListener(new HighscoreLevelSelectionScreenChangeCommand()));
 		
 		showInstructionsButton 	= game.screenHelper.createTextButton(BUTTON_SHOW_INSTRUCTIONS_TEXT, BUTTON_SHOW_INSTRUCTIONS_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(showInstructionsButton, InstructionsScreen.class);
+		showInstructionsButton.addListener(new ChangeScreenInputListener(new InstructionsScreenChangeCommand()));
 		
 		creditButton 			= game.screenHelper.createTextButton(BUTTON_CREDITS_TEXT, BUTTON_CREDITS_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(creditButton,CreditScreen.class);
+		creditButton.addListener(new ChangeScreenInputListener(new CreditScreenChangeCommand()));
 		
 		leaveGameButton 		= game.screenHelper.createTextButton(BUTTON_EXIT_TEXT, BUTTON_EXIT_MOUSEOVER_TEXT, menuText);
-		game.screenHelper.addSetScreenListener(leaveGameButton, ExitGameScreen.class);
+		leaveGameButton.addListener(new ChangeScreenInputListener(new ExitScreenChangeCommand()));
 		
 				
 		// TODO: Fix Layout for Web
