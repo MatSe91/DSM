@@ -25,6 +25,10 @@ public class PatternPrototype implements Json.Serializable{
 		polyRegion = new PolygonRegion(region, vertices, triangles);
 	}
 	
+	public void dispose() {
+		texture.dispose();
+	}
+	
 	public Pattern createPattern(float worldPositionX, float worldPositionY) {
 		return new Pattern(polyRegion, worldPositionX, worldPositionY);
 	}

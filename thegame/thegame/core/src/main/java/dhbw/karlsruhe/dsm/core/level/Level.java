@@ -3,8 +3,6 @@ package dhbw.karlsruhe.dsm.core.level;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.Texture;
-
 public class Level {
 	
 	private String name;
@@ -13,7 +11,6 @@ public class Level {
 	public float speed;
 	
 	private List<PatternPrototype> availablePatterns;
-	private Texture texture;
 	
 	public Level() {
 		// this constructor is required for JSON object serialization
@@ -28,11 +25,14 @@ public class Level {
 	}
 	
 	public void load() {
-		texture = new Texture("textures/solid_blue.png");
+		// stub
 	}
 	
 	public void dispose() {
-		texture.dispose();
+		for (PatternPrototype patternPrototype : availablePatterns) {
+			patternPrototype.dispose();
+		}
+		
 	}
 	
 	public Pattern getRandomPattern(float worldPositionX, float worldPositionY) {

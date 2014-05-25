@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		
 		gameStage = new GameStage(camera, level);
-		Gdx.input.setInputProcessor(gameStage);
+	//	Gdx.input.setInputProcessor(gameStage);
 		
 		game.batch.setProjectionMatrix(camera.combined);
 	}
@@ -47,13 +47,9 @@ public class GameScreen implements Screen {
 		
 		camera.update();
 		
-		
 		game.batch.begin();
 		drawFps();
 		game.batch.end();
-		
-		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
-			returnToLevelSelectionScreen();
 		
 		// Execute game logic
 		gameStage.act(Gdx.graphics.getDeltaTime());
@@ -63,7 +59,12 @@ public class GameScreen implements Screen {
 	//	guiStage.act(Gdx.graphics.getDeltaTime());
 		// Draw GUI
 	//	guiStage.draw();
+		
+		
+		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
+			returnToLevelSelectionScreen();
 	}
+	
 
 	private void drawFps() {
 		game.gameFont.draw(game.batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, game.getHeight());
