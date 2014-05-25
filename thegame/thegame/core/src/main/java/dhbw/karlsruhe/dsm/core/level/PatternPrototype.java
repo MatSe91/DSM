@@ -3,25 +3,36 @@ package dhbw.karlsruhe.dsm.core.level;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 
-public class PatternPrototype {
+public class PatternPrototype implements Json.Serializable{
 	
-	private Texture texture;
 	private float[] vertices;
 	private short[] triangles;
 	
+	private Texture texture = new Texture("textures/solid_blue.png");
+	private TextureRegion region;
+	private PolygonRegion polyRegion;
+	
+	public PatternPrototype() {
+	}
+	
+	public void init() {
+		generateTriangles();
+		region = new TextureRegion(texture);
+		polyRegion = new PolygonRegion(region, vertices, triangles);
+	}
+	
 	public Pattern createPattern(float worldPositionX, float worldPositionY) {
-		texture = new Texture("textures/solid_blue.png");
-		PolygonRegion polyRegion = new PolygonRegion(new TextureRegion(texture), vertices, triangles);
 		return new Pattern(polyRegion, worldPositionX, worldPositionY);
 	}
 	
-	private void setTriangles() {
+	private void generateTriangles() {
 		// for each vertice above the third => one more triangle
 		int countTriangles = (vertices.length / 2) - 2;
 		this.triangles = new short[countTriangles * 3];
-		
 		// for triangulate (numbers of vertices): 0,1,2 | 0,2,3 | 0,3,4 | 0,4,5 ...
 		for(int triangle = 0; triangle < countTriangles; triangle++)
 		{
@@ -37,7 +48,6 @@ public class PatternPrototype {
 
 	public void setVertices(float[] vertices) {
 		this.vertices = vertices;
-		setTriangles();
 	}
 	
 	public Texture getTexture() {
@@ -46,5 +56,16 @@ public class PatternPrototype {
 	
 	public void setTexture(Texture texture) {
 		this.texture = texture;
+	}
+
+	@Override
+	public void write(Json json) {
+		json.writeValue("vertices", vertices);
+	}
+
+	@Override
+	public void read(Json json, JsonValue jsonData) {
+		setVertices(json.readValue("vertices", float[].class, jsonData));
+		init();
 	}
 }
