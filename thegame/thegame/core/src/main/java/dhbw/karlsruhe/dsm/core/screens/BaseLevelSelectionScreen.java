@@ -113,7 +113,6 @@ public abstract class BaseLevelSelectionScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// Clear the screen
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 

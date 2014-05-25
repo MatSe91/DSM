@@ -15,5 +15,8 @@ public final class ConfigurationConstants {
 	
 	public static final String PATH_LEVEL_DIRECTORY = "data/levels";
 	public static final String PATH_SCORE_DIRECTORY = "data/scores";
-	public static final String PATH_FONT_DIRECTORY = "fonts";
+	public static final String FONT_NAME = "fonts/electrolize-";
+	public static final String FONT_NAME_SUFFIX = ".fnt";
+	
+	public static final String BACKGROUND_TEXTURE_NAME = "textures/background_tile.png";
 }

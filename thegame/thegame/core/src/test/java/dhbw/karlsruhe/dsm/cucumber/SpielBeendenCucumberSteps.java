@@ -73,7 +73,7 @@ public class SpielBeendenCucumberSteps {
 		// Wait until everything is set up (openGL Context and native resources)
 		// load exit game Screen
 		TestHelper.setToMainMenuScreen();
-		int x = 100, y = 200;
+		int x = 75, y = 200;
 		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(200);
 	}

@@ -69,7 +69,6 @@ public final class ExitGameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// Clear the screen
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		
@@ -116,6 +115,7 @@ public final class ExitGameScreen implements Screen {
 	 */
 	private void initTable() {
 		table = game.screenHelper.createTable();
+		table.padLeft(0);
 
 		table.add(cancelExitButton).expandX();
 		table.add(exitGameButton).expandX(); 
