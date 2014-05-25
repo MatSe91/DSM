@@ -85,6 +85,8 @@ public class DSM extends Game {
 		// Clean up 
 		buttonFont.dispose();
 		gameFont.dispose();
+		headlineFont.dispose();
+		background.dispose();
 		batch.dispose();
 	}
 	
