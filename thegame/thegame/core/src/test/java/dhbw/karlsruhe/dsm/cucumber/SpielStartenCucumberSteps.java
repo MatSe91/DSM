@@ -12,7 +12,6 @@ import cucumber.api.java.en.When;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.GameLevelSelectionScreen;
 import dhbw.karlsruhe.dsm.core.screens.GameScreen;
-import dhbw.karlsruhe.dsm.core.screens.HighScoreLevelSelectionScreen;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
 

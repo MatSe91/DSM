@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
-import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
+import dhbw.karlsruhe.dsm.core.screenCommands.MenuScreenChangeCommand;
 import dhbw.karlsruhe.dsm.core.screens.ScreenHelper;
 
 public class ScreenHelperJUnit {
@@ -138,13 +138,13 @@ public class ScreenHelperJUnit {
 
 	@Test
 	public void testCreateReturnButton() {
-		TextButton testButton = screenHelper.createReturnButton(MainMenuScreen.class);
+		TextButton testButton = screenHelper.createReturnButton(new MenuScreenChangeCommand());
 		verfiyReturnButtonValues(testButton);
 	}
 
 	@Test
 	public void testUpdateReturnButtonAfterResize() {
-		TextButton testButton = screenHelper.createReturnButton(MainMenuScreen.class);
+		TextButton testButton = screenHelper.createReturnButton(new MenuScreenChangeCommand());
 		testButton.setX(x);
 		testButton.setY(y);
 		screenHelper.updateReturnButtonAfterResize(testButton);

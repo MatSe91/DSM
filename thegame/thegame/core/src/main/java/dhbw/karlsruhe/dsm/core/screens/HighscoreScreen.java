@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,6 +14,7 @@ import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.Score;
 import dhbw.karlsruhe.dsm.core.level.ScoreDAO;
+import dhbw.karlsruhe.dsm.core.screenCommands.HighscoreLevelSelectionScreenChangeCommand;
 
 public class HighscoreScreen implements Screen {
 
@@ -59,7 +59,7 @@ public class HighscoreScreen implements Screen {
 	private void initActors() {
 		headline = game.screenHelper.createHeadline(HEADLINE_TEXT + level.getName());
 		table = game.screenHelper.createTable();
-		returnButton = game.screenHelper.createReturnButton(HighScoreLevelSelectionScreen.class);
+		returnButton = game.screenHelper.createReturnButton(new HighscoreLevelSelectionScreenChangeCommand());
 		
 		fillTable();
 	}

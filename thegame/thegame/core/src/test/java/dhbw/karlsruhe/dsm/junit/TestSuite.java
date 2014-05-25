@@ -23,7 +23,6 @@ public class TestSuite {
 
 	private static LwjglApplication app;
 
-	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		app = new LwjglApplication(new DSM(), TestHelper.createTestConfig());

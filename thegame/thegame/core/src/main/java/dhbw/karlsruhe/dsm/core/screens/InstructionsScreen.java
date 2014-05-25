@@ -5,7 +5,6 @@ package dhbw.karlsruhe.dsm.core.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.screenCommands.MenuScreenChangeCommand;
 
 public class InstructionsScreen implements Screen {
 
@@ -83,7 +83,7 @@ public class InstructionsScreen implements Screen {
 	}
 	
 	private void initButton() {
-		backButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
+		backButton = game.screenHelper.createReturnButton(new MenuScreenChangeCommand());
 	}
 	
 

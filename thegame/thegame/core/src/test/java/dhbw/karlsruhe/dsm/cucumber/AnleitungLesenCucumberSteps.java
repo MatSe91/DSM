@@ -1,12 +1,12 @@
 package dhbw.karlsruhe.dsm.cucumber;
 
+import static org.junit.Assert.assertTrue;
+
 import com.badlogic.gdx.Gdx;
 
-import static org.junit.Assert.assertTrue;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.InstructionsScreen;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;

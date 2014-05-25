@@ -5,17 +5,16 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.actions.ChangeScreenInputListener;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.LevelDAO;
+import dhbw.karlsruhe.dsm.core.screenCommands.MenuScreenChangeCommand;
 
 public abstract class BaseLevelSelectionScreen implements Screen {
 
@@ -82,7 +81,7 @@ public abstract class BaseLevelSelectionScreen implements Screen {
 
 	protected void createButtons() {
 		createLevelButtons();
-		returnButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
+		returnButton = game.screenHelper.createReturnButton(new MenuScreenChangeCommand());
 	}
 
 	protected void createLevelButtons() {
@@ -97,18 +96,12 @@ public abstract class BaseLevelSelectionScreen implements Screen {
 
 	protected TextButton createLevelButton(final Level level) {
 		TextButton newButton = game.screenHelper.createTextButton(level.getName(), BUTTON_WIDTH);
+		newButton.addListener(createChangeScreenListener(level));
 
-		newButton.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				showNextScreen(level);
-				return false;
-			}
-		});
-		
 		return newButton;
 	}
 
-	protected abstract void showNextScreen(Level level);
+	protected abstract ChangeScreenInputListener createChangeScreenListener(Level level);
 
 	@Override
 	public void render(float delta) {

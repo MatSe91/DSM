@@ -3,7 +3,6 @@ package dhbw.karlsruhe.dsm.core.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
 //import com.badlogic.gdx.scenes.scene2d.InputEvent;
 //import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.screenCommands.MenuScreenChangeCommand;
 
 public final class CreditScreen implements Screen {
 	// Button Label Strings
@@ -180,7 +180,7 @@ public final class CreditScreen implements Screen {
 	 * Initializes all the buttons, including their InputListeners
 	 */
 	private void initButtons() {
-		backButton = game.screenHelper.createReturnButton(MainMenuScreen.class);
+		backButton = game.screenHelper.createReturnButton(new MenuScreenChangeCommand());
 		
 		
 	}

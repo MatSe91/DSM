@@ -1,6 +1,5 @@
 package dhbw.karlsruhe.dsm.core.screens;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.actions.ChangeScreenInputListener;
+import dhbw.karlsruhe.dsm.core.screenCommands.ScreenChangeCommand;
 
 
 public class ScreenHelper {
@@ -156,39 +157,14 @@ public class ScreenHelper {
 	 * @param Screen to return to
 	 * @return TextButton Return Button
 	 */
-	public TextButton createReturnButton(final Class screen) {
+	public TextButton createReturnButton(final ScreenChangeCommand screenChangeCommand) {
 		TextButton tB = createTextButton(RETURN_BUTTON_TEXT, game.getWidth() - RETURN_BUTTON_POSITION_DELTA_X, RETURN_BUTTON_POSITION_Y, RETURN_BUTTON_WIDTH);
-		
-		tB.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				setScreen(screen);
-				return false;
-			}
-		});
+		tB.addListener(new ChangeScreenInputListener(screenChangeCommand));
 		
 		return tB;
 	}
 	
-	/**
-	 * Creates a new Return Button with the default values.<br> 
-	 * This button is for Screens with a stored previous screen
-	 * @param previousScreen to return to
-	 * @return TextButton Return Button
-	 */
-	public TextButton createReturnToPreviousButton(final Screen previousScreen) {
-		final Screen currentScreen = game.getScreen();
-		TextButton tB = createTextButton(RETURN_BUTTON_TEXT, game.getWidth() - RETURN_BUTTON_POSITION_DELTA_X, RETURN_BUTTON_POSITION_Y, RETURN_BUTTON_WIDTH);
-		
-		tB.addListener(new InputListener() {
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				game.setScreen(previousScreen);
-				currentScreen.dispose();
-				return false;
-			}
-		});
-		
-		return tB;
-	}
+
 	
 	/**
 	 * Updates the Return Button's position accordingly.
@@ -229,28 +205,4 @@ public class ScreenHelper {
 		table.setSize(game.getWidth(), game.getHeight());
 	}
 	
-	/**
-	 * Sets the game's screen to a new instance of screen.<br>
-	 * <b>The current screen instance is disposed!</b>
-	 * @param screen to set the game to
-	 */
-	public void setScreen(Class screen) {
-		Screen previousScreen = game.getScreen();
-		if(screen == MainMenuScreen.class) {
-			game.setScreen(new MainMenuScreen(game));
-		} else if(screen == GameLevelSelectionScreen.class) {
-			game.setScreen(new GameLevelSelectionScreen(game));
-		} else if(screen == HighScoreLevelSelectionScreen.class) {
-			game.setScreen(new HighScoreLevelSelectionScreen(game));
-		} else if(screen == InstructionsScreen.class) {
-			game.setScreen(new InstructionsScreen(game));
-		} else if(screen == ExitGameScreen.class) {
-			game.setScreen(new ExitGameScreen(game, previousScreen));
-		} else if(screen== CreditScreen.class){
-			game.setScreen(new CreditScreen(game));
-		}
-		previousScreen.dispose();
-	}
-
-
 }
