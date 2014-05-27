@@ -3,6 +3,7 @@ package dhbw.karlsruhe.dsm.core.gameStages;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
+import dhbw.karlsruhe.dsm.core.screenCommands.GamePauseScreenCommand;
 
 /**
  * This Stage is responsible for:<br>
@@ -80,6 +82,21 @@ public class GameStage extends Stage {
 				shape.draw(polyBatch);
 		}
 		polyBatch.end();
+		
+	}
+	
+	@Override
+	public boolean keyDown(int keycode)
+	{
+		switch (keycode) 
+		{
+		case Input.Keys.P:
+		case Input.Keys.ESCAPE:
+			pause();
+			break;
+		}
+		
+		return false;
 	}
 	
 	/* (non-Javadoc)
@@ -113,5 +130,18 @@ public class GameStage extends Stage {
 		currentLevel.dispose();
 		polyBatch.dispose();
 		super.dispose();
+	}
+	
+	public void pause() {
+		if(speed > 0f) 
+		{
+			GamePauseScreenCommand gamePauseScreenCommand = new GamePauseScreenCommand();
+			gamePauseScreenCommand.execute();
+			speed = 0f;
+		}
+		else
+		{
+			speed = 500;
+		}
 	}
 }
