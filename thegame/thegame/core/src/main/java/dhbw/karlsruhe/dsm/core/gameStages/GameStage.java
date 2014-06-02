@@ -4,6 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
-import dhbw.karlsruhe.dsm.core.screenCommands.GamePauseScreenCommand;
+import dhbw.karlsruhe.dsm.core.screenCommands.OpenPauseScreenCommand;
 
 /**
  * This Stage is responsible for:<br>
@@ -28,6 +29,7 @@ public class GameStage extends Stage {
 	private static final int MAX_PATTERNS = 1000;
 	protected Level currentLevel;
 	protected DSM game;
+	protected Screen parent;
 	protected OrthographicCamera screenCamera;
 	
 	protected ArrayBlockingQueue<PolygonSprite> shapes;
@@ -39,10 +41,11 @@ public class GameStage extends Stage {
 	private float totalRightBound;
 	private PolygonSprite temp;
 	
-	public GameStage(OrthographicCamera camera, Level currentLevel) {
+	public GameStage(OrthographicCamera camera, Level currentLevel, Screen parent) {
 		super();
 		screenCamera = camera;
 		game = (DSM) Gdx.app.getApplicationListener();
+		this.parent = parent;
 		
 		polyBatch = new PolygonSpriteBatch();
 		polyBatch.setProjectionMatrix(screenCamera.combined);
@@ -133,15 +136,7 @@ public class GameStage extends Stage {
 	}
 	
 	public void pause() {
-		if(speed > 0f) 
-		{
-			GamePauseScreenCommand gamePauseScreenCommand = new GamePauseScreenCommand();
-			gamePauseScreenCommand.execute();
-			speed = 0f;
-		}
-		else
-		{
-			speed = 500;
-		}
+		OpenPauseScreenCommand gamePauseScreenCommand = new OpenPauseScreenCommand(game, parent);
+		gamePauseScreenCommand.execute();
 	}
 }
