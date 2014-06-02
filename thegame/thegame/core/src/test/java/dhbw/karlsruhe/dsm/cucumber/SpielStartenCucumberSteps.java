@@ -11,6 +11,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.GameLevelSelectionScreen;
+import dhbw.karlsruhe.dsm.core.screens.GamePauseScreen;
 import dhbw.karlsruhe.dsm.core.screens.GameScreen;
 import dhbw.karlsruhe.dsm.core.screens.MainMenuScreen;
 import dhbw.karlsruhe.dsm.helpers.TestHelper;
@@ -66,6 +67,12 @@ public class SpielStartenCucumberSteps {
 		whenClickOnSpecificLevel();
 	}
 	
+	@Given("the game is pausing$")
+	public void givenGameIsPausing() throws InterruptedException {
+		givenGameIsRunning();
+		whenPressEsc();
+	}
+	
 	@When("I press \"ESC\"$") 
 	public void whenPressEsc() {
 		int x = 128, y = 298;
@@ -73,8 +80,26 @@ public class SpielStartenCucumberSteps {
 		TestHelper.pressButton(KeyEvent.VK_ESCAPE);
 		TestHelper.wait(400);
 	}
+
+	@When("I press \"P\"$") 
+	public void whenPressP() {
+		int x = 128, y = 298;
+		TestHelper.clickOnLocation(x, y);
+		TestHelper.pressButton(KeyEvent.VK_P);
+		TestHelper.wait(400);
+	}
 	
+	@Then("the game pauses$")
+	public void thenTheGamePauses() {
+		assertTrue(GamePauseScreen.class == dsm.getScreen().getClass());
+	}
 	
+	@When("I click on \"Close Game\"$") 
+	public void whenClickOnCloseGame() {
+		int x = 100, y = 300;
+		TestHelper.clickOnLocation(x, y);
+		TestHelper.wait(400);
+	}
 	
 	private void setUp() throws InterruptedException {
 		// create Application

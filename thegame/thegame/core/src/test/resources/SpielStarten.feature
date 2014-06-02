@@ -6,9 +6,21 @@ When I click on "Start game"
 And select a level of my choice, by clicking on it
 Then the game starts this level
 
-Scenario: Return to level selection
+Scenario: Pause the game
 Given the game is running
-When I press "ESC" 
+When I press "ESC"
+Then the game pauses
+And the pause screen will be shown to me
+
+Scenario: Pause the game
+Given the game is running
+When I press "P"
+Then the game pauses
+And the pause screen will be shown to me
+
+Scenario: Return to level selection
+Given the game is pausing
+When I click on "Close Game"
 Then the start game level selection screen will be shown to me
 
 Scenario: Return to main menu
