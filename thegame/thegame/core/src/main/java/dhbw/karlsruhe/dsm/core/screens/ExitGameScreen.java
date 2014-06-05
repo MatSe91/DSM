@@ -25,7 +25,6 @@ public final class ExitGameScreen implements Screen {
 	
 	private Stage stage;
 	private DSM game;
-	private final Class previous;
 	
 	// Buttons
 	private TextButton exitGameButton;
@@ -36,9 +35,8 @@ public final class ExitGameScreen implements Screen {
 	// Tables
 	private Table table;
 	
-	public ExitGameScreen(DSM game, Screen previous) {
+	public ExitGameScreen(DSM game) {
 		this.game = game;
-		this.previous = previous.getClass();
 		this.stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		

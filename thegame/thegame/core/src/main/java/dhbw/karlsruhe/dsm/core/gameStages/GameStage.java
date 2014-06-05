@@ -4,7 +4,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
@@ -30,7 +29,6 @@ public class GameStage extends Stage {
 	private static final int MAX_PATTERNS = 1000;
 	protected Level currentLevel;
 	protected DSM game;
-	protected Screen parent;
 	protected OrthographicCamera screenCamera;
 	protected Player player;
 	
@@ -44,11 +42,10 @@ public class GameStage extends Stage {
 	private float totalRightBound;
 	private PolygonSprite temp;
 	
-	public GameStage(OrthographicCamera camera, Level currentLevel, Screen parent, Player player) {
+	public GameStage(OrthographicCamera camera, Level currentLevel, Player player) {
 		super();
 		screenCamera = camera;
 		game = (DSM) Gdx.app.getApplicationListener();
-		this.parent = parent;
 		this.player = player;
 		polyBatch = new PolygonSpriteBatch();
 		polyBatch.setProjectionMatrix(screenCamera.combined);
@@ -152,7 +149,7 @@ public class GameStage extends Stage {
 	}
 	
 	public void pause() {
-		OpenPauseScreenCommand gamePauseScreenCommand = new OpenPauseScreenCommand(game, parent);
+		OpenPauseScreenCommand gamePauseScreenCommand = new OpenPauseScreenCommand(game);
 		gamePauseScreenCommand.execute();
 	}
 }

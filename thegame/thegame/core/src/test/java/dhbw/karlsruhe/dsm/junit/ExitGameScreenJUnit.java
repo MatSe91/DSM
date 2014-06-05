@@ -69,14 +69,13 @@ public class ExitGameScreenJUnit {
 	}
 	
 	private void setExitScreen(DSM game) throws InterruptedException {
-		final Screen previous = dsm.getScreen();
 		
 		final CountDownLatch latch = new CountDownLatch(1);
 		Gdx.app.postRunnable(new Runnable() {
 			
 			@Override
 			public void run() {
-				dsm.setScreen(new ExitGameScreen(dsm, previous));
+				dsm.setScreen(new ExitGameScreen(dsm));
 				latch.countDown();
 			}
 		});

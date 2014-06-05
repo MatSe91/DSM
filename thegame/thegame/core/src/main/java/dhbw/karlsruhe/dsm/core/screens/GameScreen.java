@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		
-		gameStage = new GameStage(camera, level, this, player);
+		gameStage = new GameStage(camera, level, player);
 	//	Gdx.input.setInputProcessor(gameStage);
 		
 		game.batch.setProjectionMatrix(camera.combined);

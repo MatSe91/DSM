@@ -18,7 +18,7 @@ public class MenuExitAction extends MenuBaseAction {
 	public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 		//Methode wird in exitGame verlagert
 //		showExitScreen();
-		game.setScreen(new ExitGameScreen(game, game.getScreen()));
+		game.setScreen(new ExitGameScreen(game));
 		return false;
 	}
 	
