@@ -1,16 +1,21 @@
 package dhbw.karlsruhe.dsm.core.screenCommands;
 
+import com.badlogic.gdx.Screen;
+
 import dhbw.karlsruhe.dsm.core.DSM;
 
 public class ClosePauseScreenCommand extends ScreenChangeCommand {
 	
-	public ClosePauseScreenCommand(DSM game) {
+	private Screen next;
+	
+	public ClosePauseScreenCommand(DSM game, Screen next) {
 		super();
+		this.next = next;
 	}
 	
 	@Override
 	public void execute() {
-		baseExecute(game.getScreen());
+		baseExecute(next);
 	}
 
 }

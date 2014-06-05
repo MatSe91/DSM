@@ -11,7 +11,7 @@ public class OpenPauseScreenCommand extends OpenScreenCommand {
 	
 	@Override
 	public void execute() {
-		baseExecute(new GamePauseScreen(game));
+		baseExecute(new GamePauseScreen(game, game.getScreen()));
 	}
 
 }

@@ -17,6 +17,7 @@ public class GamePauseScreen implements Screen {
 	private static final String CLOSE_GAME_TEXT = "Close Game";
 
 	private DSM game;
+	private Screen gameScreen;
 	private Stage stage;
 
 	private TextButton backButton;
@@ -24,9 +25,10 @@ public class GamePauseScreen implements Screen {
 	private TextButton closeGame;
 	private Label headline;
 	
-	public GamePauseScreen(DSM game) {
+	public GamePauseScreen(DSM game, Screen gameScreen) {
 		
 		this.game = game;
+		this.gameScreen = gameScreen;
 		this.stage = new Stage();
 
 		Gdx.input.setInputProcessor(stage);
@@ -55,7 +57,9 @@ public class GamePauseScreen implements Screen {
 		saveGame = game.screenHelper.createTextButton(SAVE_GAME_TEXT, 100, 350, 120);
 		closeGame = game.screenHelper.createTextButton(CLOSE_GAME_TEXT, 100, 300, 120);
 		
-		backButton = game.screenHelper.createReturnButton(new ClosePauseScreenCommand(game));
+		//closeGame = game.screenHelper.createReturnButton(new GameLevelSelectionScreenChangeCommand());
+		
+		backButton = game.screenHelper.createReturnButton(new ClosePauseScreenCommand(game, gameScreen));
 	}
 	
 	@Override
