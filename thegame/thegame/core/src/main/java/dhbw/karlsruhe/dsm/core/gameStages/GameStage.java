@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
+import dhbw.karlsruhe.dsm.core.level.Player;
 import dhbw.karlsruhe.dsm.core.screenCommands.OpenPauseScreenCommand;
 
 /**
@@ -31,9 +32,11 @@ public class GameStage extends Stage {
 	protected DSM game;
 	protected Screen parent;
 	protected OrthographicCamera screenCamera;
+	protected Player player;
 	
 	protected ArrayBlockingQueue<PolygonSprite> shapes;
 	protected PolygonSpriteBatch polyBatch;
+
 	protected float speed;
 	
 	// WORKING VARIABLES
@@ -41,12 +44,12 @@ public class GameStage extends Stage {
 	private float totalRightBound;
 	private PolygonSprite temp;
 	
-	public GameStage(OrthographicCamera camera, Level currentLevel, Screen parent) {
+	public GameStage(OrthographicCamera camera, Level currentLevel, Screen parent, Player player) {
 		super();
 		screenCamera = camera;
 		game = (DSM) Gdx.app.getApplicationListener();
 		this.parent = parent;
-		
+		this.player = player;
 		polyBatch = new PolygonSpriteBatch();
 		polyBatch.setProjectionMatrix(screenCamera.combined);
 		shapes = new ArrayBlockingQueue<PolygonSprite>(MAX_PATTERNS);
@@ -86,6 +89,7 @@ public class GameStage extends Stage {
 		}
 		polyBatch.end();
 		
+		
 	}
 	
 	@Override
@@ -97,11 +101,23 @@ public class GameStage extends Stage {
 		case Input.Keys.ESCAPE:
 			pause();
 			break;
+		case Input.Keys.S:{ player.duck();break;}
+		case Input.Keys.W:{ player.jump();break;}
 		}
 		
 		return false;
 	}
+		@Override
+	public boolean keyUp(int keycode)
+	{
+		switch(keycode)
+		{
+		case Input.Keys.S:
+		case Input.Keys.W:{player.normal();break;}
+		}
 	
+		return false;	
+	}
 	/* (non-Javadoc)
 	 * @see com.badlogic.gdx.scenes.scene2d.Stage#act(float)
 	 */

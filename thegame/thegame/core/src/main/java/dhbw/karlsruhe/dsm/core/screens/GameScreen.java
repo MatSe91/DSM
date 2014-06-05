@@ -11,6 +11,7 @@ import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.gameStages.GameStage;
 import dhbw.karlsruhe.dsm.core.gameStages.GuiStage;
 import dhbw.karlsruhe.dsm.core.level.Level;
+import dhbw.karlsruhe.dsm.core.level.Player;
 import dhbw.karlsruhe.dsm.core.screenCommands.GameLevelSelectionScreenChangeCommand;
 
 public class GameScreen implements Screen {
@@ -19,7 +20,7 @@ public class GameScreen implements Screen {
 	protected final GameStage gameStage;
 	protected final GuiStage guiStage;
 	protected final Level level;
-	
+	protected final Player player;//testit
 	
 	protected OrthographicCamera camera;
 	
@@ -27,11 +28,12 @@ public class GameScreen implements Screen {
 		this.game = game;
 		this.level = level;
 		this.guiStage = new GuiStage();
+		this.player = new Player();//testit
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		
-		gameStage = new GameStage(camera, level, this);
+		gameStage = new GameStage(camera, level, this, player);
 	//	Gdx.input.setInputProcessor(gameStage);
 		
 		game.batch.setProjectionMatrix(camera.combined);
@@ -47,7 +49,9 @@ public class GameScreen implements Screen {
 		
 		game.batch.begin();
 		drawFps();
+		player.draw(game.batch);
 		game.batch.end();
+		
 		
 		// Execute game logic
 		gameStage.act(Gdx.graphics.getDeltaTime());
