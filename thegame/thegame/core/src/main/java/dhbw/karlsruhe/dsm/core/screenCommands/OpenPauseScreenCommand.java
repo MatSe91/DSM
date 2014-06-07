@@ -2,6 +2,7 @@ package dhbw.karlsruhe.dsm.core.screenCommands;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.screens.GamePauseScreen;
+import dhbw.karlsruhe.dsm.core.screens.GameScreen;
 
 public class OpenPauseScreenCommand extends OpenScreenCommand {
 	
@@ -11,7 +12,7 @@ public class OpenPauseScreenCommand extends OpenScreenCommand {
 	
 	@Override
 	public void execute() {
-		baseExecute(new GamePauseScreen(game, game.getScreen()));
+		baseExecute(new GamePauseScreen(game, (GameScreen) game.getScreen()));
 	}
 
 }

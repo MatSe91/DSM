@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.actions.ChangeScreenInputListener;
+import dhbw.karlsruhe.dsm.core.screenCommands.AbortGameLevelSelectionScreenChangeCommand;
+import dhbw.karlsruhe.dsm.core.screenCommands.AbortGameScreenChangeCommand;
 import dhbw.karlsruhe.dsm.core.screenCommands.ClosePauseScreenCommand;
 
 
@@ -14,18 +17,20 @@ public class GamePauseScreen implements Screen {
 
 	private static final String HEADLINE_TEXT = "GAME PAUSED";
 	private static final String SAVE_GAME_TEXT = "Save Game";
+	private static final String RESTART_GAME_TEXT = "Restart Game";
 	private static final String CLOSE_GAME_TEXT = "Close Game";
 
 	private DSM game;
-	private Screen gameScreen;
+	private GameScreen gameScreen;
 	private Stage stage;
 
 	private TextButton backButton;
 	private TextButton saveGame;
+	private TextButton restartGame;
 	private TextButton closeGame;
 	private Label headline;
 	
-	public GamePauseScreen(DSM game, Screen gameScreen) {
+	public GamePauseScreen(DSM game, GameScreen gameScreen) {
 		
 		this.game = game;
 		this.gameScreen = gameScreen;
@@ -40,6 +45,7 @@ public class GamePauseScreen implements Screen {
 		stage.addActor(headline);
 		stage.addActor(saveGame);
 		stage.addActor(closeGame);
+		stage.addActor(restartGame);
 		stage.addActor(backButton);
 	}
 	
@@ -53,13 +59,26 @@ public class GamePauseScreen implements Screen {
 	}
 	
 	private void initButtons() {
-		// TODO: implement save and close functions
-		saveGame = game.screenHelper.createTextButton(SAVE_GAME_TEXT, 100, 350, 120);
-		closeGame = game.screenHelper.createTextButton(CLOSE_GAME_TEXT, 100, 300, 120);
+		// default positioning values
+		int x=100, y=400, space=50, width=120;
+
+		// TODO: implement save function
+		saveGame	= game.screenHelper.createTextButton(SAVE_GAME_TEXT, x, y-1*space, width);
+		closeGame	= game.screenHelper.createTextButton(CLOSE_GAME_TEXT, x, y-2*space, width);
+		restartGame	= game.screenHelper.createTextButton(RESTART_GAME_TEXT, x, y-3*space, width);
+		backButton 	= game.screenHelper.createReturnButton(new ClosePauseScreenCommand(game, gameScreen));
 		
-		//closeGame = game.screenHelper.createReturnButton(new GameLevelSelectionScreenChangeCommand());
-		
-		backButton = game.screenHelper.createReturnButton(new ClosePauseScreenCommand(game, gameScreen));
+		// Button Listeners
+		closeGame.addListener(returnToLevelSelectionScreenListener());
+		restartGame.addListener(restartLevelScreenListener());
+	}
+	
+	private ChangeScreenInputListener returnToLevelSelectionScreenListener() {
+		return new ChangeScreenInputListener(new AbortGameLevelSelectionScreenChangeCommand(gameScreen));
+	}
+	
+	private ChangeScreenInputListener restartLevelScreenListener() {
+		return new ChangeScreenInputListener(new AbortGameScreenChangeCommand(gameScreen.level, gameScreen));
 	}
 	
 	@Override

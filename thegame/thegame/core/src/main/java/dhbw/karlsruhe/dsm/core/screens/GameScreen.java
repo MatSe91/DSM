@@ -1,7 +1,6 @@
 package dhbw.karlsruhe.dsm.core.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -61,10 +60,6 @@ public class GameScreen implements Screen {
 	//	guiStage.act(Gdx.graphics.getDeltaTime());
 		// Draw GUI
 	//	guiStage.draw();
-		
-		
-		if(Gdx.input.isKeyPressed(Keys.ESCAPE))
-			returnToLevelSelectionScreen();
 	}
 	
 
