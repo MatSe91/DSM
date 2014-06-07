@@ -149,7 +149,6 @@ public class GameStage extends Stage {
 	}
 	
 	public void pause() {
-		OpenPauseScreenCommand gamePauseScreenCommand = new OpenPauseScreenCommand(game);
-		gamePauseScreenCommand.execute();
+		new OpenPauseScreenCommand(game).execute();
 	}
 }
