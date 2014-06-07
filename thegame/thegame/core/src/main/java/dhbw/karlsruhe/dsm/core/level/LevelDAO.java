@@ -100,6 +100,15 @@ public final class LevelDAO {
 		});
 		al.add(pp);
 		
+		pp= new PatternPrototype();
+		pp.setVertices(new float[] {
+				0,0,
+				80,0,
+				80,80,
+				0,80
+		});
+		al.add(pp);
+		
 		level.setAvailablePatterns(al);
 	}
 }

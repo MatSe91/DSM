@@ -22,7 +22,7 @@ public final class DSMTheGameDesktop {
 		config.useGL20 = true;
 		config.width = ConfigurationConstants.SCREENWIDTH;
 		config.height = ConfigurationConstants.SCREENHEIGHT;
-		config.foregroundFPS = 0;
+		config.foregroundFPS = 120;
 		config.vSyncEnabled = false;
 		return config;
 	}

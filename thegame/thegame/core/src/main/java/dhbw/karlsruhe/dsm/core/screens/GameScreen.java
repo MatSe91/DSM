@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
+import dhbw.karlsruhe.dsm.core.gameStages.CopyOfGameStage;
 import dhbw.karlsruhe.dsm.core.gameStages.GameStage;
 import dhbw.karlsruhe.dsm.core.gameStages.GuiStage;
 import dhbw.karlsruhe.dsm.core.level.Level;
@@ -16,7 +17,7 @@ import dhbw.karlsruhe.dsm.core.screenCommands.GameLevelSelectionScreenChangeComm
 public class GameScreen implements Screen {
 
 	protected final DSM game;
-	protected final GameStage gameStage;
+	protected final CopyOfGameStage gameStage;
 	protected final GuiStage guiStage;
 	protected final Level level;
 	protected final Player player;//testit
@@ -32,7 +33,7 @@ public class GameScreen implements Screen {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		
-		gameStage = new GameStage(camera, level, player);
+		gameStage = new CopyOfGameStage(camera, level, player);
 	//	Gdx.input.setInputProcessor(gameStage);
 		
 		game.batch.setProjectionMatrix(camera.combined);
@@ -41,14 +42,13 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// Clear the screen
-		Gdx.gl.glClearColor(0, 0, .2f, 1);
+		Gdx.gl.glClearColor(.5f, .5f, .5f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();
 		
 		game.batch.begin();
 		drawFps();
-		player.draw(game.batch);
 		game.batch.end();
 		
 		

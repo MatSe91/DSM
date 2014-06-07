@@ -3,7 +3,13 @@ package dhbw.karlsruhe.dsm.core.level;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.physics.box2d.World;
+
+import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
+
 public class Level {
+	
+	private World gameWorld;
 	
 	private String name;
 	private int index;
@@ -25,7 +31,8 @@ public class Level {
 	}
 	
 	public void load() {
-		// stub
+		setGameWorld(new World(ConfigurationConstants.GRAVITY_VECTOR, false));
+		
 	}
 	
 	public void dispose() {
@@ -37,7 +44,7 @@ public class Level {
 	
 	public Pattern getRandomPattern(float worldPositionX, float worldPositionY) {
 		int index = (int) (Math.random() * availablePatterns.size());
-		return availablePatterns.get(index).createPattern(worldPositionX, worldPositionY);
+		return availablePatterns.get(index).createPattern(worldPositionX, worldPositionY, gameWorld);
 	}
 
 	public String getName() {
@@ -62,6 +69,14 @@ public class Level {
 
 	public void setAvailablePatterns(ArrayList<PatternPrototype> availablePatterns) {
 		this.availablePatterns = availablePatterns;
+	}
+
+	public World getGameWorld() {
+		return gameWorld;
+	}
+
+	public void setGameWorld(World gameWorld) {
+		this.gameWorld = gameWorld;
 	}
 	
 }

@@ -3,6 +3,7 @@ package dhbw.karlsruhe.dsm.core.level;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
@@ -29,8 +30,8 @@ public class PatternPrototype implements Json.Serializable{
 		texture.dispose();
 	}
 	
-	public Pattern createPattern(float worldPositionX, float worldPositionY) {
-		return new Pattern(polyRegion, worldPositionX, worldPositionY);
+	public Pattern createPattern(float worldPositionX, float worldPositionY, World world) {
+		return new Pattern(polyRegion, worldPositionX, worldPositionY, world);
 	}
 	
 	private void generateTriangles() {
