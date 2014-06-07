@@ -55,6 +55,11 @@ public class SpielStartenCucumberSteps {
 		assertTrue(GameLevelSelectionScreen.class == dsm.getScreen().getClass());
 	}
 	
+	@Then("the pause screen will be shown to me$")
+	public void thenShowPauseScreen() {
+		assertTrue(GamePauseScreen.class == dsm.getScreen().getClass());
+	}
+	
 	@Then("I'll get back to the main menu.$")
 	public void thenReturnToMainMenuScreen() {
 		assertTrue(MainMenuScreen.class == dsm.getScreen().getClass());
@@ -66,10 +71,12 @@ public class SpielStartenCucumberSteps {
 		whenClickOnStartGame();
 		whenClickOnSpecificLevel();
 	}
-	
+
 	@Given("the game is pausing$")
 	public void givenGameIsPausing() throws InterruptedException {
-		givenGameIsRunning();
+		setUp();
+		whenClickOnStartGame();
+		whenClickOnSpecificLevel();
 		whenPressEsc();
 	}
 	
@@ -80,26 +87,15 @@ public class SpielStartenCucumberSteps {
 		TestHelper.pressButton(KeyEvent.VK_ESCAPE);
 		TestHelper.wait(400);
 	}
-
-	@When("I press \"P\"$") 
-	public void whenPressP() {
-		int x = 128, y = 298;
-		TestHelper.clickOnLocation(x, y);
-		TestHelper.pressButton(KeyEvent.VK_P);
-		TestHelper.wait(400);
-	}
 	
-	@Then("the game pauses$")
-	public void thenTheGamePauses() {
-		assertTrue(GamePauseScreen.class == dsm.getScreen().getClass());
-	}
-	
-	@When("I click on \"Close Game\"$") 
-	public void whenClickOnCloseGame() {
-		int x = 100, y = 300;
+	@When("I click on \"close game\"$") 
+	public void whenClickCloseGame() {
+		int x = 128, y = 308;
 		TestHelper.clickOnLocation(x, y);
 		TestHelper.wait(400);
 	}
+	
+	
 	
 	private void setUp() throws InterruptedException {
 		// create Application
