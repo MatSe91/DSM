@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
-import dhbw.karlsruhe.dsm.core.DSM;
 
 public class Player extends Sprite {
 	private Texture playerTexture;
@@ -23,34 +23,44 @@ public class Player extends Sprite {
 	private float xPos;
 	private float yPos;
 	
-	private boolean isPhysical;
+	private static final Texture JUMPING_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_jump.png"));
+	private static final Texture DUCKED_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_duck.png"));
+	private static final Texture STANDING_TEXTURE = new Texture(Gdx.files.internal("textures/Runner.png"));
+	
+	private boolean isPhysical = false;
 	private Fixture fixture;
+	
+	// Working variable
+	private float rotation;
 	
 
 	public Player ( ){
-		playerTexture = new Texture(Gdx.files.internal("textures/Runner.png"));
+		super(STANDING_TEXTURE);
+		playerTexture = STANDING_TEXTURE;
 		xPos = ConfigurationConstants.SCREENWIDTH/2-15;
 		yPos = 275;
-		updateBounds(playerTexture.getWidth(), playerTexture.getHeight());
+		float width = STANDING_TEXTURE.getWidth();
+		float height = STANDING_TEXTURE.getHeight();
+		updateBounds(width, height);
+		setOrigin(0,0);
 	}
+	
 	public void jump(){
-		changeTexture(new Texture(Gdx.files.internal("textures/Runner_jump.png")));
+		changeTexture(JUMPING_TEXTURE);
 	}
 	public void duck(){
-		changeTexture(new Texture(Gdx.files.internal("textures/Runner_duck.png")));
+		changeTexture(DUCKED_TEXTURE);
 	}
 	public void normal(){
-		changeTexture(new Texture(Gdx.files.internal("textures/Runner.png")));
+		changeTexture(STANDING_TEXTURE);
 	}
 	
 	private void changeTexture(Texture newTexture) {
-		Texture temp = playerTexture;
 		playerTexture = newTexture;
-		temp.dispose();
 		updateBounds(newTexture.getWidth(), newTexture.getHeight());
 	}
 	
-	private void updateBounds(int width, int height) {
+	private void updateBounds(float width, float height) {
 		this.setBounds(xPos, yPos, width, height);
 		if(isPhysical) 
 			updatePhysicalDimensions(width/2, height/2);
@@ -61,15 +71,14 @@ public class Player extends Sprite {
 	 * @param hy: half height
 	 */
 	private void updatePhysicalDimensions(float hx, float hy) {
-		physicalShape.setAsBox(hx, hy);
-	}
-	public void dispose() {
-		playerTexture.dispose();
+//		physicalShape.setAsBox(hx, hy);
+		physicalShape.setAsBox(hx, hy, new Vector2(hx, hy), 0);
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch){
-		batch.draw(playerTexture, xPos, yPos);
+//		batch.draw(playerTexture, xPos, yPos);
+		batch.draw(playerTexture, getVertices(), 0, getVertices().length);
 	}	
 	
 	public void setPosX(float posX) {
@@ -89,8 +98,6 @@ public class Player extends Sprite {
 	}
 	
 	public void makePhysical(World world) {
-		DSM game = (DSM) Gdx.app.getApplicationListener();
-		
 		BodyDef bodydef = new BodyDef();
 		bodydef.type = BodyType.DynamicBody;
 		bodydef.position.set(new Vector2(xPos, yPos));
@@ -110,6 +117,7 @@ public class Player extends Sprite {
 		physicalShape = (PolygonShape) (fixture.getShape());
 		
 		getPhysicalBody().setUserData(this);
+		isPhysical = true;
 	}
 	
 	public Body getPhysicalBody() {
@@ -117,6 +125,16 @@ public class Player extends Sprite {
 	}
 	public void setPhysicalBody(Body physicalBody) {
 		this.physicalBody = physicalBody;
+	}
+
+	public void updateRotation() {
+		rotation = physicalBody.getAngle();
+		if(Math.abs(rotation) > .1f)
+			this.setRotation(MathUtils.radiansToDegrees * rotation);
+	}
+
+	public void updatePosition() {
+		setPosition(physicalBody.getPosition().x, physicalBody.getPosition().y);
 	}
 	
 	
