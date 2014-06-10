@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -29,9 +30,7 @@ public class Player extends Sprite {
 	
 	private boolean isPhysical = false;
 	private Fixture fixture;
-	
-	// Working variable
-	private float rotation;
+	private Vector2 jumpImpulse;
 	
 
 	public Player ( ){
@@ -47,6 +46,9 @@ public class Player extends Sprite {
 	
 	public void jump(){
 		changeTexture(JUMPING_TEXTURE);
+		if(isPhysical) {
+			physicalBody.applyLinearImpulse(jumpImpulse, physicalBody.getWorldCenter(), true);
+		}
 	}
 	public void duck(){
 		changeTexture(DUCKED_TEXTURE);
@@ -111,13 +113,18 @@ public class Player extends Sprite {
 		fixtureDef.shape = physicalShape;
 		fixtureDef.density = .9f;
 		fixtureDef.friction = 1f;
-		fixtureDef.restitution = 0.8f;
-		
+		fixtureDef.restitution = 0.0f;
 		fixture = getPhysicalBody().createFixture(fixtureDef);
 		physicalShape = (PolygonShape) (fixture.getShape());
 		
 		getPhysicalBody().setUserData(this);
+		getPhysicalBody().setFixedRotation(true);
 		isPhysical = true;
+		
+		float gravityY = world.getGravity().y;
+		float mass = getPhysicalBody().getMass();
+		float impulseY = (float) Math.sqrt(-2*gravityY*mass*mass*ConfigurationConstants.JUMP_HEIHGT);
+		jumpImpulse = new Vector2(0, impulseY);
 	}
 	
 	public Body getPhysicalBody() {
@@ -125,12 +132,6 @@ public class Player extends Sprite {
 	}
 	public void setPhysicalBody(Body physicalBody) {
 		this.physicalBody = physicalBody;
-	}
-
-	public void updateRotation() {
-		rotation = physicalBody.getAngle();
-		if(Math.abs(rotation) > .1f)
-			this.setRotation(MathUtils.radiansToDegrees * rotation);
 	}
 
 	public void updatePosition() {

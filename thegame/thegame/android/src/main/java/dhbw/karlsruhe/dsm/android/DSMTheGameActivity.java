@@ -1,6 +1,6 @@
 package dhbw.karlsruhe.dsm.android;
 
-import dhbw.karlsruhe.dsm.core.DSMTheGame;
+import dhbw.karlsruhe.dsm.core.DSM;
 
 import android.os.Bundle;
 
@@ -14,6 +14,6 @@ public class DSMTheGameActivity extends AndroidApplication {
 			super.onCreate(savedInstanceState);
 			AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 			config.useGL20 = true;
-			initialize(new DSMTheGame(), config);
+			initialize(new DSM(), config);
 	}
 }

@@ -26,5 +26,8 @@ public final class ConfigurationConstants {
 	// Game Constants //
 	// ############## //
 	
-	public static final Vector2 GRAVITY_VECTOR = new Vector2(0, -555);
+	public static final Vector2 GRAVITY_VECTOR 	= new Vector2(0, -270);
+	public static final float	STEP_COEFFICIENT	= 0.000083333f;
+	public static final float	BASE_LEVEL_SPEED	= 100;
+	public static final int	JUMP_HEIHGT	= 50; // in px
 }

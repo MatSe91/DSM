@@ -3,6 +3,7 @@ package dhbw.karlsruhe.dsm.core.level;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
@@ -31,7 +32,9 @@ public class Level {
 	}
 	
 	public void load() {
-		setGameWorld(new World(ConfigurationConstants.GRAVITY_VECTOR, false));
+		Vector2 gravity = ConfigurationConstants.GRAVITY_VECTOR;
+		gravity.scl(speed / ConfigurationConstants.BASE_LEVEL_SPEED);
+		setGameWorld(new World(gravity, false));
 		
 	}
 	

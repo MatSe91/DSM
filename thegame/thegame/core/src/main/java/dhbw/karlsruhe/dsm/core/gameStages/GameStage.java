@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.Pattern;
@@ -39,6 +40,7 @@ public class GameStage extends Stage {
 	protected PolygonSpriteBatch polyBatch = new PolygonSpriteBatch();
 
 	protected float speed;
+	protected float stepLength;
 	
 	protected World world;
 	
@@ -68,7 +70,8 @@ public class GameStage extends Stage {
 	
 	public void setLevel(Level level) {
 		currentLevel = level;
-		speed = 10;
+		speed = 400;
+		currentLevel.speed = speed;
 	}
 	
 	/**
@@ -126,7 +129,6 @@ public class GameStage extends Stage {
 			System.out.println("you lost");
 		}
 		
-		player.updateRotation();
 		player.updatePosition();
 	}
 
