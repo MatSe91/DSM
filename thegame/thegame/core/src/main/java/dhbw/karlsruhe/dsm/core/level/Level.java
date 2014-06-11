@@ -33,7 +33,9 @@ public class Level {
 	
 	public void load() {
 		Vector2 gravity = ConfigurationConstants.GRAVITY_VECTOR;
-		gravity.scl(speed / ConfigurationConstants.BASE_LEVEL_SPEED);
+		if(speed > 100) {
+			gravity.scl(speed / ConfigurationConstants.BASE_LEVEL_SPEED);
+		}
 		setGameWorld(new World(gravity, false));
 		
 	}

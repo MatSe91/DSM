@@ -16,6 +16,7 @@ public abstract class ScreenChangeCommand {
 	protected void baseExecute(Screen next) {
 		Screen previous = game.getScreen();
 		game.setScreen(next);
+		next.show();
 		previous.dispose();
 	}
 }

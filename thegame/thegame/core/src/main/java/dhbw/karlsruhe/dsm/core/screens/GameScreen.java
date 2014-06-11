@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.gameStages.GameStage;
 import dhbw.karlsruhe.dsm.core.gameStages.GuiStage;
@@ -27,7 +26,8 @@ public class GameScreen implements Screen {
 		this.guiStage = new GuiStage();
 		
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
+//		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
+		camera.setToOrtho(false, 21.6f, 28.8f);
 		
 		gameStage = new GameStage(camera, level);
 	//	Gdx.input.setInputProcessor(gameStage);
@@ -65,8 +65,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		gameStage.setViewport(width, height, true);
+		//gameStage.setViewport(width, height, true);
 		camera.setToOrtho(false, width, height);
+		camera.viewportHeight = 21.6f;
+		camera.viewportWidth = 28.8f;
 	}
 	
 	public boolean needsGL20() {
@@ -76,11 +78,14 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(gameStage);
+		camera.viewportHeight = 21.6f;
+		camera.viewportWidth = 28.8f;
 	}
 
 	@Override
 	public void hide() {
-
+		camera.viewportHeight = game.getHeight();
+		camera.viewportWidth = game.getWidth();
 	}
 
 	@Override
@@ -89,6 +94,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resume() {
+		
 	}
 
 	@Override

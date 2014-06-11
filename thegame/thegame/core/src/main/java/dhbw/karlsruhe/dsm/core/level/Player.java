@@ -21,49 +21,53 @@ public class Player extends Sprite {
 	private Texture playerTexture;
 	private Body physicalBody;
 	private PolygonShape physicalShape;
-	private float xPos;
-	private float yPos;
+	private float posX;
+	private float posY;
 	
 	private static final Texture JUMPING_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_jump.png"));
 	private static final Texture DUCKED_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_duck.png"));
 	private static final Texture STANDING_TEXTURE = new Texture(Gdx.files.internal("textures/Runner.png"));
+	
+	private static final float STANDING_HEIGHT = 1.8f;
+	private static final float DUCKED_HEIGHT = 0.9f;
+	private static final float WIDTH = 1.125f;
 	
 	private boolean isPhysical = false;
 	private Fixture fixture;
 	private Vector2 jumpImpulse;
 	
 
-	public Player ( ){
+	public Player (float posX, float posY ){
 		super(STANDING_TEXTURE);
 		playerTexture = STANDING_TEXTURE;
-		xPos = ConfigurationConstants.SCREENWIDTH/2-15;
-		yPos = 275;
-		float width = STANDING_TEXTURE.getWidth();
-		float height = STANDING_TEXTURE.getHeight();
+		this.posX = posX;
+		this.posY = posY;
+		float width = WIDTH;
+		float height = STANDING_HEIGHT;
 		updateBounds(width, height);
 		setOrigin(0,0);
 	}
 	
 	public void jump(){
-		changeTexture(JUMPING_TEXTURE);
+		changeTexture(STANDING_TEXTURE, STANDING_HEIGHT);
 		if(isPhysical) {
 			physicalBody.applyLinearImpulse(jumpImpulse, physicalBody.getWorldCenter(), true);
 		}
 	}
 	public void duck(){
-		changeTexture(DUCKED_TEXTURE);
+		changeTexture(JUMPING_TEXTURE, DUCKED_HEIGHT);
 	}
 	public void normal(){
-		changeTexture(STANDING_TEXTURE);
+		changeTexture(STANDING_TEXTURE, STANDING_HEIGHT);
 	}
 	
-	private void changeTexture(Texture newTexture) {
+	private void changeTexture(Texture newTexture, float newHeight) {
 		playerTexture = newTexture;
-		updateBounds(newTexture.getWidth(), newTexture.getHeight());
+		updateBounds(this.getWidth(), newHeight);
 	}
 	
 	private void updateBounds(float width, float height) {
-		this.setBounds(xPos, yPos, width, height);
+		this.setBounds(posX, posY, width, height);
 		if(isPhysical) 
 			updatePhysicalDimensions(width/2, height/2);
 	}
@@ -84,25 +88,25 @@ public class Player extends Sprite {
 	}	
 	
 	public void setPosX(float posX) {
-		xPos = posX;
+		this.posX = posX;
 		super.setX(posX);
 	}
 	
 	public void setPosY(float posY) {
-		yPos = posY;
+		this.posY = posY;
 		super.setY(posY);
 	}
 	
 	@Override
 	public void setPosition(float x, float y) {
-		xPos = x; yPos = y;
+		posX = x; posY = y;
 		super.setPosition(x, y);
 	}
 	
 	public void makePhysical(World world) {
 		BodyDef bodydef = new BodyDef();
 		bodydef.type = BodyType.DynamicBody;
-		bodydef.position.set(new Vector2(xPos, yPos));
+		bodydef.position.set(new Vector2(posX, posY));
 		
 		setPhysicalBody(world.createBody(bodydef));
 		

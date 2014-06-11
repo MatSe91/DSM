@@ -29,7 +29,7 @@ import dhbw.karlsruhe.dsm.core.screenCommands.OpenPauseScreenCommand;
  */
 public class GameStage extends Stage {
 
-	private static final int GROUND_HEIGHT_ZERO = 250;
+	private static final float GROUND_HEIGHT_ZERO = 2.5f;
 	private static final int MAX_PATTERNS = 1000;
 	protected Level currentLevel;
 	protected DSM game = (DSM) Gdx.app.getApplicationListener();
@@ -55,10 +55,8 @@ public class GameStage extends Stage {
 	public GameStage(OrthographicCamera camera, Level currentLevel) {
 		super();
 		this.screenCamera = camera;
-		this.player = new Player();
-		
+		this.player = new Player(camera.viewportWidth/2, GROUND_HEIGHT_ZERO + 8f);
 		polyBatch.setProjectionMatrix(screenCamera.combined);
-		
 		setLevel(currentLevel);
 		initLevel();
 
@@ -70,7 +68,7 @@ public class GameStage extends Stage {
 	
 	public void setLevel(Level level) {
 		currentLevel = level;
-		speed = 400;
+		speed = 100;
 		currentLevel.speed = speed;
 	}
 	
@@ -114,7 +112,7 @@ public class GameStage extends Stage {
 	@Override
 	public void act(float delta) {
 		// move Polygons
-		i = delta * speed;
+		i = delta * speed * 0.0375f;
 		for (Pattern pattern : shapes) {
 			pattern.translateX(-i);
 		}
