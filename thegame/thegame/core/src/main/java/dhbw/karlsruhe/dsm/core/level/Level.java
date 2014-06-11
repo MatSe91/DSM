@@ -38,6 +38,9 @@ public class Level {
 		}
 		setGameWorld(new World(gravity, false));
 		
+		for(PatternPrototype patternPrototype : availablePatterns) {
+			patternPrototype.load();
+		}
 	}
 	
 	public void dispose() {

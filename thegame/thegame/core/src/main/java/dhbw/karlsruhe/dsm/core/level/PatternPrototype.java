@@ -13,15 +13,16 @@ public class PatternPrototype implements Json.Serializable{
 	private float[] vertices;
 	private short[] triangles;
 	
-	private Texture texture = new Texture("textures/solid_blue.png");
+	private Texture texture;
 	private TextureRegion region;
 	private PolygonRegion polyRegion;
 	
 	public PatternPrototype() {
 	}
 	
-	public void init() {
+	public void load() {
 		generateTriangles();
+		texture = new Texture("textures/solid_blue.png");
 		region = new TextureRegion(texture);
 		polyRegion = new PolygonRegion(region, vertices, triangles);
 	}
@@ -71,6 +72,5 @@ public class PatternPrototype implements Json.Serializable{
 	@Override
 	public void read(Json json, JsonValue jsonData) {
 		setVertices(json.readValue("vertices", float[].class, jsonData));
-		init();
 	}
 }
