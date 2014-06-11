@@ -2,17 +2,15 @@ package dhbw.karlsruhe.dsm.core.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 
 import dhbw.karlsruhe.dsm.config.ConfigurationConstants;
@@ -35,6 +33,7 @@ public class Player extends Sprite {
 	private boolean isPhysical = false;
 	private Fixture fixture;
 	private Vector2 jumpImpulse;
+	private World world;
 	
 
 	public Player (float posX, float posY ){
@@ -104,6 +103,7 @@ public class Player extends Sprite {
 	}
 	
 	public void makePhysical(World world) {
+		this.world = world;
 		BodyDef bodydef = new BodyDef();
 		bodydef.type = BodyType.DynamicBody;
 		bodydef.position.set(new Vector2(posX, posY));
@@ -119,6 +119,8 @@ public class Player extends Sprite {
 		fixtureDef.friction = 1f;
 		fixtureDef.restitution = 0.0f;
 		fixture = getPhysicalBody().createFixture(fixtureDef);
+		physicalShape.dispose();
+		
 		physicalShape = (PolygonShape) (fixture.getShape());
 		
 		getPhysicalBody().setUserData(this);
@@ -140,6 +142,10 @@ public class Player extends Sprite {
 
 	public void updatePosition() {
 		setPosition(physicalBody.getPosition().x, physicalBody.getPosition().y);
+	}
+	
+	public void dispose() {
+		world.destroyBody(physicalBody);
 	}
 	
 	

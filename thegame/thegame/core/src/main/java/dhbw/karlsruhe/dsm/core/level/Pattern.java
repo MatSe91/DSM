@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -14,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Pattern extends PolygonSprite{
 
 	private Body physicalBody;
+	private World world;
 	
 	public Pattern(PolygonRegion region, World world) {
 		super(region);
@@ -28,6 +28,7 @@ public class Pattern extends PolygonSprite{
 	}
 	
 	private void makePhysical(World world, PolygonRegion region) {
+		this.world = world;
 		BodyDef bodydef = new BodyDef();
 		bodydef.type = BodyType.KinematicBody;
 		bodydef.position.set(getBoundingRectangle().x, getBoundingRectangle().y);
@@ -54,8 +55,6 @@ public class Pattern extends PolygonSprite{
 	}
 	
 	public void dispose() {
-		for(Fixture fixture : this.physicalBody.getFixtureList()) {
-			this.physicalBody.destroyFixture(fixture);
-		}
+		world.destroyBody(physicalBody);
 	}
 }
