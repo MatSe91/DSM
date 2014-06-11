@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.gameStages.GameStage;
@@ -86,6 +87,8 @@ public class GameScreen implements Screen {
 	public void hide() {
 		camera.viewportHeight = game.getHeight();
 		camera.viewportWidth = game.getWidth();
+		game.batch.dispose();
+		game.batch = new SpriteBatch();
 	}
 
 	@Override
