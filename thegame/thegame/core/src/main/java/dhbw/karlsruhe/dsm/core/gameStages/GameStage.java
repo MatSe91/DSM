@@ -123,7 +123,9 @@ public class GameStage extends Stage {
 		
 		// check loose condition
 		if(Math.abs(player.getX() - player.getPhysicalBody().getPosition().x) > 0.1) {
+			// TODO: Game over
 			System.out.println("you lost");
+			//new GameOverScreenChangeCommand().execute();
 		}
 		
 		player.updatePosition();
