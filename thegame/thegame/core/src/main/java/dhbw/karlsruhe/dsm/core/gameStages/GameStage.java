@@ -10,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
 import dhbw.karlsruhe.dsm.core.level.Pattern;
 import dhbw.karlsruhe.dsm.core.level.Player;
+import dhbw.karlsruhe.dsm.core.level.Score;
 import dhbw.karlsruhe.dsm.core.screenCommands.OpenPauseScreenCommand;
 
 /**
@@ -34,10 +36,11 @@ public class GameStage extends Stage {
 	protected DSM game = (DSM) Gdx.app.getApplicationListener();
 	protected OrthographicCamera screenCamera;
 	protected Player player;
-	
+	protected Score score;
 	protected ArrayBlockingQueue<Pattern> shapes = new ArrayBlockingQueue<Pattern>(MAX_PATTERNS);
 	protected PolygonSpriteBatch polyBatch = new PolygonSpriteBatch();
-
+	
+	
 	protected float speed;
 	protected float stepLength;
 	
@@ -54,6 +57,8 @@ public class GameStage extends Stage {
 	public GameStage(OrthographicCamera camera, Level currentLevel) {
 		super();
 		this.screenCamera = camera;
+		this.score= new Score(this.game);
+		this.score.start();
 		this.player = new Player(camera.viewportWidth/2, GROUND_HEIGHT_ZERO + 8f);
 		polyBatch.setProjectionMatrix(screenCamera.combined);
 		setLevel(currentLevel);
@@ -100,6 +105,9 @@ public class GameStage extends Stage {
 		
 		game.batch.begin();
 		player.draw(game.batch);
+		score.resume();
+		score.draw();
+		
 		game.batch.end();
 		
 		debugRenderer.render(world, screenCamera.combined);
@@ -154,7 +162,9 @@ public class GameStage extends Stage {
 	}
 	
 	public void pause() {
+		this.score.pause();
 		new OpenPauseScreenCommand(game).execute();
+		
 	}
 
 	@Override
@@ -165,7 +175,7 @@ public class GameStage extends Stage {
 		case Input.Keys.P:
 		case Input.Keys.ESCAPE:
 			pause();
-			break;
+			break;		
 		case Input.Keys.S:{ player.duck();break;}
 		case Input.Keys.W:{ player.jump();break;}
 		}
