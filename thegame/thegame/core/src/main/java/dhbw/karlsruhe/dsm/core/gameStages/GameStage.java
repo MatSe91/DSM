@@ -7,10 +7,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import dhbw.karlsruhe.dsm.core.DSM;
 import dhbw.karlsruhe.dsm.core.level.Level;
@@ -40,6 +40,7 @@ public class GameStage extends Stage {
 	protected ArrayBlockingQueue<Pattern> shapes = new ArrayBlockingQueue<Pattern>(MAX_PATTERNS);
 	protected PolygonSpriteBatch polyBatch = new PolygonSpriteBatch();
 	
+	protected SpriteBatch gameBatch;
 	
 	protected float speed;
 	protected float stepLength;
@@ -54,12 +55,13 @@ public class GameStage extends Stage {
 	private float totalRightBound;
 	private Pattern temp;
 	
-	public GameStage(OrthographicCamera camera, Level currentLevel) {
+	public GameStage(OrthographicCamera camera, Level currentLevel, SpriteBatch gameBatch) {
 		super();
 		this.screenCamera = camera;
-		this.score= new Score(this.game);
+		this.score= new Score();
 		this.score.start();
 		this.player = new Player(camera.viewportWidth/2, GROUND_HEIGHT_ZERO + 8f);
+		this.gameBatch = gameBatch;
 		polyBatch.setProjectionMatrix(screenCamera.combined);
 		setLevel(currentLevel);
 		initLevel();
@@ -72,7 +74,7 @@ public class GameStage extends Stage {
 	
 	public void setLevel(Level level) {
 		currentLevel = level;
-		speed = 500;
+		speed = 300;
 		currentLevel.speed = speed;
 	}
 	
@@ -103,12 +105,9 @@ public class GameStage extends Stage {
 		}
 		polyBatch.end();
 		
-		game.batch.begin();
-		player.draw(game.batch);
-		score.resume();
-		score.draw();
-		
-		game.batch.end();
+		gameBatch.begin();
+		player.draw(gameBatch);
+		gameBatch.end();
 		
 		debugRenderer.render(world, screenCamera.combined);
 	}
@@ -137,6 +136,7 @@ public class GameStage extends Stage {
 		}
 		
 		player.updatePosition();
+		score.resume();
 	}
 
 	private void managePatterns() {
@@ -193,5 +193,9 @@ public class GameStage extends Stage {
 		}
 	
 		return false;	
+	}
+	
+	public Score getCurrentScore() {
+		return score;
 	}
 }

@@ -1,38 +1,32 @@
 package dhbw.karlsruhe.dsm.core.level;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
 import dhbw.karlsruhe.dsm.core.DSM;
-public class Score {
+public class Score implements Json.Serializable {
 	
 	private String playerName;
 	private int score;
 	private long startTime;
 	private long pauseTime;
-	private Label labelScore;
-	private Label ScoreValue;
-	private static final String ScoreString = "SCORE |";
-	private String ScoreValueString = "";
+	private static final String SCORE_STRING = "SCORE | ";
 	
 	private DSM game;
-	private Stage stage;
 	
 	
-	public Score(DSM game) {
-		setPlayerName("");
-		setScore(0);
-		this.game = game;
-		this.stage= new Stage();
+	public Score() {
+		this("", 0);
 	}
 	
-	public Score(String playerName, int score, DSM game) {
+	public Score(String playerName, int score) {
 		this.setPlayerName(playerName);
 		this.setScore(score);
-		this.game = game;
+		this.game = (DSM) Gdx.app.getApplicationListener();
 	}
-
+	
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -84,20 +78,23 @@ public class Score {
 		}
 	}
 	public int stop(){
-		
 		return this.score;
 	}
-	public void draw(){
-		stage.clear();
+	public void draw(SpriteBatch batch){
 		this.score=(int) ((System.nanoTime()-this.startTime)/100000000);
-		this.labelScore = game.screenHelper.createLabel(ScoreString, 625,550, 50, 0);
-		this.labelScore.setZIndex(10);
-		this.ScoreValueString = Integer.toString(this.score);
-		this.ScoreValue = game.screenHelper.createLabel(ScoreValueString,720,550,50,0);
-		stage.addActor(labelScore);
-		stage.addActor(ScoreValue);
-		stage.draw();
-		
+		game.buttonFont.draw(batch, SCORE_STRING + score, 625, game.getHeight()-10);	
+	}
+
+	@Override
+	public void write(Json json) {
+		json.writeValue("playerName", playerName);
+		json.writeValue("score", score);
+	}
+
+	@Override
+	public void read(Json json, JsonValue jsonData) {
+		setPlayerName(json.readValue("playerName", String.class, jsonData));
+		setScore(json.readValue("score", int.class, jsonData));
 	}
 
 }

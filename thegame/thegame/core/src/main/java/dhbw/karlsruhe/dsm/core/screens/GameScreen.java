@@ -18,6 +18,7 @@ public class GameScreen implements Screen {
 	protected final GameStage gameStage;
 	protected final GuiStage guiStage;
 	protected final Level level;
+	protected SpriteBatch gameBatch;
 	
 	protected OrthographicCamera camera;
 	
@@ -25,15 +26,15 @@ public class GameScreen implements Screen {
 		this.game = game;
 		this.level = level;
 		this.guiStage = new GuiStage();
-		
+		this.gameBatch = new SpriteBatch();
 		camera = new OrthographicCamera();
 //		camera.setToOrtho(false, ConfigurationConstants.SCREENWIDTH, ConfigurationConstants.SCREENHEIGHT);
 		camera.setToOrtho(false, 21.6f, 28.8f);
 		
-		gameStage = new GameStage(camera, level);
+		gameStage = new GameStage(camera, level, gameBatch);
 	//	Gdx.input.setInputProcessor(gameStage);
 		
-		game.batch.setProjectionMatrix(camera.combined);
+		gameBatch.setProjectionMatrix(camera.combined);
 	}
 	
 	@Override
@@ -46,6 +47,7 @@ public class GameScreen implements Screen {
 		
 		game.batch.begin();
 		drawFps();
+		gameStage.getCurrentScore().draw(game.batch);
 		game.batch.end();
 		
 		

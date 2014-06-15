@@ -23,7 +23,7 @@ public class Player extends Sprite {
 	private float posY;
 	
 	private static final Texture JUMPING_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_jump.png"));
-	private static final Texture DUCKED_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_duck.png"));
+	//private static final Texture DUCKED_TEXTURE = new Texture(Gdx.files.internal("textures/Runner_duck.png"));
 	private static final Texture STANDING_TEXTURE = new Texture(Gdx.files.internal("textures/Runner.png"));
 	
 	private static final float STANDING_HEIGHT = 1.8f;
