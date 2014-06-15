@@ -132,7 +132,7 @@ public class GameStage extends Stage {
 		if(Math.abs(player.getX() - player.getPhysicalBody().getPosition().x) > 0.1) {
 			// TODO: Game over
 			System.out.println("you lost");
-			//new GameOverScreenChangeCommand().execute();
+			new GameOverScreenChangeCommand(score.getScore()).execute();
 		}
 		
 		player.updatePosition();

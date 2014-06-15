@@ -6,13 +6,16 @@ import dhbw.karlsruhe.dsm.core.screens.GameScreen;
 
 public class GameOverScreenChangeCommand extends OpenScreenCommand {
 	
-	public GameOverScreenChangeCommand() {
+	private int score;
+	
+	public GameOverScreenChangeCommand(int score) {
 		super();
+		this.score = score;
 	}
 	
 	@Override
 	public void execute() {
-		baseExecute(new GameOverScreen(game, (GameScreen) game.getScreen()));
+		baseExecute(new GameOverScreen(game, (GameScreen) game.getScreen(), score));
 	}
 
 }

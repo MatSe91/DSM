@@ -16,7 +16,7 @@ public class GameOverScreen implements Screen {
 
 	private static final String BUTTON_RESTART_TEXT = "Restart Level";
 	private static final String HEADLINE_TEXT = "GAME OVER";
-	private static final String SCORE_TEXT = "You reach: " /* TODO: GET REACHED SCORE !! */ + "POINTS";
+	private static String SCORE_TEXT;
 	
 	private DSM game;
 	private GameScreen gameScreen;
@@ -26,12 +26,14 @@ public class GameOverScreen implements Screen {
 	private TextButton backButton;
 	
 	private Label headline;
-	private Label score;
+	private Label scoreText;
 	
-	public GameOverScreen(DSM game, GameScreen gameScreen) {
+	public GameOverScreen(DSM game, GameScreen gameScreen, int score) {
 		this.game = game;
 		this.gameScreen = gameScreen;
 		this.stage = new Stage();
+		
+		SCORE_TEXT = "You reached: " + score + " Points";
 		
 		Gdx.input.setInputProcessor(stage);
 		
@@ -40,7 +42,7 @@ public class GameOverScreen implements Screen {
 		
 		// Add them to the stage;
 		stage.addActor(headline);
-		stage.addActor(score);
+		stage.addActor(scoreText);
 		stage.addActor(restartButton);
 		stage.addActor(backButton);
 	}
@@ -52,7 +54,7 @@ public class GameOverScreen implements Screen {
 
 	private void initLabels() {
 		headline = game.screenHelper.createHeadline(HEADLINE_TEXT);
-		score = game.screenHelper.createLabel(SCORE_TEXT, 100, 500);
+		scoreText = game.screenHelper.createLabel(SCORE_TEXT, 100, 500);
 	}
 
 	private void initButtons() {
