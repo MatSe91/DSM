@@ -68,7 +68,6 @@ public class GameStage extends Stage {
 
 		world = currentLevel.getGameWorld();
 		player.makePhysical(world);
-		
 		debugRenderer = new Box2DDebugRenderer();
 	}
 	
@@ -129,7 +128,7 @@ public class GameStage extends Stage {
 		world.step(delta, 6, 2);
 		
 		// check loose condition
-		if(Math.abs(player.getX() - player.getPhysicalBody().getPosition().x) > 0.1) {
+		if(Math.abs(player.getX() - player.getPhysicalBody().getPosition().x) > 0.001) {
 			// TODO: Game over
 			System.out.println("you lost");
 			new GameOverScreenChangeCommand(score.getScore()).execute();
@@ -155,9 +154,9 @@ public class GameStage extends Stage {
 	
 	@Override
 	public void dispose() {
-		currentLevel.dispose();
 		polyBatch.dispose();
 		player.dispose();
+		currentLevel.dispose();
 		super.dispose();
 	}
 	
@@ -180,7 +179,7 @@ public class GameStage extends Stage {
 		case Input.Keys.W:{ player.jump();break;}
 		}
 		
-		return false;
+		return super.keyDown(keycode);
 	}
 
 	@Override
@@ -192,7 +191,7 @@ public class GameStage extends Stage {
 		case Input.Keys.W:{player.normal();break;}
 		}
 	
-		return false;	
+		return super.keyUp(keycode);
 	}
 	
 	public Score getCurrentScore() {

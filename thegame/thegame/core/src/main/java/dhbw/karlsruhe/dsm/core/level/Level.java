@@ -32,7 +32,7 @@ public class Level {
 	}
 	
 	public void load() {
-		Vector2 gravity = ConfigurationConstants.GRAVITY_VECTOR;
+		Vector2 gravity = ConfigurationConstants.GRAVITY_VECTOR.cpy();
 		if(speed > 100) {
 			gravity.scl(speed / ConfigurationConstants.BASE_LEVEL_SPEED);
 		}
@@ -47,7 +47,8 @@ public class Level {
 		for (PatternPrototype patternPrototype : availablePatterns) {
 			patternPrototype.dispose();
 		}
-		
+		if(gameWorld != null)
+			gameWorld.dispose();
 	}
 	
 	public Pattern getRandomPattern(float worldPositionX, float worldPositionY) {
