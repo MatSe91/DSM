@@ -67,47 +67,83 @@ public final class LevelDAO {
 		ArrayList<PatternPrototype> al = new ArrayList<PatternPrototype>();
 		PatternPrototype pp = new PatternPrototype();
 		
-		pp.setVertices(new float[] {
+		pp.setVertices(new float[][] {
+			new float[] {
 				0, 0,
 				2, 0,
-				1, 1,
-		});
-		al.add(pp);
-		
-		pp = new PatternPrototype();
-		pp.setVertices(new float[] {
-				0, 1,
 				2, 1,
-				1, 0
+				0, 1
+			}/*,
+			new float[] {
+				1, 2,
+				2, 2,
+				2, 3,
+				1, 3
+			}*/
 		});
 		al.add(pp);
 		
 		pp = new PatternPrototype();
-		pp.setVertices(new float[] {
+		pp.setVertices( new float[][] {
+			new float[] {
 				0, 0,
 				2, 0,
-				1.5f, 1,
-				0.5f, 1
+				2, 1,
+				0, 1
+			},
+			new float[] {
+				1, 4,
+				2, 4,
+				2, 5,
+				1, 5
+			}
 		});
 		al.add(pp);
 		
 		pp = new PatternPrototype();
-		pp.setVertices(new float[] {
+		pp.setVertices(new float[][] {
+			new float[] {
+				0, 0,
+				2, 0,
+				2, 1,
+				0, 1
+			}
+		});
+		al.add(pp);
+		/*
+		pp = new PatternPrototype();
+		pp.setVertices(new float[][] {
+			new float[] {
+				0, 0,
+				2, 0,
+				2, 1,
+				0, 1
+			},
+			new float[] {
 				0, 0,
 				1, 0,
 				1, 1,
 				0, 1
+			}
 		});
 		al.add(pp);
 		
 		pp= new PatternPrototype();
-		pp.setVertices(new float[] {
+		pp.setVertices(new float[][] {
+			new float[] {
+				0, 0,
+				2, 0,
+				2, 1,
+				0, 1
+			},
+			new float[] {
 				0,0,
 				2,0,
 				2,3,
 				0,3
+			}
 		});
-		al.add(pp);
+		al.add(pp);*/
 		
 		level.setAvailablePatterns(al);
 	}
