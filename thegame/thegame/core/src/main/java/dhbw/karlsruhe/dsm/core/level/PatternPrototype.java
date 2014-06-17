@@ -85,14 +85,14 @@ public class PatternPrototype implements Json.Serializable{
 
 	private void generateTriangles(int countTriangles, short startVerticeNo) {
 		
-		int i = (startVerticeNo == 0 ? 0 : ((startVerticeNo-2)*3));
+		int i = triangles.length-countTriangles*3;
 		int verticeNo = startVerticeNo;
 		// for triangulate (numbers of vertices): 0,1,2 | 0,2,3 | 0,3,4 | 5,6,7 ...
-		for(int triangle = i; triangle<i+countTriangles*3; triangle+=3)
+		for(int triangle = i; triangle<triangles.length; triangle+=3)
 		{
 			triangles[triangle] 	= startVerticeNo;
-			triangles[triangle + 1] = (short) (1 + verticeNo );
-			triangles[triangle + 2] = (short) (2 + verticeNo );
+			triangles[triangle + 1] = (short) (1 + verticeNo);
+			triangles[triangle + 2] = (short) (2 + verticeNo);
 			verticeNo++;
 		}
 	}

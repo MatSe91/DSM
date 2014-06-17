@@ -65,22 +65,25 @@ public final class LevelDAO {
 	
 	private static void loadTestPatterns(Level level) {
 
+		float gap = 3.5f;
+		float length = 2;
+		
 		ArrayList<PatternPrototype> al = new ArrayList<PatternPrototype>();
 		PatternPrototype pp = new PatternPrototype();
 		
 		pp.setVertices(new float[][] {
 			new float[] {
 				0, 0,
-				2, 0,
-				2, 1,
+				length + gap, 0,
+				length + gap, 1,
 				0, 1
-			}/*,
+			},
 			new float[] {
-				1, 2,
-				2, 2,
-				2, 3,
-				1, 3
-			}*/
+				length + gap -1, 1,
+				length + gap, 1,
+				length + gap, 3,
+				length + gap - 1, 3
+			}
 		});
 		al.add(pp);
 		
@@ -88,29 +91,48 @@ public final class LevelDAO {
 		pp.setVertices( new float[][] {
 			new float[] {
 				0, 0,
-				2, 0,
-				2, 1,
+				length + gap, 0,
+				length + gap, 1,
 				0, 1
 			},
 			new float[] {
-				1, 4,
-				2, 4,
-				2, 5,
-				1, 5
+				length + gap - 1, 2,
+				length + gap, 2,
+				length + gap, 5,
+				length + gap - 1, 5
 			}
 		});
 		al.add(pp);
 		
 		pp = new PatternPrototype();
-		pp.setVertices(new float[][] {
+		pp.setVertices( new float[][] {
 			new float[] {
 				0, 0,
-				2, 0,
-				2, 1,
+				length + gap, 0,
+				length + gap, 1,
 				0, 1
-			}
+			},
+			new float[] {
+				length + gap - 1, 1,
+				length + gap, 1,
+				length + gap, 3,
+				length + gap -1, 3
+			},
+			new float[] {
+				7.5f, 3,
+				8.5f, 3,
+				8.5f, 5,
+				7.5f, 5
+			},
+			new float[] {
+				9, 0,
+				9 + length + gap, 0,
+				9 + length + gap, 1,
+				9, 1
+			},
 		});
 		al.add(pp);
+		
 		/*
 		pp = new PatternPrototype();
 		pp.setVertices(new float[][] {
