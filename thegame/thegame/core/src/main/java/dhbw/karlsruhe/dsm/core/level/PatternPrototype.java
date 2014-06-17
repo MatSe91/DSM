@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.JsonValue;
 public class PatternPrototype implements Json.Serializable{
 	
 	private float[][] vertices;
-	private float[] listedVertices;
+	private float[] allVertices;
 	private short[] triangles;
 	
 	private Texture texture;
@@ -25,7 +25,7 @@ public class PatternPrototype implements Json.Serializable{
 		generatePatternsTriangles();
 		texture = new Texture("textures/solid_blue.png");
 		region = new TextureRegion(texture);
-		polyRegion = new PolygonRegion(region, listedVertices, triangles);
+		polyRegion = new PolygonRegion(region, allVertices, triangles);
 	}
 
 	public void dispose() {
@@ -33,35 +33,53 @@ public class PatternPrototype implements Json.Serializable{
 	}
 	
 	public Pattern createPattern(float worldPositionX, float worldPositionY, World world) {
-		return new Pattern(polyRegion, worldPositionX, worldPositionY, world);
+		return new Pattern(polyRegion, worldPositionX, worldPositionY, world, vertices);
 	}
 	
 	private void generatePatternsTriangles() {
-		int countTriangles = 0;
-		int countVertices = 0;
+		int numberOfTriangles = 0;
+		int numberOfVertices = 0;
 		short startVerticeNo = 0;
 		
+		buildAllVertices(vertices);
 		// for all connected vertices
 		for(float[] connectedVertices : vertices) {
 			
 			// check if vertices are declared valid
-			if( (connectedVertices.length==0) || 
-				(connectedVertices.length%2!=0) )
-				continue;
-			
-			for(float vertice : connectedVertices) {
-				addVertice(vertice);
+			if(connectedVertices.length == 0 || (connectedVertices.length % 2) != 0 ) {
+				allVertices = new float[0];
+				return;
 			}
 			
-			countVertices = connectedVertices.length / 2;
+			numberOfVertices = connectedVertices.length / 2;
 			
 			// for each vertice above the third => one more triangle
-			countTriangles = countVertices - 2;
-			addTriangles(countTriangles);
+			numberOfTriangles = numberOfVertices - 2;
+			addTriangles(numberOfTriangles);
 
-			generateTriangles(countTriangles, startVerticeNo);
+			generateTriangles(numberOfTriangles, startVerticeNo);
 			
-			startVerticeNo += countVertices;
+			startVerticeNo += numberOfVertices;
+		}
+	}
+
+	/**
+	 * Concatenates these arrays to one.
+	 * @param vertices
+	 */
+	private void buildAllVertices(float[][] vertices) {
+		if(vertices == null) {
+			return;
+		}
+		int length = 0;
+		for(float[] singleVerticesArray : vertices) {
+			length += singleVerticesArray.length;
+		}
+		allVertices = new float[length];
+		int index = 0;
+		for(float[] singleVerticesArray : vertices) {
+			for(float coordinate : singleVerticesArray)
+				allVertices[index++] = coordinate;
 		}
 	}
 
@@ -93,22 +111,6 @@ public class PatternPrototype implements Json.Serializable{
 			triangles[i] = temp[i];
 	}
 	
-	private void addVertice(float vertice) {
-		float[] temp = new float[0];
-		
-		if(listedVertices != null) {
-			temp = new float[listedVertices.length];
-			temp = listedVertices.clone();
-		}
-		
-		this.listedVertices = new float[temp.length + 1];
-
-		for(int i = 0; i < temp.length; i++)
-			listedVertices[i] = temp[i];
-		
-		listedVertices[listedVertices.length - 1] = vertice;
-	}
-
 	public float[][] getVertices() {
 		return vertices;
 	}

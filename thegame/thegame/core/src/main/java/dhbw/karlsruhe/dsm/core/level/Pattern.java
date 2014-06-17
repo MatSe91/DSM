@@ -1,5 +1,8 @@
 package dhbw.karlsruhe.dsm.core.level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonSprite;
 import com.badlogic.gdx.math.Vector2;
@@ -10,51 +13,56 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 
-public class Pattern extends PolygonSprite{
+public class Pattern extends PolygonSprite {
 
-	private Body physicalBody;
+	private List<Body> physicalBodies = new ArrayList<Body>();
 	private World world;
 	
-	public Pattern(PolygonRegion region, World world) {
+	public Pattern(PolygonRegion region, World world, float[][] shapeVertices) {
 		super(region);
-		makePhysical(world, region);
+		makePhysical(world, shapeVertices);
 	}
 		
 
-	public Pattern(PolygonRegion region, float worldPositionX, float worldPositionY, World world) {
+	public Pattern(PolygonRegion region, float worldPositionX, float worldPositionY, World world, float[][] shapeVertices) {
 		super(region);
 		super.setPosition(worldPositionX, worldPositionY);
-		makePhysical(world, region);
+		makePhysical(world, shapeVertices);
 	}
 	
-	private void makePhysical(World world, PolygonRegion region) {
+	private void makePhysical(World world, float[][] shapeVertices) {
 		this.world = world;
 		BodyDef bodydef = new BodyDef();
 		bodydef.type = BodyType.KinematicBody;
 		bodydef.position.set(getBoundingRectangle().x, getBoundingRectangle().y);
 		
-		physicalBody = world.createBody(bodydef);
-		
-		PolygonShape physicalShape = new PolygonShape();
-		physicalShape.set(region.getVertices());
-		
-		physicalBody.createFixture(physicalShape, 100f);
-		physicalBody.setUserData(this);
-		
-		physicalShape.dispose(); // We created a copy of it, no need to keep it
+		for(float[] singleShapeVertices: shapeVertices) {
+			Body physicalBody;
+			physicalBody = world.createBody(bodydef);
+			
+			PolygonShape physicalShape = new PolygonShape();
+			physicalShape.set(singleShapeVertices);
+			
+			physicalBody.createFixture(physicalShape, 100f);
+			physicalBody.setUserData(this);
+			
+			physicalShape.dispose(); // We created a copy of it, no need to keep it
+			this.physicalBodies.add(physicalBody);
+		}
 	}
 	
 	@Override
 	public void translateX(float x) {
 		super.translateX(x);
-		physicalBody.setTransform(new Vector2(this.getBoundingRectangle().x, this.getBoundingRectangle().y), 0);
-	}
-	
-	public Body getBody() {
-		return physicalBody;
+		for(Body body : physicalBodies) {
+			body.setTransform(new Vector2(this.getBoundingRectangle().x, this.getBoundingRectangle().y), 0);
+		}
 	}
 	
 	public void dispose() {
-		world.destroyBody(physicalBody);
+		for(Body body : physicalBodies) {
+			world.destroyBody(body);
+		}
 	}
+	
 }

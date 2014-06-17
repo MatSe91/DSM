@@ -55,6 +55,7 @@ public final class LevelDAO {
 	}
 
 	public static void saveLevel(Level level) {
+		level.setGroundHeight(4f);
 		loadTestPatterns(level);
 		Json json = new Json();
 		json.setSerializer(Level.class, new LevelSerializer());

@@ -30,7 +30,7 @@ import dhbw.karlsruhe.dsm.core.screenCommands.OpenPauseScreenCommand;
  */
 public class GameStage extends Stage {
 
-	private static final float GROUND_HEIGHT_ZERO = 2.5f;
+	private final float GROUND_HEIGHT_ZERO;
 	private static final int MAX_PATTERNS = 1000;
 	protected Level currentLevel;
 	protected DSM game = (DSM) Gdx.app.getApplicationListener();
@@ -60,6 +60,7 @@ public class GameStage extends Stage {
 		this.screenCamera = camera;
 		this.score= new Score();
 		this.score.start();
+		GROUND_HEIGHT_ZERO = currentLevel.getGroundHeight();
 		this.player = new Player(camera.viewportWidth/2, GROUND_HEIGHT_ZERO + 8f);
 		this.gameBatch = gameBatch;
 		polyBatch.setProjectionMatrix(screenCamera.combined);
@@ -85,11 +86,14 @@ public class GameStage extends Stage {
 		
 		float rightBoundX = 0;
 		
-		while(rightBoundX < screenCamera.viewportWidth*1.2) {
-			temp = currentLevel.getRandomPattern(rightBoundX, GROUND_HEIGHT_ZERO);
-			rightBoundX += temp.getBoundingRectangle().width;
-			shapes.add(temp);
-		}
+		temp = currentLevel.getStartPattern();
+		rightBoundX += temp.getBoundingRectangle().width;
+		shapes.add(temp);
+//		while(rightBoundX < screenCamera.viewportWidth*1.2) {
+//			temp = currentLevel.getRandomPattern(rightBoundX, GROUND_HEIGHT_ZERO);
+//			rightBoundX += temp.getBoundingRectangle().width;
+//			shapes.add(temp);
+//		}
 		totalRightBound = rightBoundX;
 	}
 	
@@ -129,8 +133,6 @@ public class GameStage extends Stage {
 		
 		// check loose condition
 		if(Math.abs(player.getX() - player.getPhysicalBody().getPosition().x) > 0.001) {
-			// TODO: Game over
-			System.out.println("you lost");
 			new GameOverScreenChangeCommand(score.getScore()).execute();
 		}
 		

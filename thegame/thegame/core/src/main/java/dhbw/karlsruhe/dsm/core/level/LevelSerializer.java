@@ -14,6 +14,7 @@ public class LevelSerializer implements Serializer<Level> {
 		json.writeValue("name", object.getName());
 		json.writeValue("index", object.getIndex());
 		json.writeValue("speed", object.speed);
+		json.writeValue("groundHeight", object.getGroundHeight());
 		json.writeValue("availablePatterns", object.getAvailablePatterns());
 		json.writeObjectEnd();
 	}
@@ -25,6 +26,7 @@ public class LevelSerializer implements Serializer<Level> {
 		level.setName(jsonData.child().name());
 		level.setIndex(jsonData.child().asInt());
 		level.speed = jsonData.child().asFloat();
+		level.setGroundHeight(jsonData.child().asFloat());
 		level.setAvailablePatterns(json.readValue("availablePatterns", ArrayList.class, jsonData));
 		return level;
 	}
